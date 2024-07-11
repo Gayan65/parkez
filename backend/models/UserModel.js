@@ -38,6 +38,24 @@ userSchema.statics.signup = async function (email, password) {
     return user;
 };
 
-userSchema.statics.login = async function (email, password) {};
+userSchema.statics.login = async function (email, password) {
+    // check bank fields
+    if (!email || !password) {
+        throw Error("Field can not be blank!");
+    }
+
+    //get the entire user
+    const user = await this.findOne({ email });
+
+    if (!user) {
+        throw Error("user can not be found!");
+    }
+
+    if (user.password === password) {
+        return user;
+    } else {
+        throw Error("password is not match!");
+    }
+};
 
 export const User = mongoose.model("User", userSchema);
