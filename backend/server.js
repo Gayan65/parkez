@@ -12,6 +12,8 @@ const port = process.env.PORT;
 const db_url = process.env.DB_URL;
 
 //middleware
+app.use(express.json()); // FOR ACCESSING THE BODY IN A POST REQUEST
+
 app.use((req, res, next) => {
     console.log(`Request method : ${req.method}, Request path: ${req.path}`);
     next();
