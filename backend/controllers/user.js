@@ -1,5 +1,11 @@
 import mongoose from "mongoose";
+import jwt from "jsonwebtoken";
 import { User } from "../models/UserModel.js";
+
+// taken creating function
+const createToken = (_id) => {
+    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+};
 
 //signup function
 export const userSignup = async (req, res) => {
@@ -8,7 +14,10 @@ export const userSignup = async (req, res) => {
 
         const user = await User.signup(email, password);
 
-        res.status(200).json(user);
+        //create token
+        const token = createToken(user._id);
+
+        res.status(200).json({ email, token });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -21,7 +30,10 @@ export const userLogin = async (req, res) => {
 
         const user = await User.login(email, password);
 
-        res.status(200).json(user);
+        //create token
+        const token = createToken(user._id);
+
+        res.status(200).json({ email, token });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
