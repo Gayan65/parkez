@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import validator from "validator";
+import bcrypt from "bcrypt";
 
 const { Schema } = mongoose;
 
@@ -32,8 +33,12 @@ userSchema.statics.signup = async function (email, password) {
         throw Error("Email already exists!");
     }
 
+    //hashing passwords
+    const salt = bcrypt.genSaltSync(parseInt(process.env.SALT));
+    const hash = bcrypt.hashSync(password, salt);
+
     //send to db for creating user
-    const user = await this.create({ email, password });
+    const user = await this.create({ email, password: hash });
 
     return user;
 };
