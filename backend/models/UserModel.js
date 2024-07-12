@@ -56,11 +56,13 @@ userSchema.statics.login = async function (email, password) {
         throw Error("user can not be found!");
     }
 
-    if (user.password === password) {
-        return user;
-    } else {
+    const match = bcrypt.compareSync(password, user.password);
+
+    if (!match) {
         throw Error("password is not match!");
     }
+
+    return user;
 };
 
 export const User = mongoose.model("User", userSchema);
