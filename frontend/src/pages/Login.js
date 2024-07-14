@@ -1,17 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Login = () => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        //call the login function
+        console.log(email, password);
+
+        setEmail("");
+        setPassword("");
+    };
+
     return (
-        <div className="login-container">
-            <div className="login-form">
+        <div className="login-signup-container">
+            <div className="login-signup-form">
                 <h2 className="text-center">Login</h2>
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Email address</label>
                         <input
                             type="email"
                             className="form-control"
                             placeholder="Enter email"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
                         />
                     </div>
                     <div className="form-group mt-3">
@@ -21,6 +36,9 @@ const Login = () => {
                             className="form-control"
                             placeholder="Password"
                             autoComplete="true"
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
+                            required
                         />
                     </div>
                     <button

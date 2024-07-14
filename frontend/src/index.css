@@ -13,13 +13,13 @@ code {
 }
 
 /* Custom CSS to center the form */
-.login-container {
+.login-signup-container {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.login-form {
+.login-signup-form {
     width: 100%;
     max-width: 400px;
     padding: 30px;
