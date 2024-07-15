@@ -20,25 +20,34 @@ const NavBar = () => {
                     Navbar
                 </Link>
                 <div className="flex-d">
-                    <Link
-                        className="btn btn-outline-primary me-1"
-                        to={"/login"}
-                    >
-                        Login
-                    </Link>
-                    <Link
-                        className="btn btn-outline-primary me-1"
-                        to={"/signup"}
-                    >
-                        Sign up
-                    </Link>
-                    {user && <span>User : {user.email}</span>}
-                    <button
-                        className="btn btn-outline-primary"
-                        onClick={handelClick}
-                    >
-                        Logout
-                    </button>
+                    {!user && (
+                        <div>
+                            {" "}
+                            <Link
+                                className="btn btn-outline-primary me-1"
+                                to={"/login"}
+                            >
+                                Login
+                            </Link>
+                            <Link
+                                className="btn btn-outline-primary me-1"
+                                to={"/signup"}
+                            >
+                                Sign up
+                            </Link>
+                        </div>
+                    )}
+                    {user && (
+                        <div>
+                            <span>User : {user.email}</span>{" "}
+                            <button
+                                className="btn btn-outline-primary"
+                                onClick={handelClick}
+                            >
+                                Logout
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </nav>
