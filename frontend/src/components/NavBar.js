@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const NavBar = () => {
+    //get user
+    const { user } = useAuthContext();
+
     //user logout
     const { logout } = useLogout();
 
@@ -28,7 +32,7 @@ const NavBar = () => {
                     >
                         Sign up
                     </Link>
-                    <span>User : </span>
+                    {user && <span>User : {user.email}</span>}
                     <button
                         className="btn btn-outline-primary"
                         onClick={handelClick}
