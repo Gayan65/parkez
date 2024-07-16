@@ -3,6 +3,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 
 import userRouter from "./routes/user.js";
+import parkRouter from "./routes/parklot.js";
 
 //express app
 const app = express();
@@ -20,6 +21,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/user", userRouter);
+app.use("/api/park", parkRouter);
 
 //db connection
 mongoose
