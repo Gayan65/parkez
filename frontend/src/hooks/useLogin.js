@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useAuthContext";
 
 export const useLogin = () => {
@@ -6,6 +7,8 @@ export const useLogin = () => {
     const [error, setError] = useState(null);
 
     const { dispatch } = useAuthContext();
+
+    const navigate = useNavigate();
 
     const login = async (email, password) => {
         setLoading(true);
@@ -32,6 +35,9 @@ export const useLogin = () => {
             dispatch({ type: "LOGIN", payload: json });
 
             setLoading(false);
+
+            //navigate to home page
+            navigate("/");
         }
     };
 
