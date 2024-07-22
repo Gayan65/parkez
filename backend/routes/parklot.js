@@ -1,14 +1,10 @@
 import express from "express";
-import { createParkLot } from "../controllers/parklot.js";
+import { allParkLots, createParkLot } from "../controllers/parklot.js";
 
 const router = express.Router();
 
-//test route
-router.get("/", (req, res) => {
-    res.status(200).json({
-        message: "okay",
-    });
-});
+//get all parking lots rote
+router.get("/", allParkLots);
 
 //create parking lot route - admin only
 router.post("/", createParkLot);
