@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ParkingLotDetails from "./ParkingLotDetails";
 
+import { useParkLotContext } from "../hooks/useParkLotContext";
+
 const AllParkingLots = () => {
-    const [parkingLots, setParkingLots] = useState(null);
+    const { parks, dispatch } = useParkLotContext();
 
     useEffect(() => {
         //fetching all the car park lots
@@ -12,18 +14,18 @@ const AllParkingLots = () => {
 
             if (response.ok) {
                 //set the state
-                setParkingLots(json);
+                dispatch({ type: "SET_PARKS", payload: json });
             }
         };
 
         fetchParkingLots();
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className="container text-center">
             <div className="row row-cols-3">
-                {parkingLots &&
-                    parkingLots.map((parkingLot) => (
+                {parks &&
+                    parks.map((parkingLot) => (
                         <ParkingLotDetails
                             key={parkingLot._id}
                             lot={parkingLot.lot}
