@@ -12,7 +12,7 @@ const userSchema = new Schema({
 
 //static methods
 
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (email, password, admin) {
     // check bank fields
     if (!email || !password) {
         throw Error("Field can not be blank!");
@@ -38,8 +38,8 @@ userSchema.statics.signup = async function (email, password) {
     const salt = bcrypt.genSaltSync(parseInt(process.env.SALT));
     const hash = bcrypt.hashSync(password, salt);
 
-    //send to db for creating user, admin manually adding
-    const user = await this.create({ email, password: hash, admin: false });
+    //send to db for creating user
+    const user = await this.create({ email, password: hash, admin });
 
     return user;
 };

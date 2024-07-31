@@ -11,11 +11,11 @@ export const useSignup = () => {
         setLoading(true);
         setError(false);
 
-        //api call
+        //api call (set the admin field as false)
         const response = await fetch("/api/user/signup", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ email, password, admin: false }),
         });
 
         const json = await response.json();
