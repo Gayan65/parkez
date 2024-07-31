@@ -4,37 +4,40 @@ import { User } from "../models/UserModel.js";
 
 // taken creating function
 const createToken = (_id) => {
-    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
+  return jwt.sign({ _id }, process.env.SECRET, { expiresIn: "3d" });
 };
 
 //signup function
 export const userSignup = async (req, res) => {
-    try {
-        const { email, password, admin } = req.body;
+  try {
+    const { email, password, admin } = req.body;
 
-        const user = await User.signup(email, password, admin);
+    const user = await User.signup(email, password, admin);
 
-        //create token
-        const token = createToken(user._id);
+    //create token
+    const token = createToken(user._id);
 
-        res.status(200).json({ email, token });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+    res.status(200).json({ email, token });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
 
 //login function
 export const userLogin = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+  try {
+    const { email, password } = req.body;
 
-        const user = await User.login(email, password);
+    const user = await User.login(email, password);
 
-        //create token
-        const token = createToken(user._id);
+    //create token
+    const token = createToken(user._id);
 
-        res.status(200).json({ email, token });
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+    //admin status
+    const admin = user.admin;
+
+    res.status(200).json({ email, token, admin });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 };
