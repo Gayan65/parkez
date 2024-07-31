@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 
 import userRouter from "./routes/user.js";
 import parkRouter from "./routes/parklot.js";
+import buildingRouter from "./routes/building.js";
 
 //express app
 const app = express();
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 
 app.use("/api/user", userRouter);
 app.use("/api/park", parkRouter);
+app.use("/api/building", buildingRouter);
 
 //db connection
 mongoose
