@@ -13,6 +13,10 @@ const parkLotSchema = new Schema(
             type: String,
             required: true,
         },
+        building_id: {
+            type: String,
+            required: true,
+        },
     },
     { timestamps: true }
 );
