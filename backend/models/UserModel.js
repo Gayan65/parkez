@@ -7,6 +7,7 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
+    admin: { type: Boolean, required: true },
 });
 
 //static methods
@@ -37,8 +38,8 @@ userSchema.statics.signup = async function (email, password) {
     const salt = bcrypt.genSaltSync(parseInt(process.env.SALT));
     const hash = bcrypt.hashSync(password, salt);
 
-    //send to db for creating user
-    const user = await this.create({ email, password: hash });
+    //send to db for creating user, admin manually adding
+    const user = await this.create({ email, password: hash, admin: false });
 
     return user;
 };
