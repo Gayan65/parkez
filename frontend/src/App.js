@@ -8,7 +8,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
-import CreatePage from "./pages/admin/CreatePage";
+import CreateBuildingPage from "./pages/admin/CreateBuildingPage";
 
 function App() {
   //user object
@@ -31,7 +31,11 @@ function App() {
           <Route
             path="/create"
             element={
-              user && user.admin ? <CreatePage /> : <Navigate to={"/"} />
+              user && user.admin ? (
+                <CreateBuildingPage />
+              ) : (
+                <Navigate to={"/"} />
+              )
             }
           />
         </Routes>
