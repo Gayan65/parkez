@@ -3,14 +3,21 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const buildingSchema = new Schema(
-    {
-        number: {
-            type: Number,
-            required: true,
-            unique: true,
-        },
+  {
+    name: {
+      type: String,
+      required: true,
     },
-    { timestamps: true }
+    number: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
+    image: {
+      type: String,
+    },
+  },
+  { timestamps: true }
 );
 
 export const Building = mongoose.model("Building", buildingSchema);
