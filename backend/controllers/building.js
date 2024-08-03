@@ -5,6 +5,23 @@ import { Building } from "../models/BuildingModel.js";
 export const createBuilding = async (req, res) => {
   const { name, number, image } = req.body;
 
+  let emptyFields = [];
+
+  if (!name) {
+    emptyFields.push("name");
+  }
+
+  if (!number) {
+    emptyFields.push("number");
+  }
+
+  if (emptyFields.length > 0) {
+    return res.status(400).json({
+      error: "Name & Number fields must be filed",
+      emptyFields: emptyFields,
+    });
+  }
+
   try {
     const building = await Building.create({ name, number, image });
     res.status(200).json(building);
