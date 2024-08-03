@@ -47,7 +47,9 @@ const CreateBuildingForm = () => {
         <label className="form-label">Name</label>
         <input
           type="text"
-          className="form-control"
+          className={
+            emptyField.includes("name") ? "error_input" : "form-control"
+          }
           onChange={(e) => setName(e.target.value)}
           value={name}
         />
@@ -57,7 +59,9 @@ const CreateBuildingForm = () => {
         <label className="form-label">Number</label>
         <input
           type="number"
-          className="form-control"
+          className={
+            emptyField.includes("number") ? "error_input" : "form-control"
+          }
           onChange={(e) => setNumber(e.target.value)}
           value={number}
         />
