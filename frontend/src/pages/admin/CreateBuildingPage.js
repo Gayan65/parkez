@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CreateBuildingForm from "../../components/CreateBuildingForm";
+import BuildingView from "../../components/BuildingView";
 
 const CreateBuildingPage = () => {
   //set state
@@ -26,7 +27,15 @@ const CreateBuildingPage = () => {
         <CreateBuildingForm />
       </div>
       <div>
-        {buildings && buildings.map((building) => <div> {building.name} </div>)}
+        {buildings &&
+          buildings.map((building) => (
+            <BuildingView
+              key={building._id}
+              name={building.name}
+              number={building.number}
+              image={building.image}
+            />
+          ))}
       </div>
     </div>
   );
