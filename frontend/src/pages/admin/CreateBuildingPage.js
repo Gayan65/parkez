@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import CreateBuildingForm from "../../components/CreateBuildingForm";
 import BuildingView from "../../components/BuildingView";
+import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 
 const CreateBuildingPage = () => {
   //set state
-  const [buildings, setBuildings] = useState([]);
+  //const [buildings, setBuildings] = useState([]);
+  const { buildings, dispatch } = useBuildingsContext();
 
   useEffect(() => {
     //api call to get all buildings
@@ -13,12 +15,13 @@ const CreateBuildingPage = () => {
       const json = await response.json();
 
       if (response.ok) {
-        setBuildings(json);
+        //setBuildings(json);
+        dispatch({ type: "SET_BUILDINGS", payload: json });
       }
     };
 
     fetchBuildings();
-  }, []);
+  }, [dispatch]);
 
   return (
     <div>

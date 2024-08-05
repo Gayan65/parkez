@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useBuildingsContext } from "../hooks/useBuildingsContext";
 
 const CreateBuildingForm = () => {
+  const { dispatch } = useBuildingsContext();
   //set states
 
   const [name, setName] = useState("");
@@ -39,6 +41,7 @@ const CreateBuildingForm = () => {
       setEmptyField([]);
 
       console.log("Building added successfully!", json);
+      dispatch({ type: "CREATE_BUILDINGS", payload: json });
     }
   };
   return (
