@@ -36,6 +36,7 @@ const CreateBuildingPage = () => {
               key={building._id}
               name={building.name}
               number={building.number}
+              address={building.address}
               image={building.image}
             />
           ))}

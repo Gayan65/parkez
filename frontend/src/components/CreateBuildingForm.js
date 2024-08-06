@@ -7,6 +7,7 @@ const CreateBuildingForm = () => {
 
   const [name, setName] = useState("");
   const [number, setNumber] = useState("");
+  const [address, setAddress] = useState("");
   const [image, setImage] = useState("");
 
   const [error, setError] = useState(null);
@@ -16,7 +17,7 @@ const CreateBuildingForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const building = { name, number, image };
+    const building = { name, number, image, address };
 
     //API call to backend
     const response = await fetch("api/building/", {
@@ -37,6 +38,7 @@ const CreateBuildingForm = () => {
       setName("");
       setNumber("");
       setImage("");
+      setAddress("");
       setError(null);
       setEmptyField([]);
 
@@ -75,6 +77,22 @@ const CreateBuildingForm = () => {
           }
           onChange={(e) => setNumber(e.target.value)}
           value={number}
+        />
+      </div>
+
+      <div className="mb-3">
+        <label className="form-label">Address</label>
+        <input
+          type="text"
+          className={
+            emptyField
+              ? emptyField.includes("address")
+                ? "form-control is-invalid"
+                : "form-control"
+              : "form-control"
+          }
+          onChange={(e) => setAddress(e.target.value)}
+          value={address}
         />
       </div>
 

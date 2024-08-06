@@ -1,6 +1,6 @@
 import React from "react";
 
-const BuildingView = ({ name, number, image }) => {
+const BuildingView = ({ name, number, image, address }) => {
   return (
     <div className="card mb-3 container" style={{ maxWidth: "540px" }}>
       <div className="row g-0">
@@ -13,7 +13,7 @@ const BuildingView = ({ name, number, image }) => {
               {" "}
               {name} {number}{" "}
             </h5>
-            <p className="card-text">This will be the address</p>
+            <p className="card-text">{address}</p>
           </div>
         </div>
       </div>

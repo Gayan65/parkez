@@ -13,6 +13,10 @@ const buildingSchema = new Schema(
       required: true,
       unique: true,
     },
+    address: {
+      type: String,
+      required: true,
+    },
     image: {
       type: String,
     },
