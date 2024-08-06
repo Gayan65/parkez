@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
+
+//components
 import CreateBuildingForm from "../../components/CreateBuildingForm";
 import BuildingView from "../../components/BuildingView";
+
+//custom hooks
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 
 const CreateBuildingPage = () => {
   //set state
-  //const [buildings, setBuildings] = useState([]);
+
   const { buildings, dispatch } = useBuildingsContext();
 
   useEffect(() => {
@@ -15,7 +19,6 @@ const CreateBuildingPage = () => {
       const json = await response.json();
 
       if (response.ok) {
-        //setBuildings(json);
         dispatch({ type: "SET_BUILDINGS", payload: json });
       }
     };
@@ -38,6 +41,7 @@ const CreateBuildingPage = () => {
               number={building.number}
               address={building.address}
               image={building.image}
+              link={`/building/${building.number}`}
             />
           ))}
       </div>

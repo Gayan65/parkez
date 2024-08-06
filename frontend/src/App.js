@@ -9,6 +9,7 @@ import Signup from "./pages/Signup";
 import Home from "./pages/Home";
 import NavBar from "./components/NavBar";
 import CreateBuildingPage from "./pages/admin/CreateBuildingPage";
+import BuildingDetails from "./pages/admin/BuildingDetails";
 
 function App() {
   //user object
@@ -36,6 +37,12 @@ function App() {
               ) : (
                 <Navigate to={"/"} />
               )
+            }
+          />
+          <Route
+            path="/building/:id"
+            element={
+              user && user.admin ? <BuildingDetails /> : <Navigate to={"/"} />
             }
           />
         </Routes>

@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const BuildingView = ({ name, number, image, address }) => {
+const BuildingView = ({ name, number, image, address, link }) => {
   return (
     <div className="card mb-3 container" style={{ maxWidth: "540px" }}>
       <div className="row g-0">
@@ -14,6 +15,7 @@ const BuildingView = ({ name, number, image, address }) => {
               {name} {number}{" "}
             </h5>
             <p className="card-text">{address}</p>
+            <Link to={link}> View </Link>
           </div>
         </div>
       </div>
