@@ -10,6 +10,9 @@ export const buildingsReducer = (state, action) => {
     case "CREATE_BUILDINGS":
       return { buildings: [action.payload, ...state.buildings] };
 
+    case "SET_A_BUILDING":
+      return { building: action.payload };
+
     //delete buildings
     //modify buildings
     default:

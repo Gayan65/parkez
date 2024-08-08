@@ -43,3 +43,16 @@ export const allBuildings = async (req, res) => {
     res.status(401).json({ error: error.message });
   }
 };
+
+//get a building from building _id
+
+export const get_a_Building = async (req, res) => {
+  const building_id = req.params.id;
+
+  try {
+    const building = await Building.find({ _id: building_id });
+    res.status(200).json(building);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};
