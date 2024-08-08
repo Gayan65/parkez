@@ -41,7 +41,7 @@ const CreateBuildingPage = () => {
               number={building.number}
               address={building.address}
               image={building.image}
-              link={`/building/${building.number}`}
+              link={`/building/${building._id}`}
             />
           ))}
       </div>

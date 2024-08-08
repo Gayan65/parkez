@@ -2,8 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 const BuildingDetails = () => {
-  const { id } = useParams();
-  return <div>BuildingDetails {id} </div>;
+  const { _id } = useParams();
+  return <div>BuildingDetails {_id} </div>;
 };
 
 export default BuildingDetails;
