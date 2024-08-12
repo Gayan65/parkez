@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useParkLotContext } from "../hooks/useParkLotContext";
 
 const CreateParkingForm = ({ building_id }) => {
+    const { dispatch } = useParkLotContext();
+
     //state
     const [lot, setLot] = useState("");
 
@@ -29,9 +32,11 @@ const CreateParkingForm = ({ building_id }) => {
 
         if (response.ok) {
             setLot("");
-            console.log("Parking added successfully!");
             setError(null);
             setEmptyField([]);
+            console.log("Parking added successfully!");
+
+            dispatch({ type: "CREATE_PARK", payload: json });
         }
     };
 
