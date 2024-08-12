@@ -4,7 +4,7 @@ import ParkingLotDetails from "./ParkingLotDetails";
 import { useParkLotContext } from "../hooks/useParkLotContext";
 
 const AllParkingLots = () => {
-    const { parks, dispatch } = useParkLotContext();
+    const { parks, park_dispatch } = useParkLotContext();
 
     useEffect(() => {
         //fetching all the car park lots
@@ -14,12 +14,12 @@ const AllParkingLots = () => {
 
             if (response.ok) {
                 //set the state
-                dispatch({ type: "SET_PARKS", payload: json });
+                park_dispatch({ type: "SET_PARKS", payload: json });
             }
         };
 
         fetchParkingLots();
-    }, [dispatch]);
+    }, [park_dispatch]);
 
     return (
         <div className="container text-center">

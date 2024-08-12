@@ -18,12 +18,12 @@ export const parksReducer = (state, action) => {
 };
 
 export const ParksContextProvider = ({ children }) => {
-    const [state, dispatch] = useReducer(parksReducer, {
+    const [state, park_dispatch] = useReducer(parksReducer, {
         parks: null,
     });
 
     return (
-        <ParksContext.Provider value={{ ...state, dispatch }}>
+        <ParksContext.Provider value={{ ...state, park_dispatch }}>
             {children}
         </ParksContext.Provider>
     );
