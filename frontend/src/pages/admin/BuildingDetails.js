@@ -2,7 +2,10 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
+
+//components
 import BuildingViewCard from "../../components/BuildingViewCard";
+import CreateParkingForm from "../../components/CreateParkingForm";
 
 const BuildingDetails = () => {
     const { building, dispatch } = useBuildingsContext();
@@ -25,13 +28,20 @@ const BuildingDetails = () => {
 
     return (
         <div>
-            {building && (
-                <BuildingViewCard
-                    name={building[0].name}
-                    number={building[0].number}
-                    address={building[0].address}
-                />
-            )}
+            <div>
+                {building && (
+                    <BuildingViewCard
+                        name={building[0].name}
+                        number={building[0].number}
+                        address={building[0].address}
+                    />
+                )}
+            </div>
+
+            <div>
+                <h3>Parking Slots</h3>
+                <CreateParkingForm />
+            </div>
         </div>
     );
 };
