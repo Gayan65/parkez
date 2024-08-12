@@ -5,6 +5,19 @@ import { ParkLot } from "../models/ParkLotModel.js";
 export const createParkLot = async (req, res) => {
     const { lot, status, building_id } = req.body;
 
+    let emptyFields = [];
+
+    if (!lot) {
+        emptyFields.push("lot");
+    }
+
+    if (emptyFields.length > 0) {
+        return res.status(400).json({
+            error: "Lot number must be filed",
+            emptyFields: emptyFields,
+        });
+    }
+
     try {
         const parkLot = await ParkLot.create({ lot, status, building_id });
         res.status(200).json(parkLot);

@@ -42,7 +42,13 @@ const CreateParkingForm = ({ building_id }) => {
                     <label className="form-label">Parking Lot Number</label>
                     <input
                         type="number"
-                        className="form-control"
+                        className={
+                            emptyField
+                                ? emptyField.includes("lot")
+                                    ? "form-control is-invalid"
+                                    : "form-control"
+                                : "form-control"
+                        }
                         value={lot}
                         onChange={(e) => setLot(e.target.value)}
                     />
@@ -51,6 +57,7 @@ const CreateParkingForm = ({ building_id }) => {
                 <div className="mb-3">
                     <input type="submit" className="btn btn-primary" />
                 </div>
+                {error && <div>{error}</div>}
             </form>
         </div>
     );
