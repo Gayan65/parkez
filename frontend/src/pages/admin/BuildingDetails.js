@@ -40,7 +40,7 @@ const BuildingDetails = () => {
 
             <div>
                 <h3>Parking Slots</h3>
-                <CreateParkingForm />
+                <CreateParkingForm building_id={id} />
             </div>
         </div>
     );
