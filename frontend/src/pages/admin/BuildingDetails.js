@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 import { useParkLotContext } from "../../hooks/useParkLotContext";
+
 //components
 import BuildingViewCard from "../../components/BuildingViewCard";
 import CreateParkingForm from "../../components/CreateParkingForm";
@@ -16,6 +16,7 @@ const BuildingDetails = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    //fetch the building here...
     const fetchBuilding = async () => {
       const response = await fetch(`/api/building/${id}`);
       const json = await response.json();
@@ -25,6 +26,7 @@ const BuildingDetails = () => {
       }
     };
 
+    // fetch the relevance parking lots for the above building here...
     const fetchAllParking = async () => {
       const response = await fetch(`/api/park/${id}`);
       const json = await response.json();
