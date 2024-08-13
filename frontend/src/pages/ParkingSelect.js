@@ -5,8 +5,12 @@ const ParkingSelect = () => {
     const location = useLocation();
 
     //accessing the state via location
-    const { state } = location;
-    return <div>Parking select {state}</div>;
+    const { building, apartment, room } = location.state;
+    return (
+        <div>
+            Parking select {building} , {apartment}, {room}
+        </div>
+    );
 };
 
 export default ParkingSelect;

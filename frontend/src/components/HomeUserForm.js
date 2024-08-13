@@ -1,9 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
 
 const HomeUserForm = () => {
     const { buildings, dispatch } = useBuildingsContext();
+
+    //user form states
+    const [building, setBuilding] = useState("");
+    const [apartment, setApartment] = useState("");
+    const [room, setRoom] = useState("");
+
+    //navigate to the parking selection page
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,8 +31,10 @@ const HomeUserForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        const data = { building, apartment, room };
+
         //the data will be set via the form elements
-        navigate("/parking_view", { state: "data" });
+        navigate("/parking_view", { state: data });
     };
 
     return (
@@ -33,7 +42,11 @@ const HomeUserForm = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label className="form-label">Select your location </label>
-                    <select className="form-select" required>
+                    <select
+                        className="form-select"
+                        required
+                        onChange={(e) => setBuilding(e.target.value)}
+                    >
                         <option value="">Select your locality</option>
                         {buildings &&
                             buildings.map((building) => (
@@ -53,6 +66,8 @@ const HomeUserForm = () => {
                         className="form-control"
                         placeholder="apartment number"
                         required
+                        value={apartment}
+                        onChange={(e) => setApartment(e.target.value)}
                     />
                 </div>
 
@@ -64,6 +79,8 @@ const HomeUserForm = () => {
                         type="number"
                         className="form-control"
                         placeholder="room number"
+                        value={room}
+                        onChange={(e) => setRoom(e.target.value)}
                     />
                 </div>
 
