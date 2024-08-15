@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 import { useParkLotContext } from "../hooks/useParkLotContext";
-import ParkingLotDetails from "../components/ParkingLotDetails";
+import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
 
 const ParkingSelect = () => {
     const location = useLocation();
@@ -28,13 +28,18 @@ const ParkingSelect = () => {
         <div>
             Parking select {building} , {apartment}, {room}
             <div className="container text-center">
-                <div className="row row-cols-3">
+                <div
+                    className="row row-cols-3 btn-group"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                >
                     {parks &&
-                        parks.map((parkingLot) => (
-                            <ParkingLotDetails
+                        parks.map((parkingLot, i) => (
+                            <ParkingLotDetailsRadio
                                 key={parkingLot._id}
                                 lot={parkingLot.lot}
                                 status={parkingLot.status}
+                                i={i}
                             />
                         ))}
                 </div>
