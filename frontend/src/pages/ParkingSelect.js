@@ -26,7 +26,7 @@ const ParkingSelect = () => {
     }, [park_dispatch, building]);
     return (
         <div>
-            Parking select {building} , {apartment}, {room}
+            Parking select Building{building} , Apartment{apartment}, Room{room}
             <div className="container text-center">
                 <div
                     className="row row-cols-3 btn-group"
