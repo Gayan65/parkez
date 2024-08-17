@@ -13,7 +13,11 @@ const ParkingSelect = () => {
   const { building, apartment, room } = location.state;
 
   //states for select parking lots
-  const [selectParkingLot, setSelectParkingLot] = useState("");
+  const [selectParkingLot, setSelectParkingLot] = useState({
+    id: "",
+    number: "",
+    status: "",
+  });
 
   useEffect(() => {
     //fetch all parking lots
@@ -29,21 +33,27 @@ const ParkingSelect = () => {
     fetchAllParking();
   }, [park_dispatch, building]);
 
+  //passes multiple values and set via the function
+  const handleSelectChange = (id, number, status) => {
+    setSelectParkingLot({ id, number, status });
+  };
+
   const handleClick = () => {
     //selected parking lot details triggered
     console.log("request btn clicked");
-    console.log(selectParkingLot);
+    console.log(selectParkingLot.number);
 
     //parking request object
     const parkingRequest = {
       user: "",
-      building: "",
-      buildingNumber: "",
-      apartment: "",
-      room: "",
-      parkingLot: "",
-      date: "",
+      building: `${building.name} ${building.number}`,
+      apartment: apartment,
+      room: room,
+      parkingLot: selectParkingLot.number,
+      date: new Date().toISOString(),
     };
+
+    console.log(parkingRequest);
 
     //selected parking lot should be emended as pending
   };
@@ -64,7 +74,13 @@ const ParkingSelect = () => {
                 lot={parkingLot.lot}
                 status={parkingLot.status}
                 i={i}
-                onSelect={() => setSelectParkingLot(parkingLot._id)}
+                onSelect={() =>
+                  handleSelectChange(
+                    parkingLot._id,
+                    parkingLot.lot,
+                    parkingLot.status
+                  )
+                }
               />
             ))}
         </div>
@@ -72,7 +88,7 @@ const ParkingSelect = () => {
       <button
         className="btn btn-primary"
         onClick={handleClick}
-        disabled={!selectParkingLot && true} //button get activated once the selection has been made
+        disabled={!selectParkingLot.id && true} //button get activated once the selection has been made
       >
         Request
       </button>
