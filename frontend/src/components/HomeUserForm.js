@@ -6,7 +6,7 @@ const HomeUserForm = () => {
   const { buildings, dispatch } = useBuildingsContext();
 
   //user form states
-  const [building, setBuilding] = useState("");
+  const [building, setBuilding] = useState({ id: "", name: "", number: "" });
   const [apartment, setApartment] = useState("");
   const [room, setRoom] = useState("");
 
@@ -28,6 +28,13 @@ const HomeUserForm = () => {
     fetchAllBuildings();
   }, [dispatch]);
 
+  //splitting the parameters of the building object and passes multiple values and set via the function
+  const handleSelectChange = (e) => {
+    const [id, name, number] = e.target.value.split(",");
+    setBuilding({ id, name, number });
+  };
+
+  //sending the data once the form get submitted
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -45,12 +52,16 @@ const HomeUserForm = () => {
           <select
             className="form-select"
             required
-            onChange={(e) => setBuilding(e.target.value)}
+            onChange={handleSelectChange}
           >
             <option value="">Select your locality</option>
             {buildings &&
               buildings.map((building) => (
-                <option value={building._id} key={building._id}>
+                <option
+                  //adding multiple values in the select option
+                  value={`${building._id},${building.name},${building.number}`}
+                  key={building._id}
+                >
                   {building.name} {building.number}
                 </option>
               ))}

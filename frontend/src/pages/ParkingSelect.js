@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
 import { useParkLotContext } from "../hooks/useParkLotContext";
+
+//components
 import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
 
 const ParkingSelect = () => {
@@ -17,7 +18,7 @@ const ParkingSelect = () => {
   useEffect(() => {
     //fetch all parking lots
     const fetchAllParking = async () => {
-      const response = await fetch(`/api/park/${building}`);
+      const response = await fetch(`/api/park/${building.id}`);
       const json = await response.json();
 
       if (response.ok) {
@@ -48,7 +49,8 @@ const ParkingSelect = () => {
   };
   return (
     <div>
-      Parking select Building{building} , Apartment{apartment}, Room{room}
+      Parking select Building{building.name} {building.number}, Apartment
+      {apartment}, Room{room}
       <div className="container text-center">
         <div
           className="row row-cols-3 btn-group"
