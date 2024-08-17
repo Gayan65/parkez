@@ -32,6 +32,19 @@ const ParkingSelect = () => {
     //selected parking lot details triggered
     console.log("request btn clicked");
     console.log(selectParkingLot);
+
+    //parking request object
+    const parkingRequest = {
+      user: "",
+      building: "",
+      buildingNumber: "",
+      apartment: "",
+      room: "",
+      parkingLot: "",
+      date: "",
+    };
+
+    //selected parking lot should be emended as pending
   };
   return (
     <div>
