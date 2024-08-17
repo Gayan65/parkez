@@ -54,7 +54,11 @@ const ParkingSelect = () => {
             ))}
         </div>
       </div>
-      <button className="btn btn-primary" onClick={handleClick}>
+      <button
+        className="btn btn-primary"
+        onClick={handleClick}
+        disabled={!selectParkingLot && true} //button get activated once the selection has been made
+      >
         Request
       </button>
     </div>
