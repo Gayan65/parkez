@@ -54,9 +54,10 @@ const ParkingSelect = () => {
             apartment: apartment,
             room: room,
             parkingLot: selectParkingLot.number,
-            date: new Date().toISOString(),
+            status: "initiate",
         };
 
+        //this obj send to the api
         console.log(parkingRequest);
 
         //selected parking lot should be emended as pending
