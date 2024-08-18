@@ -27,6 +27,9 @@ const parkingRequestSchema = new Schema(
             type: String,
             required: true,
         },
+        comments: {
+            type: String,
+        },
     },
     { timestamps: true }
 );

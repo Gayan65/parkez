@@ -55,6 +55,7 @@ const ParkingSelect = () => {
             room: room,
             parkingLot: selectParkingLot.number,
             status: "initiate",
+            comments: "",
         };
 
         //this obj send to the api
