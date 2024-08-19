@@ -4,6 +4,6 @@ import { createParkingRequest } from "../controllers/parkingRequest.js";
 const router = express.Router();
 
 //test api
-router.get("/", createParkingRequest);
+router.post("/", createParkingRequest);
 
 export default router;
