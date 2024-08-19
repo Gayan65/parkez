@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useParkLotContext } from "../hooks/useParkLotContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
 
 //components
 import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
@@ -11,8 +12,9 @@ const ParkingSelect = () => {
 
   //get user context
   const { user } = useAuthContext();
-
   const { parks, park_dispatch } = useParkLotContext();
+  const { parking_request_dispatch } = useParkingRequestContext();
+
   //accessing the state via location
   const { building, apartment, room } = location.state;
 
@@ -65,7 +67,13 @@ const ParkingSelect = () => {
       body: JSON.stringify(parkingRequest),
     });
 
+    const json = await response.json();
+
     if (response.ok) {
+      parking_request_dispatch({
+        type: "CREATE_PARKING_REQUEST",
+        payload: json,
+      });
       console.log("parking request added successful!");
     }
 
