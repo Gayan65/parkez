@@ -20,3 +20,13 @@ export const createParkingRequest = async (req, res) => {
     res.status(401).json({ error: error.message });
   }
 };
+
+// get all parking requests
+export const getAllParkingRequests = async (req, res) => {
+  try {
+    const parkingRequests = await ParkingRequest.find();
+    res.status(200).json(parkingRequests);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+};
