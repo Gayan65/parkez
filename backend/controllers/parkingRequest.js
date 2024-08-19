@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { ParkingRequest } from "../models/ParkingRequestModel.js";
 
 //create a parking request
@@ -29,4 +30,26 @@ export const getAllParkingRequests = async (req, res) => {
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
+};
+
+// update the status of the parking request
+export const updateParkingRequest = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "parking request not found" });
+  }
+
+  const parkingRequest = await ParkingRequest.findByIdAndUpdate(
+    { _id: id },
+    {
+      ...req.body,
+    }
+  );
+
+  if (!parkingRequest) {
+    return res.status(404).json({ error: "parking request not found" });
+  }
+
+  res.status(200).json(parkingRequest);
 };
