@@ -32,7 +32,7 @@ export const getAllParkingRequests = async (req, res) => {
   }
 };
 
-// update the status of the parking request
+// update the status of the parking request ("initiate to approved or rejected")
 export const updateParkingRequest = async (req, res) => {
   const { id } = req.params;
 
