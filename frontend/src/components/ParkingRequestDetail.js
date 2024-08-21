@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
 
 const ParkingRequestDetail = ({
   email,
@@ -7,6 +8,7 @@ const ParkingRequestDetail = ({
   room,
   parkingLot,
   requestId,
+  onStatusChange, //This function links with PendingRequest.js file. which has two parameters (id, status)
 }) => {
   //Approving or Not approving comments
   const [comment, setComment] = useState("");
@@ -21,11 +23,13 @@ const ParkingRequestDetail = ({
     //handle approve button
     if (action === "approve") {
       console.log("approve", comment);
+      onStatusChange(requestId, "approved", comment);
     }
 
     //handle not approve button
-    if (action === "notApprove") {
-      console.log("not approve", comment);
+    if (action === "decline") {
+      console.log("decline", comment);
+      onStatusChange(requestId, "declined", comment);
     }
   };
 
@@ -46,12 +50,8 @@ const ParkingRequestDetail = ({
           <button type="submit" className="btn btn-primary" value={"approve"}>
             Approve
           </button>
-          <button
-            type="submit"
-            className="btn btn-secondary"
-            value={"notApprove"}
-          >
-            Not Approve
+          <button type="submit" className="btn btn-secondary" value={"decline"}>
+            Decline
           </button>
         </form>
       </div>
