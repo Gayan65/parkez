@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 
-//comment field need to be added before approving
 const ParkingRequestDetail = ({
   email,
   building,
@@ -9,6 +8,9 @@ const ParkingRequestDetail = ({
   parkingLot,
   requestId,
 }) => {
+  //Approving or Not approving comments
+  const [comment, setComment] = useState("");
+
   //Submit form
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,12 +20,12 @@ const ParkingRequestDetail = ({
 
     //handle approve button
     if (action === "approve") {
-      console.log("approve");
+      console.log("approve", comment);
     }
 
     //handle not approve button
     if (action === "notApprove") {
-      console.log("not approve");
+      console.log("not approve", comment);
     }
   };
 
@@ -36,7 +38,11 @@ const ParkingRequestDetail = ({
         <p className="card-text">Room number {room}</p>
         <p className="card-text">Requested parking lot number {parkingLot}</p>
         <form onSubmit={handleSubmit}>
-          <textarea className="form-control" rows="2"></textarea>
+          <textarea
+            className="form-control"
+            rows="2"
+            onChange={(e) => setComment(e.target.value)}
+          ></textarea>
           <button type="submit" className="btn btn-primary" value={"approve"}>
             Approve
           </button>
