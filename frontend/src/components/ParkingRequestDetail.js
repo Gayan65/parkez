@@ -36,11 +36,7 @@ const ParkingRequestDetail = ({
         <p className="card-text">Room number {room}</p>
         <p className="card-text">Requested parking lot number {parkingLot}</p>
         <form onSubmit={handleSubmit}>
-          <textarea
-            className="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-          ></textarea>
+          <textarea className="form-control" rows="2"></textarea>
           <button type="submit" className="btn btn-primary" value={"approve"}>
             Approve
           </button>
