@@ -22,6 +22,7 @@ const PendingRequest = () => {
 
   useEffect(() => {
     fetchAllParkingRequests();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [parking_request_dispatch]);
 
   console.log(parkingRequests);
