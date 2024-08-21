@@ -9,9 +9,22 @@ const ParkingRequestDetail = ({
   parkingLot,
   requestId,
 }) => {
-  //Approve button
-  const handleApprove = () => {
+  //Submit form
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log(requestId);
+
+    const action = e.nativeEvent.submitter.value;
+
+    //handle approve button
+    if (action === "approve") {
+      console.log("approve");
+    }
+
+    //handle not approve button
+    if (action === "notApprove") {
+      console.log("not approve");
+    }
   };
 
   return (
@@ -22,11 +35,23 @@ const ParkingRequestDetail = ({
         <p className="card-text">Apartment number {apartment}</p>
         <p className="card-text">Room number {room}</p>
         <p className="card-text">Requested parking lot number {parkingLot}</p>
-
-        <button className="btn btn-primary" onClick={handleApprove}>
-          Approve
-        </button>
-        <button className="btn btn-secondary">Not Approve</button>
+        <form onSubmit={handleSubmit}>
+          <textarea
+            className="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+          ></textarea>
+          <button type="submit" className="btn btn-primary" value={"approve"}>
+            Approve
+          </button>
+          <button
+            type="submit"
+            className="btn btn-secondary"
+            value={"notApprove"}
+          >
+            Not Approve
+          </button>
+        </form>
       </div>
     </div>
   );
