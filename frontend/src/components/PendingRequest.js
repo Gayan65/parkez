@@ -55,6 +55,7 @@ const PendingRequest = () => {
               apartment={parkingRequest.apartment}
               room={parkingRequest.room}
               parkingLot={parkingRequest.parkingLot}
+              requestedDate={parkingRequest.createdAt}
               onStatusChange={handleStatusChange}
             />
           ))}
