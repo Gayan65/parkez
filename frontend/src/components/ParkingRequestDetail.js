@@ -8,6 +8,7 @@ const ParkingRequestDetail = ({
   parkingLot,
   requestId,
   requestedDate,
+  requestComment,
   onStatusChange, //This function links with PendingRequest.js file. which has two parameters (id, status)
 }) => {
   //Approving or Not approving comments
@@ -42,6 +43,7 @@ const ParkingRequestDetail = ({
         <p className="card-text">Room number {room}</p>
         <p className="card-text">Requested parking lot number {parkingLot}</p>
         <p className="card-text">Requested Date {requestedDate} </p>
+        <p className="card-text">Request comment {requestComment} </p>
         <form onSubmit={handleSubmit}>
           <textarea
             className="form-control"

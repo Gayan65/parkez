@@ -9,6 +9,7 @@ const HomeUserForm = () => {
   const [building, setBuilding] = useState({ id: "", name: "", number: "" });
   const [apartment, setApartment] = useState("");
   const [room, setRoom] = useState("");
+  const [requestComment, setRequestComment] = useState("");
 
   //navigate to the parking selection page
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const HomeUserForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const data = { building, apartment, room };
+    const data = { building, apartment, room, requestComment };
 
     //the data will be set via the form elements
     navigate("/parking_view", { state: data });
@@ -89,6 +90,17 @@ const HomeUserForm = () => {
             value={room}
             onChange={(e) => setRoom(e.target.value)}
           />
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label">
+            Add your request, if you have a parking already
+          </label>
+          <textarea
+            className="form-control"
+            rows="2"
+            onChange={(e) => setRequestComment(e.target.value)}
+          ></textarea>
         </div>
 
         <div className="mb-3">

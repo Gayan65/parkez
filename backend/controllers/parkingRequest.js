@@ -3,8 +3,16 @@ import { ParkingRequest } from "../models/ParkingRequestModel.js";
 
 //create a parking request
 export const createParkingRequest = async (req, res) => {
-  const { user, building, apartment, room, parkingLot, status, comments } =
-    req.body;
+  const {
+    user,
+    building,
+    apartment,
+    room,
+    parkingLot,
+    status,
+    comments,
+    requestComment,
+  } = req.body;
 
   try {
     const parkingRequest = await ParkingRequest.create({
@@ -15,6 +23,7 @@ export const createParkingRequest = async (req, res) => {
       parkingLot,
       status,
       comments,
+      requestComment,
     });
     res.status(200).json(parkingRequest);
   } catch (error) {

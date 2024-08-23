@@ -16,7 +16,7 @@ const ParkingSelect = () => {
   const { parking_request_dispatch } = useParkingRequestContext();
 
   //accessing the state via location
-  const { building, apartment, room } = location.state;
+  const { building, apartment, room, requestComment } = location.state;
 
   //states for select parking lots
   const [selectParkingLot, setSelectParkingLot] = useState({
@@ -56,8 +56,10 @@ const ParkingSelect = () => {
       apartment: apartment,
       room: room,
       parkingLot: selectParkingLot.number,
+
       status: "initiate",
       comments: "",
+      requestComment: requestComment,
     };
 
     //this obj send to the api
