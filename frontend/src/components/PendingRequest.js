@@ -37,7 +37,7 @@ const PendingRequest = () => {
       body: JSON.stringify({ status: newStatus, comments: newComment }),
     });
 
-    //patch request for the park lot (user, status change) here...
+    //patch request for the park lot (user, status change) here... (call by the parkingLot_id)
 
     if (response.ok) {
       fetchAllParkingRequests(); // Re-fetch after status change
