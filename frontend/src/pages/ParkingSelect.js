@@ -20,7 +20,7 @@ const ParkingSelect = () => {
 
   //states for select parking lots
   const [selectParkingLot, setSelectParkingLot] = useState({
-    id: "",
+    _id: "",
     number: "",
     status: "",
   });
@@ -40,8 +40,8 @@ const ParkingSelect = () => {
   }, [park_dispatch, building]);
 
   //passes multiple values and set via the function
-  const handleSelectChange = (id, number, status) => {
-    setSelectParkingLot({ id, number, status });
+  const handleSelectChange = (_id, number, status) => {
+    setSelectParkingLot({ _id, number, status });
   };
 
   const handleClick = async () => {
@@ -56,7 +56,7 @@ const ParkingSelect = () => {
       apartment: apartment,
       room: room,
       parkingLot: selectParkingLot.number,
-
+      parkingLot_id: selectParkingLot._id,
       status: "initiate",
       comments: "",
       requestComment: requestComment,
@@ -112,7 +112,7 @@ const ParkingSelect = () => {
       <button
         className="btn btn-primary"
         onClick={handleClick}
-        disabled={!selectParkingLot.id && true} //button get activated once the selection has been made
+        disabled={!selectParkingLot._id && true} //button get activated once the selection has been made
       >
         Request
       </button>
