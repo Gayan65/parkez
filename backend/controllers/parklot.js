@@ -1,4 +1,5 @@
 import { ParkLot } from "../models/ParkLotModel.js";
+import mongoose from "mongoose";
 
 //create parking lot controller - admin only
 
@@ -47,4 +48,24 @@ export const allParkLotsBuilding = async (req, res) => {
   }
 };
 
-//amend parking lot (status to "PENDING" and user with "EMAIL") from parking lot id
+//update parking lot (status to "PENDING" and user with "EMAIL") from parking lot id
+export const updateParkLot = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "parkLot not found" });
+  }
+
+  const parkLot = await ParkLot.findByIdAndUpdate(
+    { _id: id },
+    {
+      ...req.body,
+    }
+  );
+
+  if (!parkLot) {
+    return res.status(404).json({ error: "park lot not found" });
+  }
+
+  res.status(200).json(parkLot);
+};
