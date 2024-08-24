@@ -10,6 +10,16 @@ import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
 const ParkingSelect = () => {
   const location = useLocation();
 
+  //fetch all parking lots
+  const fetchAllParking = async () => {
+    const response = await fetch(`/api/park/${building.id}`);
+    const json = await response.json();
+
+    if (response.ok) {
+      park_dispatch({ type: "SET_PARKS", payload: json });
+    }
+  };
+
   //get user context
   const { user } = useAuthContext();
   const { parks, park_dispatch } = useParkLotContext();
@@ -26,17 +36,8 @@ const ParkingSelect = () => {
   });
 
   useEffect(() => {
-    //fetch all parking lots
-    const fetchAllParking = async () => {
-      const response = await fetch(`/api/park/${building.id}`);
-      const json = await response.json();
-
-      if (response.ok) {
-        park_dispatch({ type: "SET_PARKS", payload: json });
-      }
-    };
-
     fetchAllParking();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [park_dispatch, building]);
 
   //passes multiple values and set via the function
@@ -62,12 +63,28 @@ const ParkingSelect = () => {
       requestComment: requestComment,
     };
 
-    //this obj send to the api
+    //this obj send to the api to create parking request
     const response = await fetch("/api/park_request/", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(parkingRequest),
     });
+
+    //patch request for the park lot (user, status change) here... (call by the parkingLot_id)
+    const parkLotUpdateResponse = await fetch(
+      `/api/park/${selectParkingLot._id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: "pending", user: user.email }),
+      }
+    );
+
+    if (parkLotUpdateResponse.ok) {
+      fetchAllParking();
+    }
 
     const json = await response.json();
 
