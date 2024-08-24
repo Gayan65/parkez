@@ -6,6 +6,7 @@ const ParkingRequestDetail = ({
   apartment,
   room,
   parkingLot,
+  parkingLot_id,
   requestId,
   requestedDate,
   requestComment,
@@ -24,13 +25,27 @@ const ParkingRequestDetail = ({
     //handle approve button
     if (action === "approve") {
       console.log("approve", comment);
-      onStatusChange(requestId, "approved", comment);
+      onStatusChange(
+        requestId,
+        "approved",
+        comment,
+        parkingLot_id,
+        "assigned",
+        email //sending the user if it get approved
+      );
     }
 
     //handle not approve button
     if (action === "decline") {
       console.log("decline", comment);
-      onStatusChange(requestId, "declined", comment);
+      onStatusChange(
+        requestId,
+        "declined",
+        comment,
+        parkingLot_id,
+        "active",
+        "" //sending blank user if it get declined
+      );
     }
   };
 
@@ -42,6 +57,7 @@ const ParkingRequestDetail = ({
         <p className="card-text">Apartment number {apartment}</p>
         <p className="card-text">Room number {room}</p>
         <p className="card-text">Requested parking lot number {parkingLot}</p>
+        <p className="card-text">parkingLot ID {parkingLot_id} </p>
         <p className="card-text">Requested Date {requestedDate} </p>
         <p className="card-text">Request comment {requestComment} </p>
         <form onSubmit={handleSubmit}>

@@ -28,7 +28,14 @@ const PendingRequest = () => {
   console.log(parkingRequests);
 
   //Created handleStatusChange to update the status and re-fetch the list
-  const handleStatusChange = async (requestId, newStatus, newComment) => {
+  const handleStatusChange = async (
+    requestId,
+    newStatus,
+    newComment,
+    parkingLot_id,
+    newParkingStatus,
+    user
+  ) => {
     const response = await fetch(`/api/park_request/${requestId}`, {
       method: "PATCH",
       headers: {
@@ -37,7 +44,14 @@ const PendingRequest = () => {
       body: JSON.stringify({ status: newStatus, comments: newComment }),
     });
 
-    //patch request for the park lot (user, status change) here... (call by the parkingLot_id)
+    //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN APPROVING OR DECLINING A PARKING LOT IT BECOMES ASSIGNED OR ACTIVE
+    const parkLotUpdateResponse = await fetch(`/api/park/${parkingLot_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ status: newParkingStatus, user }),
+    });
 
     if (response.ok) {
       fetchAllParkingRequests(); // Re-fetch after status change
@@ -57,6 +71,7 @@ const PendingRequest = () => {
               apartment={parkingRequest.apartment}
               room={parkingRequest.room}
               parkingLot={parkingRequest.parkingLot}
+              parkingLot_id={parkingRequest.parkingLot_id}
               requestedDate={parkingRequest.createdAt}
               requestComment={parkingRequest.requestComment}
               onStatusChange={handleStatusChange}
