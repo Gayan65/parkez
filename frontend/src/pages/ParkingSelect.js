@@ -70,7 +70,7 @@ const ParkingSelect = () => {
       body: JSON.stringify(parkingRequest),
     });
 
-    //patch request for the park lot (user, status change) here... (call by the parkingLot_id)
+    //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
     const parkLotUpdateResponse = await fetch(
       `/api/park/${selectParkingLot._id}`,
       {
