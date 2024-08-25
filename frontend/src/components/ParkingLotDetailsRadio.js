@@ -1,6 +1,6 @@
 import React from "react";
 
-const ParkingLotDetailsRadio = ({ lot, status, i, onSelect }) => {
+const ParkingLotDetailsRadio = ({ lot, status, i, onSelect, disable }) => {
   return (
     <div>
       <input
@@ -10,6 +10,7 @@ const ParkingLotDetailsRadio = ({ lot, status, i, onSelect }) => {
         id={i}
         autoComplete="off"
         onChange={onSelect}
+        disabled={disable}
       />
       <label className="btn btn-outline-primary" htmlFor={i}>
         {lot}, {status}
