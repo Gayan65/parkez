@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar";
 import CreateBuildingPage from "./pages/admin/CreateBuildingPage";
 import BuildingDetails from "./pages/admin/BuildingDetails";
 import ParkingSelect from "./pages/ParkingSelect";
+import MyParking from "./pages/MyParking";
 
 function App() {
     //user object
@@ -55,6 +56,11 @@ function App() {
                         element={
                             user ? <ParkingSelect /> : <Navigate to={"/"} />
                         }
+                    />
+
+                    <Route
+                        path="/my-parking"
+                        element={user ? <MyParking /> : <Navigate to={"/"} />}
                     />
                 </Routes>
             </BrowserRouter>
