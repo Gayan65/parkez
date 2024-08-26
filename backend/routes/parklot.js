@@ -1,9 +1,10 @@
 import express from "express";
 import {
-  allParkLots,
-  allParkLotsBuilding,
-  createParkLot,
-  updateParkLot,
+    allParkLots,
+    allParkLotsBuilding,
+    allParkLotUser,
+    createParkLot,
+    updateParkLot,
 } from "../controllers/parklot.js";
 
 const router = express.Router();
@@ -19,5 +20,8 @@ router.post("/", createParkLot);
 
 //update parkLot status, and assigned a user
 router.patch("/:id", updateParkLot);
+
+//get all parking lots belongs to an email (user)
+router.post("/by_email", allParkLotUser);
 
 export default router;
