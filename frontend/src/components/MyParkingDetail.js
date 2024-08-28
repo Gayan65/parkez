@@ -1,10 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-const MyParkingDetail = ({ lot, status, modifiedDate }) => {
+const MyParkingDetail = ({ lot, status, modifiedDate, buildingId }) => {
+    //set building state
+    const [building, setBuilding] = useState("");
+
+    useEffect(() => {
+        const fetchBuilding = async () => {
+            //fetch building details from api
+            const response = await fetch(`/api/building/${buildingId}`);
+            const json = await response.json();
+
+            if (response.ok) {
+                setBuilding(json);
+            }
+
+            console.log(json);
+        };
+
+        fetchBuilding();
+    }, [buildingId]);
     return (
         <div className="card mt-2">
             <div className="card-body">
-                <h5 className="card-title">Special title treatment</h5>
+                <h5 className="card-title">
+                    {building && building[0].name}{" "}
+                    {building && building[0].number}{" "}
+                    {building && building[0].address}
+                </h5>
                 <p className="card-text">Parking Number: {lot}</p>
                 <p className="card-text"> Parking Status: {status}</p>
                 <p className="card-text"> Date assigned : {modifiedDate}</p>

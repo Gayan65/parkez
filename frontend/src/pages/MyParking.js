@@ -47,6 +47,7 @@ const MyParking = () => {
                                     lot={myPark.lot}
                                     status={myPark.status}
                                     modifiedDate={myPark.updatedAt}
+                                    buildingId={myPark.building_id}
                                 />
                             ))}
                     </div>
