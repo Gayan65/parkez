@@ -43,6 +43,7 @@ const MyParking = () => {
                         {myParks &&
                             myParks.map((myPark) => (
                                 <MyParkingDetail
+                                    key={myPark._id}
                                     lot={myPark.lot}
                                     status={myPark.status}
                                     modifiedDate={myPark.updatedAt}
