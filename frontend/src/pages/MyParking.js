@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useMyParkingContext } from "../hooks/useMyParkingContext";
 import { useAuthContext } from "../hooks/useAuthContext";
+import MyParkingDetail from "../components/MyParkingDetail";
 
 const MyParking = () => {
     //context
@@ -36,11 +37,19 @@ const MyParking = () => {
     return (
         <div>
             My parking page
-            <div>
-                {myParks &&
-                    myParks.map((myPark) => (
-                        <p key={myPark._id}> {myPark.lot} </p>
-                    ))}
+            <div className="container">
+                <div className="row">
+                    <div className="col-sm-6 ">
+                        {myParks &&
+                            myParks.map((myPark) => (
+                                <MyParkingDetail
+                                    lot={myPark.lot}
+                                    status={myPark.status}
+                                    modifiedDate={myPark.updatedAt}
+                                />
+                            ))}
+                    </div>
+                </div>
             </div>
         </div>
     );
