@@ -31,7 +31,12 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId }) => {
                 <p className="card-text"> Parking Status: {status}</p>
                 <p className="card-text"> Date assigned : {modifiedDate}</p>
 
-                <button className="btn btn-danger">Unassigned Request</button>
+                <button
+                    className="btn btn-danger"
+                    disabled={status === "pending" && true}
+                >
+                    Unassigned Request
+                </button>
             </div>
         </div>
     );
