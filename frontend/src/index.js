@@ -7,6 +7,7 @@ import { ParksContextProvider } from "./context/ParkContext";
 import { BuildingsContextProvider } from "./context/BuildingContext";
 import { ParkingRequestsContextProvider } from "./context/ParkingRequestContext";
 import { MyParkingsContextProvider } from "./context/MyParkingContext";
+import { ParkingUnassignRequestsContextProvider } from "./context/ParkingUnassignRequest";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,7 +17,9 @@ root.render(
                 <ParkingRequestsContextProvider>
                     <ParksContextProvider>
                         <MyParkingsContextProvider>
-                            <App />
+                            <ParkingUnassignRequestsContextProvider>
+                                <App />
+                            </ParkingUnassignRequestsContextProvider>
                         </MyParkingsContextProvider>
                     </ParksContextProvider>
                 </ParkingRequestsContextProvider>
