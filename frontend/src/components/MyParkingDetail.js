@@ -19,6 +19,10 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId }) => {
 
         fetchBuilding();
     }, [buildingId]);
+
+    const handleClick = () => {
+        console.log("unassigned click");
+    };
     return (
         <div className="card mt-2">
             <div className="card-body">
@@ -34,6 +38,7 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId }) => {
                 <button
                     className="btn btn-danger"
                     disabled={status === "pending" && true}
+                    onClick={handleClick}
                 >
                     Unassigned Request
                 </button>
@@ -43,3 +48,5 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId }) => {
 };
 
 export default MyParkingDetail;
+
+//need to add a form to add the relevant reasons for the unassign.
