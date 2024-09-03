@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
     //set building state
     const [building, setBuilding] = useState("");
+
+    const { user } = useAuthContext();
 
     useEffect(() => {
         const fetchBuilding = async () => {
@@ -21,7 +24,11 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
     }, [buildingId]);
 
     const handleClick = () => {
-        console.log("unassigned click");
+        console.log("unassigned click", user.email);
+
+        //parking unassigned object here..
+
+        //parking unassigned request here..
     };
     return (
         <div className="card mt-2">
