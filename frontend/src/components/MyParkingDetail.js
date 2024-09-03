@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const MyParkingDetail = ({ lot, status, modifiedDate, buildingId }) => {
+const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
     //set building state
     const [building, setBuilding] = useState("");
 
@@ -35,13 +35,42 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId }) => {
                 <p className="card-text"> Parking Status: {status}</p>
                 <p className="card-text"> Date assigned : {modifiedDate}</p>
 
-                <button
-                    className="btn btn-danger"
-                    disabled={status === "pending" && true}
-                    onClick={handleClick}
+                <div
+                    className="accordion accordion-flush"
+                    id="accordionFlushExample"
                 >
-                    Unassigned Request
-                </button>
+                    <div className="accordion-item">
+                        <h2 className="accordion-header">
+                            <button
+                                className="accordion-button collapsed"
+                                type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target={`#${index}`}
+                                aria-expanded="false"
+                                aria-controls={`${index}`}
+                            >
+                                Make an unassign request
+                            </button>
+                        </h2>
+                        <div
+                            id={`${index}`}
+                            className="accordion-collapse collapse"
+                            data-bs-parent="#accordionFlushExample"
+                        >
+                            <div className="accordion-body">
+                                This may leads to cancel your current allocated
+                                parks.
+                                <button
+                                    className="btn btn-danger"
+                                    disabled={status === "pending" && true}
+                                    onClick={handleClick}
+                                >
+                                    Unassigned Request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     );

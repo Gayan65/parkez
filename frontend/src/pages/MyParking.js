@@ -48,6 +48,7 @@ const MyParking = () => {
                                     status={myPark.status}
                                     modifiedDate={myPark.updatedAt}
                                     buildingId={myPark.building_id}
+                                    index={myPark._id}
                                 />
                             ))}
                     </div>
