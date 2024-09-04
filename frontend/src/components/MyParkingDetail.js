@@ -10,7 +10,7 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
     const [requestComment, setRequestComment] = useState("");
 
     const { user } = useAuthContext();
-    const { parkingUnassignRequests, parking_unassign_request_dispatch } =
+    const { parking_unassign_request_dispatch } =
         useParkingUnassignRequestContext();
 
     useEffect(() => {

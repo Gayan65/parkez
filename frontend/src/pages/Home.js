@@ -5,6 +5,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import LandingPara from "../components/LandingPara";
 import HomeUserForm from "../components/HomeUserForm";
 import PendingRequest from "../components/PendingRequest";
+import PendingUnassignRequest from "../components/PendingUnassignRequest";
 
 const Home = () => {
     const { user } = useAuthContext();
@@ -14,6 +15,8 @@ const Home = () => {
             <LandingPara />
             {user && <HomeUserForm />}
             {user && user.admin && <PendingRequest />}
+            <p>unassigned requests</p>
+            {user && user.admin && <PendingUnassignRequest />}
         </div>
     );
 };
