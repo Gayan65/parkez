@@ -1,9 +1,14 @@
 import express from "express";
-import { createParkingUnassign } from "../controllers/parkingRequestUnassign.js";
+import {
+    createParkingUnassign,
+    getAllParkingUnassignRequests,
+} from "../controllers/parkingRequestUnassign.js";
 
 const router = express.Router();
 
 //create parking request
 router.post("/", createParkingUnassign);
 
+//get all unassigned request
+router.get("/", getAllParkingUnassignRequests);
 export default router;

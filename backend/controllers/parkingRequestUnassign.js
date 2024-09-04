@@ -32,3 +32,13 @@ export const createParkingUnassign = async (req, res) => {
         res.status(401).json({ error: error.message });
     }
 };
+
+// get all parking unassigned requests
+export const getAllParkingUnassignRequests = async (req, res) => {
+    try {
+        const parkingUnassignRequests = await ParkingRequestUnassign.find();
+        res.status(200).json(parkingUnassignRequests);
+    } catch (error) {
+        res.status(401).json({ error: error.message });
+    }
+};
