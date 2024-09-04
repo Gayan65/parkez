@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ParkingUnassignRequestsContext } from "../context/ParkingUnassignRequest";
 
-export const useParkingRequestContext = () => {
+export const useParkingUnassignRequestContext = () => {
     const context = useContext(ParkingUnassignRequestsContext);
 
     if (!context) {

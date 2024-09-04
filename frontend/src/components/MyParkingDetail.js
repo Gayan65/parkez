@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useParkingUnassignRequestContext } from "../hooks/useParkingUnassignRequestContext";
 
 const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
     //set building state
@@ -9,6 +10,8 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
     const [requestComment, setRequestComment] = useState("");
 
     const { user } = useAuthContext();
+    const { parkingUnassignRequests, parking_unassign_request_dispatch } =
+        useParkingUnassignRequestContext();
 
     useEffect(() => {
         const fetchBuilding = async () => {
@@ -26,7 +29,7 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
         fetchBuilding();
     }, [buildingId]);
 
-    const handleSubmit = (
+    const handleSubmit = async (
         buildingName,
         buildingNUmber,
         apartment,
@@ -48,7 +51,23 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
             requestComment: requestComment,
         };
 
-        console.log("unassigned click", unassignedRequest);
+        //this obj send to the api to create parking unassign request
+        const response = await fetch("/api/park_unassign_request/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(unassignedRequest),
+        });
+
+        const json = await response.json();
+
+        if (response.ok) {
+            parking_unassign_request_dispatch({
+                type: "CREATE_PARKING_UNASSIGN_REQUEST",
+                payload: json,
+            });
+        }
+
+        console.log("successfully send the request");
 
         //parking unassigned request here..
     };
