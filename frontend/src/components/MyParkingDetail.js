@@ -4,6 +4,9 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
     //set building state
     const [building, setBuilding] = useState("");
+    const [apartment, setApartment] = useState("");
+    const [room, setRoom] = useState("");
+    const [requestComment, setRequestComment] = useState("");
 
     const { user } = useAuthContext();
 
@@ -23,10 +26,29 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
         fetchBuilding();
     }, [buildingId]);
 
-    const handleClick = () => {
-        console.log("unassigned click", user.email);
-
+    const handleSubmit = (
+        buildingName,
+        buildingNUmber,
+        apartment,
+        room,
+        parkingLot,
+        parkingLot_id,
+        requestComment
+    ) => {
         //parking unassigned object here..
+        const unassignedRequest = {
+            user: user.email,
+            building: buildingName + buildingNUmber,
+            apartment: apartment,
+            room: room,
+            parkingLot: parkingLot,
+            parkingLot_id: parkingLot_id,
+            status: "unassign",
+            comments: "",
+            requestComment: requestComment,
+        };
+
+        console.log("unassigned click", unassignedRequest);
 
         //parking unassigned request here..
     };
@@ -67,13 +89,75 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
                             <div className="accordion-body">
                                 This may leads to cancel your current allocated
                                 parks.
-                                <button
-                                    className="btn btn-danger"
-                                    disabled={status === "pending" && true}
-                                    onClick={handleClick}
+                                <form
+                                    onSubmit={(e) => {
+                                        e.preventDefault();
+                                        handleSubmit(
+                                            building[0].name,
+                                            building[0].number,
+                                            apartment,
+                                            room,
+                                            lot,
+                                            index,
+                                            requestComment
+                                        );
+                                    }}
                                 >
-                                    Unassigned Request
-                                </button>
+                                    <div className="mb-3">
+                                        <label className="form-label">
+                                            Add your apartment number
+                                        </label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            placeholder="apartment number"
+                                            required
+                                            value={apartment}
+                                            onChange={(e) =>
+                                                setApartment(e.target.value)
+                                            }
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">
+                                            Add your room number (if any)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            className="form-control"
+                                            placeholder="room number"
+                                            value={room}
+                                            onChange={(e) =>
+                                                setRoom(e.target.value)
+                                            }
+                                        />
+                                    </div>
+
+                                    <div className="mb-3">
+                                        <label className="form-label">
+                                            Add your request, if you have a
+                                            parking already
+                                        </label>
+                                        <textarea
+                                            className="form-control"
+                                            rows="2"
+                                            onChange={(e) =>
+                                                setRequestComment(
+                                                    e.target.value
+                                                )
+                                            }
+                                            value={requestComment}
+                                        ></textarea>
+                                    </div>
+
+                                    <button
+                                        className="btn btn-danger"
+                                        disabled={status === "pending" && true}
+                                    >
+                                        Unassigned Request
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>
