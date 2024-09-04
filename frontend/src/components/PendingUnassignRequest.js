@@ -27,7 +27,14 @@ const PendingUnassignRequest = () => {
 
     console.log("i am here", parkingUnassignRequests); //parking unassigned request stored here...
 
-    return <div></div>;
+    return (
+        <div>
+            {parkingUnassignRequests &&
+                parkingUnassignRequests.map((parkingUnassignRequest) => (
+                    <p> {parkingUnassignRequest._id} </p>
+                ))}
+        </div>
+    );
 };
 
 export default PendingUnassignRequest;
