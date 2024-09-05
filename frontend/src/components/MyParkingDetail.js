@@ -46,7 +46,7 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
             room: room,
             parkingLot: parkingLot,
             parkingLot_id: parkingLot_id,
-            status: "unassign",
+            status: "initiate",
             comments: "",
             requestComment: requestComment,
         };
