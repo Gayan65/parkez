@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useParkingUnassignRequestContext } from "../hooks/useParkingUnassignRequestContext";
+import PendingUnassignRequestDetail from "./PendingUnassignRequestDetail";
 
 const PendingUnassignRequest = () => {
     //context
@@ -28,10 +29,21 @@ const PendingUnassignRequest = () => {
     console.log("i am here", parkingUnassignRequests); //parking unassigned request stored here...
 
     return (
-        <div>
+        <div className="container">
             {parkingUnassignRequests &&
                 parkingUnassignRequests.map((parkingUnassignRequest) => (
-                    <p> {parkingUnassignRequest._id} </p>
+                    <PendingUnassignRequestDetail
+                        key={parkingUnassignRequest._id}
+                        building={parkingUnassignRequest.building}
+                        user={parkingUnassignRequest.user}
+                        apartment={parkingUnassignRequest.apartment}
+                        room={parkingUnassignRequest.room}
+                        createdAt={parkingUnassignRequest.createdAt}
+                        requestComment={parkingUnassignRequest.requestComment}
+                        parkingLot={parkingUnassignRequest.parkingLot}
+                        parkingLot_id={parkingUnassignRequest.parkingLot_id}
+                        status={parkingUnassignRequest.status}
+                    />
                 ))}
         </div>
     );
