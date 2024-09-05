@@ -26,8 +26,6 @@ const PendingUnassignRequest = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parking_unassign_request_dispatch]);
 
-    console.log("i am here", parkingUnassignRequests); //parking unassigned request stored here...
-
     return (
         <div className="container">
             {parkingUnassignRequests &&
