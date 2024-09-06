@@ -26,23 +26,75 @@ const PendingUnassignRequest = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parking_unassign_request_dispatch]);
 
+    //Created handleStatusChange to update the status and re-fetch the list
+    const handleStatusChange = async (
+        requestId,
+        newStatus,
+        newComment,
+        parkingLot_id,
+        newParkingStatus,
+        user
+    ) => {
+        const response = await fetch(
+            `/api/park_unassign_request/${requestId}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    status: newStatus,
+                    comments: newComment,
+                }),
+            }
+        );
+
+        //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN APPROVING OR DECLINING A PARKING LOT IT BECOMES ASSIGNED OR ACTIVE
+        // eslint-disable-next-line
+        const parkLotUpdateResponse = await fetch(
+            `/api/park/${parkingLot_id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ status: newParkingStatus, user }),
+            }
+        );
+
+        if (response.ok) {
+            fetchAllParkingUnassignRequests(); // Re-fetch after status change
+        }
+    };
+
     return (
         <div className="container">
             {parkingUnassignRequests &&
-                parkingUnassignRequests.map((parkingUnassignRequest) => (
-                    <PendingUnassignRequestDetail
-                        key={parkingUnassignRequest._id}
-                        building={parkingUnassignRequest.building}
-                        user={parkingUnassignRequest.user}
-                        apartment={parkingUnassignRequest.apartment}
-                        room={parkingUnassignRequest.room}
-                        createdAt={parkingUnassignRequest.createdAt}
-                        requestComment={parkingUnassignRequest.requestComment}
-                        parkingLot={parkingUnassignRequest.parkingLot}
-                        parkingLot_id={parkingUnassignRequest.parkingLot_id}
-                        status={parkingUnassignRequest.status}
-                    />
-                ))}
+                parkingUnassignRequests
+
+                    .filter(
+                        (parkingUnassignRequest) =>
+                            parkingUnassignRequest.status === "initiate"
+                    ) //added to filter according to the status of the parking unassign request
+
+                    .map((parkingUnassignRequest) => (
+                        <PendingUnassignRequestDetail
+                            key={parkingUnassignRequest._id}
+                            building={parkingUnassignRequest.building}
+                            user={parkingUnassignRequest.user}
+                            apartment={parkingUnassignRequest.apartment}
+                            room={parkingUnassignRequest.room}
+                            createdAt={parkingUnassignRequest.createdAt}
+                            requestComment={
+                                parkingUnassignRequest.requestComment
+                            }
+                            parkingLot={parkingUnassignRequest.parkingLot}
+                            parkingLot_id={parkingUnassignRequest.parkingLot_id}
+                            status={parkingUnassignRequest.status}
+                            onStatusChange={handleStatusChange}
+                            requestId={parkingUnassignRequest._id}
+                        />
+                    ))}
         </div>
     );
 };

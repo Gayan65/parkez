@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 const PendingUnassignRequestDetail = ({
+    requestId,
     building,
     user,
     apartment,
@@ -10,6 +11,7 @@ const PendingUnassignRequestDetail = ({
     parkingLot,
     parkingLot_id,
     status,
+    onStatusChange, //This function links with PendingRequest.js file. which has two parameters (id, status)
 }) => {
     const [comment, setComment] = useState("");
 
@@ -21,11 +23,28 @@ const PendingUnassignRequestDetail = ({
         //handle approve button
         if (action === "approve") {
             console.log("approve", comment);
+
+            onStatusChange(
+                requestId,
+                "approved",
+                comment,
+                parkingLot_id,
+                "active",
+                "" //sending the blank user if it get approved
+            );
         }
 
         //handle decline button
         if (action === "decline") {
             console.log("decline", comment);
+            onStatusChange(
+                requestId,
+                "decline",
+                comment,
+                parkingLot_id,
+                "assign",
+                user //sending the user if it get decline
+            );
         }
     };
     return (
