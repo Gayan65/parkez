@@ -188,4 +188,4 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
 
 export default MyParkingDetail;
 
-//need to add a form to add the relevant reasons for the unassign.
+//need to add to become freeze once the parking get pending once requested to for an unassign.
