@@ -15,7 +15,7 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar sticky-top">
             <div className="container-fluid">
                 <Link className="navbar-brand" to={"/"}>
                     <img
