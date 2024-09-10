@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import navLogo from "../assets/img/NavLogo.png";
 
 const NavBar = () => {
     //get user
@@ -17,7 +18,13 @@ const NavBar = () => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <div className="container-fluid">
                 <Link className="navbar-brand" to={"/"}>
-                    Navbar
+                    <img
+                        src={navLogo}
+                        alt="Logo"
+                        width="50"
+                        height="50"
+                        class="d-inline-block align-text-top"
+                    ></img>
                 </Link>
                 <button
                     className="navbar-toggler"
