@@ -2,7 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useParkingUnassignRequestContext } from "../hooks/useParkingUnassignRequestContext";
 
-const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
+const MyParkingDetail = ({
+    lot,
+    status,
+    modifiedDate,
+    buildingId,
+    index,
+    fetchMyParking,
+}) => {
     //set building state
     const [building, setBuilding] = useState("");
     const [apartment, setApartment] = useState("");
@@ -69,7 +76,24 @@ const MyParkingDetail = ({ lot, status, modifiedDate, buildingId, index }) => {
 
         console.log("successfully send the request");
 
-        //parking unassigned request here..
+        //parking lot status make as pending here..
+
+        //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
+        const parkLotUpdateResponse = await fetch(
+            `/api/park/${parkingLot_id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ status: "pending" }),
+            }
+        );
+
+        if (parkLotUpdateResponse.ok) {
+            //calling the fetch function again once the parking lot status get pending
+            fetchMyParking();
+        }
     };
     return (
         <div className="card mt-2">
