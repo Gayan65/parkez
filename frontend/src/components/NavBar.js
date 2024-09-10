@@ -15,7 +15,7 @@ const NavBar = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar">
             <div className="container-fluid">
                 <Link className="navbar-brand" to={"/"}>
                     <img
@@ -23,7 +23,7 @@ const NavBar = () => {
                         alt="Logo"
                         width="50"
                         height="50"
-                        class="d-inline-block align-text-top"
+                        className="d-inline-block align-text-top"
                     ></img>
                 </Link>
                 <button
