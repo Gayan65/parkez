@@ -29,5 +29,6 @@ code {
 }
 
 .custom-navbar {
-    background-color: #ffbd59 !important;
+    background-color: #ffbd59; /*Just a color*/
+    background-color: #fff0d5 !important;
 }
