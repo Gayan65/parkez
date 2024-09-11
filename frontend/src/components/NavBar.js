@@ -7,6 +7,9 @@ const NavBar = () => {
     //get user
     const { user } = useAuthContext();
 
+    // Extract the first letter of the user's email
+    const firstLetter = user?.email?.charAt(0).toUpperCase();
+
     //user logout
     const { logout } = useLogout();
 
@@ -82,13 +85,30 @@ const NavBar = () => {
                     )}
                     {user && (
                         <div>
-                            <span>User : {user.email}</span>{" "}
-                            <button
-                                className="btn btn-outline-primary"
-                                onClick={handelClick}
-                            >
-                                Logout
-                            </button>
+                            <div class="nav-item dropdown">
+                                <Link
+                                    class="nav-link dropdown-toggle"
+                                    href="#"
+                                    role="button"
+                                    data-bs-toggle="dropdown"
+                                    aria-expanded="false"
+                                >
+                                    <span>
+                                        User : {user.email} {firstLetter}
+                                    </span>{" "}
+                                </Link>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        {" "}
+                                        <button
+                                            className="btn btn-outline-primary"
+                                            onClick={handelClick}
+                                        >
+                                            Logout
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     )}
                 </div>
