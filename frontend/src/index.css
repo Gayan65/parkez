@@ -28,6 +28,10 @@ code {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+body {
+    overflow-x: hidden; /*stop scrolling x axis*/
+}
+
 .custom-navbar {
     background-color: #ffbd59; /*Just a color*/
     background-color: #fff0d5 !important;
