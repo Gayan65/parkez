@@ -96,15 +96,28 @@ const NavBar = () => {
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end">
                                     <li>
+                                        {/* Email Box */}
+                                        <div className="email-box">
+                                            <div className="profile-icon-inside-email-box">
+                                                {firstLetter}
+                                            </div>
+                                            {user && user.email}
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="my-parking">
+                                            My Parking
+                                        </div>
+                                    </li>
+                                    <li>
                                         {" "}
                                         <button
-                                            className="btn btn-outline-primary"
+                                            className="logout"
                                             onClick={handelClick}
                                         >
                                             Logout
                                         </button>
                                     </li>
-                                    <li>user: {user && user.email}</li>
                                 </ul>
                             </div>
                         </div>

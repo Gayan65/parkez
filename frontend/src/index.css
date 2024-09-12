@@ -91,7 +91,7 @@ body {
     background-color: #fff7eb; /* Light background for dropdown */
     border-radius: 1px; /* Rounded corners */
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Add shadow for depth */
-    min-width: 200px; /* Ensure it's not too narrow */
+    min-width: 250px; /* Ensure it's not too narrow */
     border: 1px solid #ddd; /* Border for separation */
     opacity: 0;
     transform: translateY(-10px); /* Initial position for the animation */
@@ -141,23 +141,68 @@ body {
 }
 
 /* Logout Button Styling */
-.dropdown-menu .btn-outline-primary {
+.dropdown-menu .logout {
     width: 100%; /* Full width button */
-    border-radius: 5px;
+    border: none;
     transition: background-color 0.3s ease;
+    background-color: transparent;
+    color: #226699;
+    transition: font-weight 0.3s ease, color 0.3s ease; /* Add transition */
 }
 
 /* Button Hover */
-.dropdown-menu .btn-outline-primary:hover {
-    background-color: #007bff;
-    color: white;
+.dropdown-menu .logout:hover {
+    color: #226699;
+    font-weight: bold;
+}
+
+.my-parking {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    color: #226699;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+    margin-top: 10px;
+    width: 100%; /* Ensure full width */
+    transition: font-weight 0.3s ease, color 0.3s ease; /* Add transition */
+}
+
+.my-parking:hover {
+    font-weight: bold;
+    color: #226699; /* Change color on hover for visual feedback */
+}
+
+/* Circle Profile for First Letter */
+.profile-icon-inside-email-box {
+    width: 40px;
+    height: 40px;
+    background-color: #226699;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin: 0 auto 10px; /* Center and add spacing */
+}
+
+/* Email Box Styling */
+.email-box {
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    color: #226699;
+    font-size: 16px;
+    font-weight: bold;
+    border: 1px solid #ddd;
 }
 
 /* Spacing for User Email */
 .dropdown-menu li:nth-child(2) {
-    color: #333;
-    font-size: 14px;
     padding-top: 5px;
-    border-top: 1px solid #e9ecef;
     margin-top: 5px;
 }
