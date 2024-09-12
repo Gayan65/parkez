@@ -48,6 +48,8 @@ body {
 
 /* NavLogo rotation ends */
 
+/* Profile icon start */
+
 .profile-container {
     display: flex;
     align-items: center;
@@ -80,4 +82,82 @@ body {
 .profile-container:focus-within {
     border-color: #ffa500;
     color: #ffa500;
+}
+/* Profile icon end */
+
+/* Dropdown Styling */
+.dropdown-menu {
+    padding: 15px; /* Add inner padding */
+    background-color: #fff7eb; /* Light background for dropdown */
+    border-radius: 1px; /* Rounded corners */
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15); /* Add shadow for depth */
+    min-width: 200px; /* Ensure it's not too narrow */
+    border: 1px solid #ddd; /* Border for separation */
+    opacity: 0;
+    transform: translateY(-10px); /* Initial position for the animation */
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Show the dropdown */
+.dropdown-menu.show {
+    opacity: 1;
+    transform: translateY(0); /* Brings the dropdown into view */
+    pointer-events: auto;
+}
+
+/* Waterfall effect for each item */
+.dropdown-menu li {
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: dropdown-fade 0.3s forwards ease;
+    margin-bottom: 10px; /* Space between items */
+}
+
+/* Remove margin for the last item */
+.dropdown-menu li:last-child {
+    margin-bottom: 0;
+}
+
+/* Staggered delays for each item for the waterfall effect */
+.dropdown-menu li:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.dropdown-menu li:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dropdown-menu li:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+/* Keyframes for the waterfall effect */
+@keyframes dropdown-fade {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Logout Button Styling */
+.dropdown-menu .btn-outline-primary {
+    width: 100%; /* Full width button */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Button Hover */
+.dropdown-menu .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Spacing for User Email */
+.dropdown-menu li:nth-child(2) {
+    color: #333;
+    font-size: 14px;
+    padding-top: 5px;
+    border-top: 1px solid #e9ecef;
+    margin-top: 5px;
 }
