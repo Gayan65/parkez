@@ -217,3 +217,20 @@ body {
     padding-top: 5px;
     margin-top: 5px;
 }
+
+/* Navbar Link Styling */
+.navbar-nav > .nav-item > .nav-link {
+    color: #226699; /* Default link color */
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px 15px; /* Space around text */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease, font-weight 0.3s ease; /* Smooth transition */
+}
+
+/* Navbar Link Hover Effect */
+.navbar-nav > .nav-item > .nav-link:hover,
+.navbar-nav > .nav-item > .nav-link:focus {
+    color: #ffa500; /* Change text color on hover and focus */
+    font-weight: bold; /* Make text bold on hover and focus */
+}
