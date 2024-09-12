@@ -106,7 +106,9 @@ const NavBar = () => {
                                     </li>
                                     <li>
                                         <div className="my-parking">
-                                            My Parking
+                                            <Link to={"/my-parking"}>
+                                                My Parking
+                                            </Link>
                                         </div>
                                     </li>
                                     <li>

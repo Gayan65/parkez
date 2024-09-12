@@ -155,7 +155,6 @@ body {
     color: #226699;
     font-weight: bold;
 }
-
 .my-parking {
     display: flex;
     justify-content: center;
@@ -169,7 +168,19 @@ body {
     transition: font-weight 0.3s ease, color 0.3s ease; /* Add transition */
 }
 
-.my-parking:hover {
+.my-parking a {
+    text-decoration: none; /* Remove underline from the link */
+    color: inherit; /* Inherit color from parent */
+    font-weight: inherit; /* Inherit font-weight from parent */
+    display: flex; /* Use flexbox to center content */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    width: 100%; /* Ensure the link takes up the full width of the parent */
+    height: 100%; /* Ensure the link takes up the full height of the parent */
+}
+
+/* Optional: Add hover effect directly on the link */
+.my-parking a:hover {
     font-weight: bold;
     color: #226699; /* Change color on hover for visual feedback */
 }
