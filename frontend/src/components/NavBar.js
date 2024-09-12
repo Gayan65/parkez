@@ -84,20 +84,17 @@ const NavBar = () => {
                         </div>
                     )}
                     {user && (
-                        <div>
-                            <div class="nav-item dropdown">
-                                <Link
-                                    class="nav-link dropdown-toggle"
-                                    href="#"
-                                    role="button"
+                        <div className="profile-container">
+                            <div className="nav-item dropdown">
+                                <button
+                                    className="btn profile-icon"
+                                    id="profileDropdown"
                                     data-bs-toggle="dropdown"
                                     aria-expanded="false"
                                 >
-                                    <span>
-                                        User : {user.email} {firstLetter}
-                                    </span>{" "}
-                                </Link>
-                                <ul class="dropdown-menu">
+                                    {firstLetter}
+                                </button>
+                                <ul className="dropdown-menu dropdown-menu-end">
                                     <li>
                                         {" "}
                                         <button
@@ -107,6 +104,7 @@ const NavBar = () => {
                                             Logout
                                         </button>
                                     </li>
+                                    <li>user: {user && user.email}</li>
                                 </ul>
                             </div>
                         </div>
