@@ -342,7 +342,7 @@ body {
 
 /* Container for Login Form */
 .login-signup-container {
-    height: 100vh; /* Full viewport height */
+    height: 70vh; /* Full viewport height */
     display: flex;
     justify-content: center;
     align-items: center;
