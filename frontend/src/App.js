@@ -13,6 +13,9 @@ import BuildingDetails from "./pages/admin/BuildingDetails";
 import ParkingSelect from "./pages/ParkingSelect";
 import MyParking from "./pages/MyParking";
 import ParkRequest from "./pages/ParkRequest";
+import Footer from "./components/Footer";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 function App() {
     //user object
@@ -24,6 +27,8 @@ function App() {
                 <NavBar />
                 <Routes>
                     <Route path="/" element={<Home />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
                     <Route
                         path="/login"
                         element={!user ? <Login /> : <Navigate to={"/"} />}
@@ -69,6 +74,7 @@ function App() {
                         element={user ? <ParkRequest /> : <Navigate to={"/"} />}
                     />
                 </Routes>
+                <Footer />
             </BrowserRouter>
         </div>
     );

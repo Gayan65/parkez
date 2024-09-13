@@ -273,3 +273,69 @@ body {
     border: 2px solid #ffbd59 !important; /* Match border to new background */
     color: #fff !important; /* Text color when active */
 }
+
+/*footer */
+/* Footer Styling */
+.footer {
+    background-color: #fff0d5; /* Background color */
+    color: #226699; /* Text color */
+    padding: 20px 0; /* Smaller padding */
+    font-size: 14px; /* Smaller font size */
+}
+
+.footer-section h5 {
+    font-size: 16px;
+    color: #226699;
+    margin-bottom: 10px;
+}
+
+.footer-section p {
+    color: #226699;
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 5px; /* Smaller spacing */
+}
+
+.footer-links li a {
+    color: #226699;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: 14px;
+}
+
+.footer-links li a:hover {
+    color: #ffbd59; /* Hover color */
+}
+
+.social-icons a {
+    color: #226699;
+    font-size: 18px; /* Smaller icon size */
+    margin-right: 10px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffbd59; /* Hover color for social icons */
+}
+
+.footer-bottom {
+    text-align: center;
+    padding: 10px 0; /* Reduced padding */
+    border-top: 1px solid #ddd;
+    margin-top: 10px;
+    font-size: 12px; /* Smaller text size */
+    color: #226699;
+}
+
+.footer-bottom p {
+    margin: 0;
+}
