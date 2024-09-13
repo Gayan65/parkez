@@ -31,7 +31,7 @@ const LandingPara = () => {
                     <p className="lead">
                         Start now and enjoy hassle-free parking with ParkEz!
                     </p>
-                    <a href="#get-started" className="btn btn-primary">
+                    <a href="#get-started" className="btn btn-custom">
                         Get Started
                     </a>
                 </div>

@@ -243,3 +243,33 @@ body {
 .hero-heading {
     color: #226699;
 }
+
+/* get start button */
+
+/* Initial Button Styling */
+.btn-custom {
+    font-size: 20px; /* Make the button large */
+    padding: 15px 30px; /* Large padding */
+    background-color: #226699; /* Your primary color */
+    color: #fff; /* Text color */
+    border: none; /* No borders initially */
+    transition: background-color 0.4s ease, color 0.4s ease, border 0.4s ease; /* Smooth transitions */
+    display: inline-block; /* Keep the button inline */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor on hover */
+}
+
+/* Hover Effect */
+.btn-custom:hover {
+    border: 2px solid #226699; /* Border appears on hover */
+    background-color: #fff; /* Change background to white */
+    color: #226699; /* Change text color */
+    font-weight: bold; /* Make text bold */
+}
+
+/* Optional Active State */
+.btn-custom:active {
+    background-color: #ffbd59 !important; /* Change background on click */
+    border: 2px solid #ffbd59 !important; /* Match border to new background */
+    color: #fff !important; /* Text color when active */
+}
