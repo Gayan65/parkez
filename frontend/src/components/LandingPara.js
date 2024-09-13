@@ -1,7 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import imgLogo from "../assets/img/LandingLogo.png";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const LandingPara = () => {
+    //get user context
+    const { user } = useAuthContext();
+
     return (
         <div className="container hero-section mt-4">
             <div className="row align-items-center">
@@ -31,9 +36,12 @@ const LandingPara = () => {
                     <p className="lead">
                         Start now and enjoy hassle-free parking with ParkEz!
                     </p>
-                    <a href="#get-started" className="btn btn-custom">
+                    <Link
+                        to={user ? "/my-parking" : "/login"}
+                        className="btn btn-custom"
+                    >
                         Get Started
-                    </a>
+                    </Link>
                 </div>
             </div>
         </div>
