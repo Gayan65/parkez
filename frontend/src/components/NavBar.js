@@ -43,6 +43,13 @@ const NavBar = () => {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
                         <li className="nav-item">
+                            {user && (
+                                <Link className="nav-link active" to={"/"}>
+                                    Home
+                                </Link>
+                            )}
+                        </li>
+                        <li className="nav-item">
                             {user && user.admin && (
                                 <Link
                                     className="nav-link active"
