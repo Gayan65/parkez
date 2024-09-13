@@ -234,3 +234,12 @@ body {
     color: #ffa500; /* Change text color on hover and focus */
     font-weight: bold; /* Make text bold on hover and focus */
 }
+
+/*hero heading */
+.hero-section {
+    color: #226699;
+}
+
+.hero-heading {
+    color: #226699;
+}
