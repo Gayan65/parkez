@@ -11,7 +11,6 @@ const Home = () => {
     const { user } = useAuthContext();
     return (
         <div>
-            <h1>Home page</h1>
             <LandingPara />
             {user && <HomeUserForm />}
             {user && user.admin && <PendingRequest />}
