@@ -436,3 +436,25 @@ body {
 .label {
     color: #226699;
 }
+
+/* Login and Sign up Button Styling */
+.btn-outline-primary {
+    color: #226699;
+    border: 2px solid #226699;
+    font-weight: bold;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    border-radius: 5px; /* Rounded button */
+    font-size: 16px;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #226699;
+    border-color: #226699;
+}
+
+/* Adding margin between the buttons */
+.me-1 {
+    margin-right: 10px;
+}
