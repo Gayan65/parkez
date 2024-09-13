@@ -12,6 +12,7 @@ import CreateBuildingPage from "./pages/admin/CreateBuildingPage";
 import BuildingDetails from "./pages/admin/BuildingDetails";
 import ParkingSelect from "./pages/ParkingSelect";
 import MyParking from "./pages/MyParking";
+import ParkRequest from "./pages/ParkRequest";
 
 function App() {
     //user object
@@ -61,6 +62,11 @@ function App() {
                     <Route
                         path="/my-parking"
                         element={user ? <MyParking /> : <Navigate to={"/"} />}
+                    />
+
+                    <Route
+                        path="/park-request"
+                        element={user ? <ParkRequest /> : <Navigate to={"/"} />}
                     />
                 </Routes>
             </BrowserRouter>

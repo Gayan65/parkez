@@ -49,6 +49,18 @@ const NavBar = () => {
                                 </Link>
                             )}
                         </li>
+
+                        <li className="nav-item">
+                            {user && (
+                                <Link
+                                    className="nav-link active"
+                                    to={"/park-request"}
+                                >
+                                    Reservation
+                                </Link>
+                            )}
+                        </li>
+
                         <li className="nav-item">
                             {user && user.admin && (
                                 <Link

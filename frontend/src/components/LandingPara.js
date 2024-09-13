@@ -37,7 +37,7 @@ const LandingPara = () => {
                         Start now and enjoy hassle-free parking with ParkEz!
                     </p>
                     <Link
-                        to={user ? "/my-parking" : "/login"}
+                        to={user ? "/park-request" : "/login"}
                         className="btn btn-custom"
                     >
                         Get Started
