@@ -8,7 +8,7 @@ const LandingPara = () => {
     const { user } = useAuthContext();
 
     return (
-        <div className="container hero-section mt-4">
+        <div className="container hero-section mt-2">
             <div className="row align-items-center">
                 <div className="col-md-6 hero-image-container">
                     <img

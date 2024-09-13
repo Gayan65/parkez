@@ -339,3 +339,100 @@ body {
 .footer-bottom p {
     margin: 0;
 }
+
+/* Container for Login Form */
+.login-signup-container {
+    height: 100vh; /* Full viewport height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff0d5; /* Background color for the entire page */
+    padding: 20px;
+}
+
+/* Form Styling */
+.login-signup-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background-color: #ffffff; /* White background for the form */
+    border-radius: 5px;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow */
+    border: 1px solid #ddd; /* Light border for the form */
+}
+
+/* Heading for the form */
+.login-signup-form h2 {
+    color: #226699;
+    margin-bottom: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Input Field Styling */
+.login-signup-form .form-control {
+    border-radius: 5px; /* Rounded corners for inputs */
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    color: #226699; /* Input text color */
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+.login-signup-form .form-control:focus {
+    border-color: #ffbd59; /* Border color on focus */
+    box-shadow: 0 0 5px rgba(255, 189, 89, 0.5); /* Soft glow on focus */
+}
+
+/* Button Styling */
+.login-signup-form .btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px; /* Rounded button */
+    background-color: #226699; /* Primary button color */
+    border: none;
+    color: #fff; /* Text color */
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button Hover Effect */
+.login-signup-form .btn:hover {
+    background-color: #ffbd59; /* Button color on hover */
+    transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+/* Button Loading Disabled State */
+.login-signup-form .btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
+
+/* Error Message */
+.login-signup-form p {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* "Forget Password" Link */
+.login-signup-form a {
+    display: block;
+    text-align: right;
+    margin-top: 15px;
+    color: #226699;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+/* Hover Effect for "Forget Password" Link */
+.login-signup-form a:hover {
+    color: #ffbd59;
+    text-decoration: underline;
+}
+
+/*form label*/
+.label {
+    color: #226699;
+}

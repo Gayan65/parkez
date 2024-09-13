@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
+import { Link } from "react-router-dom";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const Login = () => {
                 <h2 className="text-center">Login</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label>Email address</label>
+                        <label className="label">Email address</label>
                         <input
                             type="email"
                             className="form-control"
@@ -33,7 +34,7 @@ const Login = () => {
                         />
                     </div>
                     <div className="form-group mt-3">
-                        <label>Password</label>
+                        <label className="label">Password</label>
                         <input
                             type="password"
                             className="form-control"
@@ -51,6 +52,7 @@ const Login = () => {
                     >
                         Login
                     </button>
+                    <Link to={"/"}>Forget password</Link>
                 </form>
                 {error && <p> {error} </p>}
             </div>
