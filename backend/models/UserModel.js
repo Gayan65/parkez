@@ -77,7 +77,7 @@ userSchema.statics.login = async function (email, password) {
 };
 
 //forget password
-userSchema.statics.forget = async function (email) {
+userSchema.statics.forgetEmailFind = async function (email) {
     // check bank fields
     if (!email) {
         throw Error("Field can not be blank!");
@@ -97,9 +97,9 @@ userSchema.statics.forget = async function (email) {
     }
 
     //send to db for delete user
-    const user = await this.deleteOne({ email: email });
+    //const user = await this.deleteOne({ email: email });
 
-    return user;
+    return exist;
 };
 
 export const User = mongoose.model("User", userSchema);

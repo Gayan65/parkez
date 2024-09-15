@@ -1,8 +1,9 @@
 import express from "express";
 import {
-    userForgetPassword,
+    userForgetEmailVerify,
     userLogin,
     userSignup,
+    verifyOTP,
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -13,7 +14,8 @@ router.post("/signup", userSignup);
 //user login route
 router.post("/login", userLogin);
 
-//user forget password route
-router.post("/forget", userForgetPassword);
+//user forget password routes
+router.post("/forget", userForgetEmailVerify);
+router.post("/otp_verify", verifyOTP);
 
 export default router;
