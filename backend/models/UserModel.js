@@ -12,7 +12,12 @@ const userSchema = new Schema({
 
 //static methods
 
-userSchema.statics.signup = async function (email, password, admin) {
+userSchema.statics.signup = async function (
+    email,
+    password,
+    re_password,
+    admin
+) {
     // check bank fields
     if (!email || !password) {
         throw Error("Field can not be blank!");
@@ -32,6 +37,11 @@ userSchema.statics.signup = async function (email, password, admin) {
     const exist = await this.findOne({ email });
     if (exist) {
         throw Error("Email already exists!");
+    }
+
+    //two passwords not match
+    if (password != re_password) {
+        throw Error("Both passwords do not match!");
     }
 
     //hashing passwords

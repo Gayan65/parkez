@@ -4,16 +4,18 @@ import { useSignup } from "../hooks/useSignup";
 const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [re_password, setRe_password] = useState("");
 
     const { signup, loading, error } = useSignup();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         //call the signup function
-        await signup(email, password);
+        await signup(email, password, re_password);
 
         setEmail("");
         setPassword("");
+        setRe_password("");
     };
 
     return (
@@ -41,6 +43,18 @@ const Signup = () => {
                             autoComplete="true"
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
+                            required
+                        />
+                    </div>
+                    <div className="form-group mt-3">
+                        <label>Retype password</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Retype password"
+                            autoComplete="true"
+                            onChange={(e) => setRe_password(e.target.value)}
+                            value={re_password}
                             required
                         />
                     </div>
