@@ -41,3 +41,16 @@ export const userLogin = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+//forget password
+export const userForgetPassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const user = await User.forget(email);
+
+        res.status(200).json({ message: "user Deleted successfully!" }); //delete the user from the db notification
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};

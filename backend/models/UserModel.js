@@ -76,4 +76,30 @@ userSchema.statics.login = async function (email, password) {
     return user;
 };
 
+//forget password
+userSchema.statics.forget = async function (email) {
+    // check bank fields
+    if (!email) {
+        throw Error("Field can not be blank!");
+    }
+
+    // check email
+    if (!validator.isEmail(email)) {
+        throw Error("email is not valid!");
+    }
+
+    //check the existence of the email
+    const exist = await this.findOne({ email });
+    if (!exist) {
+        throw Error(
+            "No such an email registered, Please contact administrator"
+        );
+    }
+
+    //send to db for delete user
+    const user = await this.deleteOne({ email: email });
+
+    return user;
+};
+
 export const User = mongoose.model("User", userSchema);
