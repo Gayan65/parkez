@@ -137,6 +137,7 @@ export const verifyOTP = async (req, res) => {
         if (otp === storedOtp) {
             // OTP is valid, delete it from the store and proceed with further actions (like activating the account)
             delete otpStore[email];
+            await User.deleteOne({ email: email }); //delete user from the db
             return res
                 .status(200)
                 .json({ message: "OTP verified successfully" });

@@ -96,9 +96,6 @@ userSchema.statics.forgetEmailFind = async function (email) {
         );
     }
 
-    //send to db for delete user
-    //const user = await this.deleteOne({ email: email });
-
     return exist;
 };
 
