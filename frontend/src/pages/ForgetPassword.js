@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ForgetPassword = () => {
+    const [email, setEmail] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
     return (
         <div className="container container-custom">
             <h1 className="header">Password Reset Instructions</h1>
@@ -26,6 +31,25 @@ const ForgetPassword = () => {
                 </Link>{" "}
                 for further assistance.
             </p>
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label className="label">Email address</label>
+                    <input
+                        type="email"
+                        className="form-control"
+                        placeholder="Enter email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                        required
+                    />
+                </div>
+                <button
+                    type="submit"
+                    className="btn btn-primary btn-block mt-3"
+                >
+                    Request OTP
+                </button>
+            </form>
         </div>
     );
 };
