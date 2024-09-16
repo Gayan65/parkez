@@ -5,6 +5,7 @@ const ForgetPassword = () => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,6 +22,7 @@ const ForgetPassword = () => {
         if (response.ok) {
             setMessage(json.message);
             setError("");
+            setSuccess(json.success);
         }
 
         if (!response.ok) {
@@ -61,11 +63,13 @@ const ForgetPassword = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                         required
+                        disabled={success}
                     />
                 </div>
                 <button
                     type="submit"
                     className="btn btn-primary btn-block mt-3"
+                    disabled={success}
                 >
                     Request OTP
                 </button>
