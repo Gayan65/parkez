@@ -549,3 +549,53 @@ body {
     text-align: center;
     margin-top: 20px;
 }
+
+/* Input Field Styling */
+.otp-form .form-control {
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    color: #226699; /* Input text color */
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+.otp-form .form-control:focus {
+    border-color: #ffbd59; /* Border color on focus */
+    box-shadow: 0 0 5px rgba(255, 189, 89, 0.5); /* Soft glow on focus */
+}
+
+.otp-form .otp-inputs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Button Styling */
+.otp-form .btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    background-color: #226699; /* Primary button color */
+    border: none;
+    color: #fff; /* Text color */
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button Hover Effect */
+.otp-form .btn:hover {
+    background-color: #ffbd59; /* Button color on hover */
+    transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+/* Button Loading Disabled State */
+.otp-form .btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import OTPsentForm from "../components/OTPsentForm";
 
 const ForgetPassword = () => {
     const [email, setEmail] = useState("");
@@ -76,6 +77,7 @@ const ForgetPassword = () => {
                 {error && <p className="error-message">{error}</p>}
                 {message && <p className="success-message"> {message} </p>}
             </form>
+            {message && <OTPsentForm />}
         </div>
     );
 };
