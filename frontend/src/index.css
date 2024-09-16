@@ -494,3 +494,44 @@ body {
     color: #1d5986;
     text-decoration: underline;
 }
+
+/*forget password forms*/
+
+/* Input Field Styling */
+.other-form .form-control {
+    border-radius: 5px; /* Rounded corners for inputs */
+    padding: 10px 20px;
+    border: 1px solid #ddd;
+    color: #226699; /* Input text color */
+    transition: border-color 0.3s ease; /* Smooth transition */
+}
+
+.other-form .form-control:focus {
+    border-color: #ffbd59; /* Border color on focus */
+    box-shadow: 0 0 5px rgba(255, 189, 89, 0.5); /* Soft glow on focus */
+}
+
+/* Button Styling */
+.other-form .btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px; /* Rounded button */
+    background-color: #226699; /* Primary button color */
+    border: none;
+    color: #fff; /* Text color */
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Button Hover Effect */
+.other-form .btn:hover {
+    background-color: #ffbd59; /* Button color on hover */
+    transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+/* Button Loading Disabled State */
+.other-form .btn:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+}
