@@ -3,9 +3,29 @@ import { Link } from "react-router-dom";
 
 const ForgetPassword = () => {
     const [email, setEmail] = useState("");
+    const [message, setMessage] = useState("");
+    const [error, setError] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+
+        //send email to the api for verify and send the otp
+        const response = await fetch("/api/user/forget/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email }),
+        });
+
+        const json = await response.json();
+
+        if (response.ok) {
+            setMessage(json.message);
+            setError("");
+        }
+
+        if (!response.ok) {
+            setError(json.error);
+        }
     };
     return (
         <div className="container container-custom">
@@ -49,6 +69,8 @@ const ForgetPassword = () => {
                 >
                     Request OTP
                 </button>
+                {error && <p className="error-message">{error}</p>}
+                {message && <p className="success-message"> {message} </p>}
             </form>
         </div>
     );

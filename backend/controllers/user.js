@@ -107,7 +107,10 @@ export const userForgetEmailVerify = async (req, res) => {
 
         main().catch(console.error);
 
-        res.status(200).json({ message: "Email sent successfully!" });
+        res.status(200).json({
+            message: "OTP sent successfully!, Check your email.",
+            success: true,
+        });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

@@ -535,3 +535,17 @@ body {
     background-color: #ddd;
     cursor: not-allowed;
 }
+
+/* Error Message */
+.error-message {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Success Message */
+.success-message {
+    color: #226699;
+    text-align: center;
+    margin-top: 20px;
+}
