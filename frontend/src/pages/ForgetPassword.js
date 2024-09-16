@@ -77,7 +77,7 @@ const ForgetPassword = () => {
                 {error && <p className="error-message">{error}</p>}
                 {message && <p className="success-message"> {message} </p>}
             </form>
-            {message && <OTPsentForm />}
+            {message && <OTPsentForm email={email} />}
         </div>
     );
 };

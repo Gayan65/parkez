@@ -133,7 +133,7 @@ export const verifyOTP = async (req, res) => {
         // Check if OTP has expired
         if (Date.now() > expiresAt) {
             delete otpStore[email]; // Remove expired OTP
-            return res.status(400).json({ message: "OTP has expired" });
+            return res.status(400).json({ error: "OTP has expired" });
         }
 
         // Verify the OTP
@@ -143,9 +143,9 @@ export const verifyOTP = async (req, res) => {
             await User.deleteOne({ email: email }); //delete user from the db
             return res
                 .status(200)
-                .json({ message: "OTP verified successfully" });
+                .json({ message: "OTP verified successfully", success: true });
         } else {
-            return res.status(400).json({ message: "Invalid OTP" });
+            return res.status(400).json({ error: "Invalid OTP" });
         }
     } catch (error) {
         res.status(400).json({ error: error.message });

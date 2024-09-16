@@ -491,7 +491,7 @@ body {
 }
 
 .link-contact:hover {
-    color: #1d5986;
+    color: #ffa500 !important;
     text-decoration: underline;
 }
 
