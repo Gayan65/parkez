@@ -5,7 +5,7 @@ const ForgetPassword = () => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
-    const [success, setSuccess] = useState(false);
+    const [success, setSuccess] = useState(false); //use to trigger the disable for the input and button
 
     const handleSubmit = async (e) => {
         e.preventDefault();
