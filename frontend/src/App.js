@@ -16,6 +16,7 @@ import ParkRequest from "./pages/ParkRequest";
 import Footer from "./components/Footer";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import ForgetPassword from "./pages/ForgetPassword";
 
 function App() {
     //user object
@@ -29,6 +30,10 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/about" element={<About />} />
                     <Route path="/contact" element={<Contact />} />
+                    <Route
+                        path="/forget_password"
+                        element={<ForgetPassword />}
+                    />
                     <Route
                         path="/login"
                         element={!user ? <Login /> : <Navigate to={"/"} />}

@@ -459,4 +459,38 @@ body {
     margin-right: 10px;
 }
 
-/*reservation form*/
+/*Forget password */
+.container-custom {
+    background-color: #fff;
+    color: #226699;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 50px auto;
+}
+
+.header {
+    color: #226699;
+}
+
+.paragraph {
+    margin: 0 0 10px;
+}
+
+.list {
+    margin: 0 0 10px;
+    padding-left: 20px;
+}
+
+.link-contact {
+    color: #226699 !important;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.link-contact:hover {
+    color: #1d5986;
+    text-decoration: underline;
+}

@@ -52,7 +52,7 @@ const Login = () => {
                     >
                         Login
                     </button>
-                    <Link to={"/"}>Forget password</Link>
+                    <Link to={"/forget_password"}>Forget password</Link>
                 </form>
                 {error && <p> {error} </p>}
             </div>
