@@ -12,7 +12,7 @@ const ParkingLotDetailsRadio = ({ lot, status, i, onSelect, disable }) => {
                 onChange={onSelect}
                 disabled={disable}
             />
-            <label className="btn btn-outline-primary" htmlFor={i}>
+            <label className="btn-outline-primary-parking" htmlFor={i}>
                 {lot}, {status}
             </label>
         </div>

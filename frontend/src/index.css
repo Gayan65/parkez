@@ -666,3 +666,69 @@ body {
 .custom-btn {
     width: auto !important;
 }
+
+/* Parking Slot Button Styling */
+.parking-slot-btn {
+    display: none; /* Hide default radio button */
+}
+
+/* Styled Button for Parking Slot */
+.btn-outline-primary-parking {
+    position: relative; /* To allow positioning of the car image */
+    display: inline-block;
+    width: 100px; /* Width to resemble a parking slot */
+    height: 150px; /* Height to resemble a parking slot */
+    padding: 10px; /* Padding inside the slot */
+    border: 4px solid #226699; /* Thicker border to resemble parking slot outline */
+    border-radius: 0; /* No rounded corners, sharp rectangular edges */
+    color: #226699; /* Text color */
+    background-color: transparent; /* Transparent background */
+    text-align: center; /* Center text */
+    font-size: 16px; /* Larger text size */
+    font-weight: bold; /* Bold font for visibility */
+    cursor: pointer; /* Pointer cursor */
+    margin: 10px; /* Space between parking slots */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+/* Hover and Focus State */
+.btn-outline-primary-parking:hover,
+.btn-outline-primary-parking:focus {
+    background-color: #226699; /* Background on hover/focus */
+    color: #fff; /* Text color when hovered */
+    transform: scale(1.05); /* Slight grow effect */
+}
+
+/* Selected (Checked) State */
+.parking-slot-btn:checked + .btn-outline-primary-parking {
+    background-color: #a1c5e0; /* Lighter color when selected */
+    color: #fff; /* Text color when selected */
+    border-color: #a1c5e0; /* Border color matching selection */
+}
+
+/* Assigned Status State */
+.btn-outline-primary-parking.assigned {
+    background-color: #ffbd59; /* Background when assigned */
+    color: #fff; /* Text color when assigned */
+    border-color: #ffbd59; /* Border color when assigned */
+    position: relative; /* Required to overlay the car image */
+}
+
+/* Car Image Overlay for Assigned Parking */
+.btn-outline-primary-parking.assigned::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the image on the button */
+    width: 60px; /* Adjust width according to the car image */
+    height: auto; /* Maintain aspect ratio */
+    opacity: 0.7; /* Optional: make the car semi-transparent */
+}
+
+/* Disabled State */
+.btn-outline-primary-parking:disabled {
+    background-color: #ddd; /* Gray background for disabled */
+    color: #999; /* Text color for disabled */
+    border-color: #ddd; /* Border color for disabled */
+    cursor: not-allowed; /* Disabled cursor */
+}

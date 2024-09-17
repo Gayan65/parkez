@@ -8,137 +8,137 @@ import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
 import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
 
 const ParkingSelect = () => {
-  const location = useLocation();
+    const location = useLocation();
 
-  //fetch all parking lots
-  const fetchAllParking = async () => {
-    const response = await fetch(`/api/park/${building.id}`);
-    const json = await response.json();
+    //fetch all parking lots
+    const fetchAllParking = async () => {
+        const response = await fetch(`/api/park/${building.id}`);
+        const json = await response.json();
 
-    if (response.ok) {
-      park_dispatch({ type: "SET_PARKS", payload: json });
-    }
-  };
-
-  //get user context
-  const { user } = useAuthContext();
-  const { parks, park_dispatch } = useParkLotContext();
-  const { parking_request_dispatch } = useParkingRequestContext();
-
-  //accessing the state via location
-  const { building, apartment, room, requestComment } = location.state;
-
-  //states for select parking lots
-  const [selectParkingLot, setSelectParkingLot] = useState({
-    _id: "",
-    number: "",
-    status: "",
-  });
-
-  useEffect(() => {
-    fetchAllParking();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [park_dispatch, building]);
-
-  //passes multiple values and set via the function
-  const handleSelectChange = (_id, number, status) => {
-    setSelectParkingLot({ _id, number, status });
-  };
-
-  const handleClick = async () => {
-    //selected parking lot details triggered
-    console.log("request btn clicked");
-    console.log(selectParkingLot.number);
-
-    //parking request object
-    const parkingRequest = {
-      user: user.email,
-      building: `${building.name} ${building.number}`,
-      apartment: apartment,
-      room: room,
-      parkingLot: selectParkingLot.number,
-      parkingLot_id: selectParkingLot._id,
-      status: "initiate",
-      comments: "",
-      requestComment: requestComment,
+        if (response.ok) {
+            park_dispatch({ type: "SET_PARKS", payload: json });
+        }
     };
 
-    //this obj send to the api to create parking request
-    const response = await fetch("/api/park_request/", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(parkingRequest),
+    //get user context
+    const { user } = useAuthContext();
+    const { parks, park_dispatch } = useParkLotContext();
+    const { parking_request_dispatch } = useParkingRequestContext();
+
+    //accessing the state via location
+    const { building, apartment, room, requestComment } = location.state;
+
+    //states for select parking lots
+    const [selectParkingLot, setSelectParkingLot] = useState({
+        _id: "",
+        number: "",
+        status: "",
     });
 
-    //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
-    const parkLotUpdateResponse = await fetch(
-      `/api/park/${selectParkingLot._id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ status: "pending", user: user.email }),
-      }
-    );
+    useEffect(() => {
+        fetchAllParking();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [park_dispatch, building]);
 
-    if (parkLotUpdateResponse.ok) {
-      fetchAllParking();
-    }
+    //passes multiple values and set via the function
+    const handleSelectChange = (_id, number, status) => {
+        setSelectParkingLot({ _id, number, status });
+    };
 
-    const json = await response.json();
+    const handleClick = async () => {
+        //selected parking lot details triggered
+        console.log("request btn clicked");
+        console.log(selectParkingLot.number);
 
-    if (response.ok) {
-      parking_request_dispatch({
-        type: "CREATE_PARKING_REQUEST",
-        payload: json,
-      });
-      console.log("parking request added successful!");
-    }
+        //parking request object
+        const parkingRequest = {
+            user: user.email,
+            building: `${building.name} ${building.number}`,
+            apartment: apartment,
+            room: room,
+            parkingLot: selectParkingLot.number,
+            parkingLot_id: selectParkingLot._id,
+            status: "initiate",
+            comments: "",
+            requestComment: requestComment,
+        };
 
-    //selected parking lot should be emended as pending
-  };
-  return (
-    <div>
-      Parking select Building{building.name} {building.number}, Apartment
-      {apartment}, Room{room}
-      <div className="container text-center">
-        <div
-          className="row row-cols-3 btn-group"
-          role="group"
-          aria-label="Basic radio toggle button group"
-        >
-          {parks &&
-            parks.map((parkingLot, i) => (
-              <ParkingLotDetailsRadio
-                key={parkingLot._id}
-                lot={parkingLot.lot}
-                status={parkingLot.status}
-                i={i}
-                disable={
-                  parkingLot.status === "pending" ||
-                  (parkingLot.status === "assigned" && true) // radio button disable according to the status of the parking lot
-                }
-                onSelect={() =>
-                  handleSelectChange(
-                    parkingLot._id,
-                    parkingLot.lot,
-                    parkingLot.status
-                  )
-                }
-              />
-            ))}
+        //this obj send to the api to create parking request
+        const response = await fetch("/api/park_request/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(parkingRequest),
+        });
+
+        //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
+        const parkLotUpdateResponse = await fetch(
+            `/api/park/${selectParkingLot._id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ status: "pending", user: user.email }),
+            }
+        );
+
+        if (parkLotUpdateResponse.ok) {
+            fetchAllParking();
+        }
+
+        const json = await response.json();
+
+        if (response.ok) {
+            parking_request_dispatch({
+                type: "CREATE_PARKING_REQUEST",
+                payload: json,
+            });
+            console.log("parking request added successful!");
+        }
+
+        //selected parking lot should be emended as pending
+    };
+    return (
+        <div className="container other-form">
+            Parking select Building{building.name} {building.number}, Apartment
+            {apartment}, Room{room}
+            <div className="container text-center">
+                <div
+                    className="row row-cols-5 btn-group"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                >
+                    {parks &&
+                        parks.map((parkingLot, i) => (
+                            <ParkingLotDetailsRadio
+                                key={parkingLot._id}
+                                lot={parkingLot.lot}
+                                status={parkingLot.status}
+                                i={i}
+                                disable={
+                                    parkingLot.status === "pending" ||
+                                    (parkingLot.status === "assigned" && true) // radio button disable according to the status of the parking lot
+                                }
+                                onSelect={() =>
+                                    handleSelectChange(
+                                        parkingLot._id,
+                                        parkingLot.lot,
+                                        parkingLot.status
+                                    )
+                                }
+                            />
+                        ))}
+                </div>
+            </div>
+            <button
+                className="btn btn-primary custom-btn mb-5"
+                onClick={handleClick}
+                disabled={!selectParkingLot._id && true} //button get activated once the selection has been made
+            >
+                Request for parking
+            </button>
         </div>
-      </div>
-      <button
-        className="btn btn-primary"
-        onClick={handleClick}
-        disabled={!selectParkingLot._id && true} //button get activated once the selection has been made
-      >
-        Request
-      </button>
-    </div>
-  );
+    );
 };
 
 export default ParkingSelect;
