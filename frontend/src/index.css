@@ -707,7 +707,7 @@ body {
 }
 
 /* Assigned Status State */
-.btn-outline-primary-parking.assigned {
+.btn-outline-primary-parking.assign {
     background-color: #ffbd59; /* Background when assigned */
     color: #fff; /* Text color when assigned */
     border-color: #ffbd59; /* Border color when assigned */
@@ -715,7 +715,7 @@ body {
 }
 
 /* Car Image Overlay for Assigned Parking */
-.btn-outline-primary-parking.assigned::after {
+.btn-outline-primary-parking.assign::after {
     position: absolute;
     top: 50%;
     left: 50%;
