@@ -47,15 +47,15 @@ const HomeUserForm = () => {
 
     return (
         <div className=" container ">
-            <form onSubmit={handleSubmit}>
-                <h2>Make a reservation</h2>
-                <p>
+            <form onSubmit={handleSubmit} className="other-form">
+                <h3 className="header mt-3">Make a reservation</h3>
+                <p className="paragraph">
                     In this section, you can fill all your information and make
                     a reservation for a parking slot.{" "}
                 </p>
                 <div className="row">
-                    <div className="col-md-6 mb-3">
-                        <label className="form-label">
+                    <div className="col-md-4 mb-3">
+                        <label className="form-label label">
                             Select your location{" "}
                         </label>
                         <select
@@ -77,8 +77,8 @@ const HomeUserForm = () => {
                         </select>
                     </div>
 
-                    <div className="col-md-6 mb-3">
-                        <label className="form-label">
+                    <div className="col-md-4 mb-3">
+                        <label className="form-label label">
                             Add your apartment number
                         </label>
                         <input
@@ -90,34 +90,38 @@ const HomeUserForm = () => {
                             onChange={(e) => setApartment(e.target.value)}
                         />
                     </div>
-                </div>
-                <div className="mb-3">
-                    <label className="form-label">
-                        Add your room number (if any)
-                    </label>
-                    <input
-                        type="number"
-                        className="form-control"
-                        placeholder="room number"
-                        value={room}
-                        onChange={(e) => setRoom(e.target.value)}
-                    />
+
+                    <div className="col-md-4 mb-3">
+                        <label className="form-label label">
+                            Add your room number (if any)
+                        </label>
+                        <input
+                            type="number"
+                            className="form-control"
+                            placeholder="room number"
+                            value={room}
+                            onChange={(e) => setRoom(e.target.value)}
+                        />
+                    </div>
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label">
+                    <label className="form-label label">
                         Add your request, if you have a parking already
                     </label>
                     <textarea
                         className="form-control"
-                        rows="2"
+                        rows="4"
                         onChange={(e) => setRequestComment(e.target.value)}
                     ></textarea>
                 </div>
 
-                <div className="mb-3">
-                    <button type="submit" className="btn btn-primary">
-                        Look for available slots
+                <div className="mb-5">
+                    <button
+                        type="submit"
+                        className="btn btn-primary custom-btn"
+                    >
+                        Search Parking
                     </button>
                 </div>
             </form>

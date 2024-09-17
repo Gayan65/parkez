@@ -476,6 +476,7 @@ body {
 
 .paragraph {
     margin: 0 0 10px;
+    color: #226699;
 }
 
 .list {
@@ -598,4 +599,69 @@ body {
 .otp-form .btn:disabled {
     background-color: #ddd;
     cursor: not-allowed;
+}
+
+/* Select Field Styling */
+.other-form .form-select {
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Similar padding to input fields */
+    border: 1px solid #ddd; /* Same border style */
+    color: #226699; /* Text color */
+    transition: border-color 0.3s ease; /* Smooth transition */
+    appearance: none; /* Removes default arrow for uniform styling */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'><path%20fill='%23226699'%20d='M2%200%200%202h4L2%200z'/><path%20fill='%23ffbd59'%20d='M2%205l2-2H0l2%202z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px;
+}
+
+/* Select Field Styling */
+.other-form .form-select {
+    border-radius: 5px; /* Rounded corners */
+    padding: 10px 20px; /* Same padding as inputs */
+    border: 1px solid #ddd; /* Same border style */
+    color: #226699; /* Text color matching the theme */
+    transition: border-color 0.3s ease; /* Smooth transition */
+    appearance: none; /* Removes default arrow */
+    background-color: #fff0d5; /* Light background matching your theme */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%204%205'><path%20fill='%23226699'%20d='M2%200%200%202h4L2%200z'/><path%20fill='%23ffbd59'%20d='M2%205l2-2H0l2%202z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 12px;
+}
+
+/* Focused state */
+.other-form .form-select:focus {
+    border-color: #ffbd59; /* Focus border color matching the theme */
+    box-shadow: 0 0 5px rgba(255, 189, 89, 0.5); /* Soft glow on focus */
+    outline: none;
+    background-color: #fff; /* Lighter background on focus */
+}
+
+/* Optional: Hover state to match buttons */
+.other-form .form-select:hover {
+    border-color: #ffbd59; /* Change border on hover */
+}
+
+/* Styling options (Works in some browsers like Firefox) */
+.other-form .form-select option {
+    background-color: #fff0d5; /* Default background for options */
+    color: #226699; /* Text color */
+}
+
+/* Option hover effect (Limited browser support) */
+.other-form .form-select option:hover {
+    background-color: #ffbd59; /* Hover background color for options */
+    color: #fff; /* Text color on hover */
+}
+
+/* Option selected effect */
+.other-form .form-select option:checked,
+.other-form .form-select option:focus {
+    background-color: #226699; /* Selected option background color */
+    color: #fff; /* Text color for selected */
+}
+
+.custom-btn {
+    width: auto !important;
 }
