@@ -688,6 +688,9 @@ body {
     font-weight: bold; /* Bold font for visibility */
     cursor: pointer; /* Pointer cursor */
     margin: 10px; /* Space between parking slots */
+    background-image: url("../src/assets/img/LandingLogo.png"); /* Set the image NEW*/
+    background-size: cover; /* Ensure the image covers the entire button NEW*/
+    background-position: center; /*NEW*/
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
