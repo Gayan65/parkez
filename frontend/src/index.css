@@ -744,3 +744,12 @@ body {
     border: 2px solid #a1c5e09d; /* Thicker border to resemble parking slot outline */
     border-radius: 5px;
 }
+
+.btn-outline-primary-parking-pending {
+    background-image: url("../src/assets/img/PendingStamp.png"); /* Set the image NEW*/
+    pointer-events: none; /*Disable hover effects*/
+    cursor: not-allowed; /* Show a 'disabled' cursor */
+    background-color: #fff0d59c;
+    border: 2px solid #ffbd5994; /* Thicker border to resemble parking slot outline */
+    border-radius: 5px;
+}

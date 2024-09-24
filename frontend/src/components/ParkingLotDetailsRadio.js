@@ -1,6 +1,21 @@
 import React from "react";
 
 const ParkingLotDetailsRadio = ({ lot, status, i, onSelect, disable }) => {
+    const getClassForStatus = () => {
+        switch (status) {
+            case "assign":
+                return "btn-outline-primary-parking btn-outline-primary-parking-reserved"; // Reserved status style
+            case "pending":
+                return "btn-outline-primary-parking btn-outline-primary-parking-pending"; // Available status style
+            case "unavailable":
+                return "btn-outline-primary-parking btn-outline-primary-parking-unavailable"; // Unavailable style
+            case "maintenance":
+                return "btn-outline-primary-parking btn-outline-primary-parking-maintenance"; // Maintenance style
+            default:
+                return "btn-outline-primary-parking"; // Default button style
+        }
+    };
+
     return (
         <div>
             <input
@@ -12,14 +27,7 @@ const ParkingLotDetailsRadio = ({ lot, status, i, onSelect, disable }) => {
                 onChange={onSelect}
                 disabled={disable}
             />
-            <label
-                className={
-                    status === "assign"
-                        ? "btn-outline-primary-parking btn-outline-primary-parking-reserved"
-                        : "btn-outline-primary-parking"
-                }
-                htmlFor={i}
-            >
+            <label className={getClassForStatus()} htmlFor={i}>
                 {lot}, {status}
             </label>
         </div>
