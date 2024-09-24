@@ -100,11 +100,21 @@ const ParkingSelect = () => {
     };
     return (
         <div className="container other-form custom-from-center">
-            Parking select Building{building.name} {building.number}, Apartment
-            {apartment}, Room{room}
-            <div className="container text-center mb-5">
+            <h3 className="header mt-3">Select a reservation</h3>
+            {/* This you can access  Parking select Building{building.name} {building.number}, Apartment
+            {apartment}, Room{room}*/}
+            <p className="paragraph text-center">
+                As per your selection, you are looking for parking in{" "}
+                {building.name} {building.number}. Please note that pending,
+                maintenance, and reserved parking slots cannot be reserved. You
+                can only make a reservation for available free slots. After you
+                make a reservation, it will require approval from the
+                authorities, which may take some time. Once a decision has been
+                reached, we will notify you via email at {user && user.email}.
+            </p>
+            <div className="container text-center mb-3">
                 <div
-                    className="row row-cols-5 btn-group mt-5"
+                    className="row row-cols-5 btn-group mt-3"
                     role="group"
                     aria-label="Basic radio toggle button group"
                 >

@@ -766,6 +766,7 @@ body {
 }
 
 .custom-from-center {
+    color: #226699;
     display: flex; /* Enables Flexbox layout */
     justify-content: center; /* Centers horizontally */
     align-items: center; /* Centers vertically */
