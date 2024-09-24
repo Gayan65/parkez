@@ -675,7 +675,11 @@ body {
 /* Styled Button for Parking Slot */
 .btn-outline-primary-parking {
     position: relative; /* To allow positioning of the car image */
-    display: inline-block;
+    display: inline-flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Align items vertically */
+    justify-content: flex-end; /* Align text at the bottom */
+    align-items: center; /* Center the text horizontally */
+
     width: 100px; /* Width to resemble a parking slot */
     height: 150px; /* Height to resemble a parking slot */
     padding: 10px; /* Padding inside the slot */
@@ -683,30 +687,30 @@ body {
     border-radius: 0; /* No rounded corners, sharp rectangular edges */
     color: #226699; /* Text color */
     background-color: transparent; /* Transparent background */
-    text-align: center; /* Center text */
     font-size: 16px; /* Larger text size */
     font-weight: bold; /* Bold font for visibility */
     cursor: pointer; /* Pointer cursor */
     margin: 10px; /* Space between parking slots */
 
-    background-size: cover; /* Ensure the image covers the entire button NEW*/
-    background-position: center; /*NEW*/
+    background-size: cover; /* Ensure the image covers the entire button */
+    background-position: center; /* Ensure the image is centered */
+    text-align: center; /* Center text horizontally */
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
 }
 
 /* Hover and Focus State */
 .btn-outline-primary-parking:hover,
 .btn-outline-primary-parking:focus {
-    background-color: #226699; /* Background on hover/focus */
+    background-color: #ffbd59; /* Background on hover/focus */
     color: #fff; /* Text color when hovered */
     transform: scale(1.05); /* Slight grow effect */
 }
 
 /* Selected (Checked) State */
 .parking-slot-btn:checked + .btn-outline-primary-parking {
-    background-color: #a1c5e0; /* Lighter color when selected */
+    background-color: #ffbd59; /* Lighter color when selected */
     color: #fff; /* Text color when selected */
-    border-color: #a1c5e0; /* Border color matching selection */
+    border-color: #226699; /* Border color matching selection */
 }
 
 /* Assigned Status State */
@@ -749,14 +753,14 @@ body {
     background-image: url("../src/assets/img/PendingStamp.png"); /* Set the image NEW*/
     pointer-events: none; /*Disable hover effects*/
     cursor: not-allowed; /* Show a 'disabled' cursor */
-    background-color: #fff0d59c;
-    border: 2px solid #ffbd5994; /* Thicker border to resemble parking slot outline */
+    background-color: #a1c5e080;
+    border: 2px solid #a1c5e09d; /* Thicker border to resemble parking slot outline */
     border-radius: 5px;
 }
 
 .btn-outline-primary-parking-active {
     background-image: url("../src/assets/img/AvailableStamp.png"); /* Set the image NEW*/
-    background-color: #19800e4d;
-    border: 2px solid #19800e; /* Thicker border to resemble parking slot outline */
+    background-color: #fff0d59c;
+    border: 2px solid #ffbd5994; /* Thicker border to resemble parking slot outline */
     border-radius: 5px;
 }

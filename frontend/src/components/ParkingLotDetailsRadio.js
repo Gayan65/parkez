@@ -28,7 +28,7 @@ const ParkingLotDetailsRadio = ({ lot, status, i, onSelect, disable }) => {
                 disabled={disable}
             />
             <label className={getClassForStatus()} htmlFor={i}>
-                {lot}, {status}
+                {lot}
             </label>
         </div>
     );
