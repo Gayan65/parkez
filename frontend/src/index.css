@@ -738,4 +738,6 @@ body {
 
 .btn-outline-primary-parking-reserved {
     background-image: url("../src/assets/img/ReservedStamp.png"); /* Set the image NEW*/
+    pointer-events: none; /*Disable hover effects*/
+    cursor: not-allowed; /* Show a 'disabled' cursor */
 }
