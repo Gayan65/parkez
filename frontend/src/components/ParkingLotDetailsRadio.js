@@ -7,8 +7,8 @@ const ParkingLotDetailsRadio = ({ lot, status, i, onSelect, disable }) => {
                 return "btn-outline-primary-parking btn-outline-primary-parking-reserved"; // Reserved status style
             case "pending":
                 return "btn-outline-primary-parking btn-outline-primary-parking-pending"; // Available status style
-            case "unavailable":
-                return "btn-outline-primary-parking btn-outline-primary-parking-unavailable"; // Unavailable style
+            case "active":
+                return "btn-outline-primary-parking btn-outline-primary-parking-active"; // Unavailable style
             case "maintenance":
                 return "btn-outline-primary-parking btn-outline-primary-parking-maintenance"; // Maintenance style
             default:
@@ -27,9 +27,7 @@ const ParkingLotDetailsRadio = ({ lot, status, i, onSelect, disable }) => {
                 onChange={onSelect}
                 disabled={disable}
             />
-            <label className={getClassForStatus()} htmlFor={i}>
-                {lot}, {status}
-            </label>
+            <label className={getClassForStatus()} htmlFor={i}></label>
         </div>
     );
 };

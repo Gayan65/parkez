@@ -753,3 +753,10 @@ body {
     border: 2px solid #ffbd5994; /* Thicker border to resemble parking slot outline */
     border-radius: 5px;
 }
+
+.btn-outline-primary-parking-active {
+    background-image: url("../src/assets/img/AvailableStamp.png"); /* Set the image NEW*/
+    background-color: #19800e4d;
+    border: 2px solid #19800e; /* Thicker border to resemble parking slot outline */
+    border-radius: 5px;
+}
