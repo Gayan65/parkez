@@ -99,12 +99,12 @@ const ParkingSelect = () => {
         //selected parking lot should be emended as pending
     };
     return (
-        <div className="container other-form">
+        <div className="container other-form custom-from-center">
             Parking select Building{building.name} {building.number}, Apartment
             {apartment}, Room{room}
-            <div className="container text-center">
+            <div className="container text-center mb-5">
                 <div
-                    className="row row-cols-5 btn-group"
+                    className="row row-cols-5 btn-group mt-5"
                     role="group"
                     aria-label="Basic radio toggle button group"
                 >
@@ -131,7 +131,7 @@ const ParkingSelect = () => {
                 </div>
             </div>
             <button
-                className="btn btn-primary custom-btn mb-5"
+                className="btn btn-primary custom-btn"
                 onClick={handleClick}
                 disabled={!selectParkingLot._id && true} //button get activated once the selection has been made
             >

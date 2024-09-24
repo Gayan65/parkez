@@ -667,7 +667,7 @@ body {
     width: auto !important;
 }
 
-/* Parking Slot Button Styling */
+/*-------------- Parking Slot Button Styling ------------------*/
 .parking-slot-btn {
     display: none; /* Hide default radio button */
 }
@@ -763,4 +763,16 @@ body {
     background-color: #fff0d59c;
     border: 2px solid #ffbd5994; /* Thicker border to resemble parking slot outline */
     border-radius: 5px;
+}
+
+.custom-from-center {
+    display: flex; /* Enables Flexbox layout */
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 60vh; /* Full height of the viewport */
+    width: 100%; /* Full width of the container */
+    position: relative; /* Keeps the element within its container */
+    flex-direction: column; /* Ensures content is stacked vertically */
+    padding: 20px; /* Optional: adds some padding */
+    box-sizing: border-box; /* Ensures padding is included in element's total width and height */
 }
