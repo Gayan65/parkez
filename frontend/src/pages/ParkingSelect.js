@@ -117,7 +117,7 @@ const ParkingSelect = () => {
                                 i={i}
                                 disable={
                                     parkingLot.status === "pending" ||
-                                    (parkingLot.status === "assigned" && true) // radio button disable according to the status of the parking lot
+                                    (parkingLot.status === "assign" && true) // radio button disable according to the status of the parking lot
                                 }
                                 onSelect={() =>
                                     handleSelectChange(
