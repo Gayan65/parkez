@@ -71,6 +71,14 @@ const NavBar = () => {
                                 </Link>
                             )}
                         </li>
+
+                        <li className="nav-item">
+                            {user && user.admin && (
+                                <Link className="nav-link active" to={"/tasks"}>
+                                    Tasks
+                                </Link>
+                            )}
+                        </li>
                         <li className="nav-item">
                             {user && (
                                 <Link

@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import ForgetPassword from "./pages/ForgetPassword";
+import Tasks from "./pages/admin/Tasks";
 
 function App() {
     //user object
@@ -57,6 +58,16 @@ function App() {
                         element={
                             user && user.admin ? (
                                 <BuildingDetails />
+                            ) : (
+                                <Navigate to={"/"} />
+                            )
+                        }
+                    />
+                    <Route
+                        path="/tasks"
+                        element={
+                            user && user.admin ? (
+                                <Tasks />
                             ) : (
                                 <Navigate to={"/"} />
                             )
