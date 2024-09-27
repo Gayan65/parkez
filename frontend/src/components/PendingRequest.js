@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
 import ParkingRequestDetail from "./ParkingRequestDetail";
 
-const PendingRequest = () => {
+const PendingRequest = ({ totalNotifications }) => {
     //context
     const { parkingRequests, parking_request_dispatch } =
         useParkingRequestContext();
@@ -22,10 +22,26 @@ const PendingRequest = () => {
 
     useEffect(() => {
         fetchAllParkingRequests();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parking_request_dispatch]);
 
     console.log(parkingRequests);
+
+    //Filter parking requests by status "initiate"
+    const pendingRequests = parkingRequests?.filter(
+        (parkingRequest) => parkingRequest.status === "initiate"
+    );
+
+    //Calculate total number of pending requests
+    const totalPendingRequests = pendingRequests ? pendingRequests.length : 0;
+
+    // Separate effect to update totalNotifications
+    useEffect(() => {
+        if (typeof totalNotifications === "function") {
+            totalNotifications(totalPendingRequests);
+        }
+    }, [totalPendingRequests, totalNotifications]);
 
     //Created handleStatusChange to update the status and re-fetch the list
     const handleStatusChange = async (
@@ -63,26 +79,22 @@ const PendingRequest = () => {
     };
     return (
         <div className="container">
-            {parkingRequests &&
-                parkingRequests
-                    .filter(
-                        (parkingRequest) => parkingRequest.status === "initiate"
-                    ) //added to filter according to the status of the parking request
-                    .map((parkingRequest) => (
-                        <ParkingRequestDetail
-                            key={parkingRequest._id}
-                            requestId={parkingRequest._id}
-                            email={parkingRequest.user}
-                            building={parkingRequest.building}
-                            apartment={parkingRequest.apartment}
-                            room={parkingRequest.room}
-                            parkingLot={parkingRequest.parkingLot}
-                            parkingLot_id={parkingRequest.parkingLot_id}
-                            requestedDate={parkingRequest.createdAt}
-                            requestComment={parkingRequest.requestComment}
-                            onStatusChange={handleStatusChange}
-                        />
-                    ))}
+            {pendingRequests &&
+                pendingRequests.map((parkingRequest, i) => (
+                    <ParkingRequestDetail
+                        key={parkingRequest._id}
+                        requestId={parkingRequest._id}
+                        email={parkingRequest.user}
+                        building={parkingRequest.building}
+                        apartment={parkingRequest.apartment}
+                        room={parkingRequest.room}
+                        parkingLot={parkingRequest.parkingLot}
+                        parkingLot_id={parkingRequest.parkingLot_id}
+                        requestedDate={parkingRequest.createdAt}
+                        requestComment={parkingRequest.requestComment}
+                        onStatusChange={handleStatusChange}
+                    />
+                ))}
         </div>
     );
 };
