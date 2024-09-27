@@ -814,3 +814,8 @@ body {
 .nav-custom {
     font-style: italic;
 }
+
+/*Notification badge */
+.custom-badge {
+    margin-left: 110%;
+}
