@@ -785,8 +785,32 @@ body {
     --bs-nav-tabs-border-radius: var(--bs-border-radius);
     --bs-nav-tabs-link-hover-border-color: #226699 #226699 #226699;
     --bs-nav-tabs-link-active-color: var(--bs-emphasis-color);
-    --bs-nav-tabs-link-active-bg: #fff0d5;
+    --bs-nav-tabs-link-active-bg: #fff0d569;
     --bs-nav-tabs-link-active-border-color: #ffbd59 #ffbd59 var(--bs-body-bg);
     border-bottom: var(--bs-nav-tabs-border-width) solid
         var(--bs-nav-tabs-border-color);
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #226699;
+
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-link {
+    color: #ffa500;
+
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-link:focus,
+.nav-link:hover {
+    color: #ffbd59;
+
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-custom {
+    font-style: italic;
 }

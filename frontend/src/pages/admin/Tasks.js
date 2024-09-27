@@ -12,10 +12,10 @@ const Tasks = () => {
     return (
         <div className="container mt-4">
             {/* Nav tabs */}
-            <ul className="nav nav-tabs" role="tablist">
+            <ul className="nav nav-tabs nav-custom" role="tablist">
                 <li className="nav-item" role="presentation">
                     <button
-                        className={`nav-link ${
+                        className={`nav-link nav-custom ${
                             activeTab === "assign" ? "active" : ""
                         }`}
                         onClick={() => setActiveTab("assign")}
@@ -27,7 +27,7 @@ const Tasks = () => {
                 </li>
                 <li className="nav-item" role="presentation">
                     <button
-                        className={`nav-link ${
+                        className={`nav-link nav-custom ${
                             activeTab === "unassign" ? "active" : ""
                         }`}
                         onClick={() => setActiveTab("unassign")}
