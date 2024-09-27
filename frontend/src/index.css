@@ -777,3 +777,16 @@ body {
     padding: 20px; /* Optional: adds some padding */
     box-sizing: border-box; /* Ensures padding is included in element's total width and height */
 }
+
+/*Task tab css */
+.nav-tabs {
+    --bs-nav-tabs-border-width: var(--bs-border-width);
+    --bs-nav-tabs-border-color: #ffbd59;
+    --bs-nav-tabs-border-radius: var(--bs-border-radius);
+    --bs-nav-tabs-link-hover-border-color: #226699 #226699 #226699;
+    --bs-nav-tabs-link-active-color: var(--bs-emphasis-color);
+    --bs-nav-tabs-link-active-bg: #fff0d5;
+    --bs-nav-tabs-link-active-border-color: #ffbd59 #ffbd59 var(--bs-body-bg);
+    border-bottom: var(--bs-nav-tabs-border-width) solid
+        var(--bs-nav-tabs-border-color);
+}

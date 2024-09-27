@@ -10,7 +10,7 @@ const Tasks = () => {
     const [activeTab, setActiveTab] = useState("assign");
 
     return (
-        <div className="container">
+        <div className="container mt-4">
             {/* Nav tabs */}
             <ul className="nav nav-tabs" role="tablist">
                 <li className="nav-item" role="presentation">
