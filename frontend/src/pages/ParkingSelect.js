@@ -9,6 +9,10 @@ import { useTaskContext } from "../hooks/useTaskContext";
 import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
 import Loader from "../components/Loader";
 
+//toastify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const ParkingSelect = () => {
     const location = useLocation();
 
@@ -139,7 +143,8 @@ const ParkingSelect = () => {
                 type: "CREATE_PARKING_REQUEST",
                 payload: json,
             });
-            console.log("parking request added successful!");
+
+            toast("Parking reservation request sent successfully !");
 
             numberOfTasks();
             fetchDuplicateParking();
@@ -204,6 +209,7 @@ const ParkingSelect = () => {
                 Request for parking
             </button>
             {loader && <Loader />}
+            <ToastContainer />
         </div>
     );
 };
