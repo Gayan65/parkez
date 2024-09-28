@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useParkingUnassignRequestContext } from "../hooks/useParkingUnassignRequestContext";
+import { useTaskContext } from "../hooks/useTaskContext";
 
 const MyParkingDetail = ({
     lot,
@@ -19,6 +20,22 @@ const MyParkingDetail = ({
     const { user } = useAuthContext();
     const { parking_unassign_request_dispatch } =
         useParkingUnassignRequestContext();
+
+    //task count context
+    const { task_dispatch } = useTaskContext();
+
+    //fetch number of tasks
+    const numberOfTasks = async () => {
+        const response = await fetch("/api/tasks");
+        const json = await response.json();
+
+        if (response.ok) {
+            task_dispatch({
+                type: "CREATE_NUMBER_OF_TOTAL_TASKS",
+                payload: json,
+            });
+        }
+    };
 
     useEffect(() => {
         const fetchBuilding = async () => {
@@ -72,6 +89,9 @@ const MyParkingDetail = ({
                 type: "CREATE_PARKING_UNASSIGN_REQUEST",
                 payload: json,
             });
+
+            //calling to make the total tasks
+            numberOfTasks();
         }
 
         console.log("successfully send the request");

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTaskContext } from "../hooks/useTaskContext";
 
 const PendingUnassignRequestDetail = ({
     requestId,
@@ -14,6 +15,22 @@ const PendingUnassignRequestDetail = ({
     onStatusChange, //This function links with PendingRequest.js file. which has two parameters (id, status)
 }) => {
     const [comment, setComment] = useState("");
+
+    //task count context
+    const { task_dispatch } = useTaskContext();
+
+    //fetch number of tasks
+    const numberOfTasks = async () => {
+        const response = await fetch("/api/tasks");
+        const json = await response.json();
+
+        if (response.ok) {
+            task_dispatch({
+                type: "CREATE_NUMBER_OF_TOTAL_TASKS",
+                payload: json,
+            });
+        }
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -32,6 +49,8 @@ const PendingUnassignRequestDetail = ({
                 "active",
                 "" //sending the blank user if it get approved
             );
+            //calling to make the number of tasks
+            numberOfTasks();
         }
 
         //handle decline button
@@ -45,6 +64,8 @@ const PendingUnassignRequestDetail = ({
                 "assign",
                 user //sending the user if it get decline
             );
+            //calling to make the number of tasks
+            numberOfTasks();
         }
     };
     return (

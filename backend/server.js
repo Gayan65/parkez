@@ -29,7 +29,7 @@ app.use("/api/park", parkRouter);
 app.use("/api/building", buildingRouter);
 app.use("/api/park_request", parkRequestRouter);
 app.use("/api/park_unassign_request", parkRequestUnassignRouter);
-app.use("/tasks", tasksRoute);
+app.use("/api/tasks", tasksRoute);
 
 //db connection
 mongoose

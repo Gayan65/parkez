@@ -1,11 +1,33 @@
 import { Link } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useTaskContext } from "../hooks/useTaskContext";
+
 import navLogo from "../assets/img/NavLogo.png";
+import { useEffect } from "react";
 
 const NavBar = () => {
     //get user
     const { user } = useAuthContext();
+
+    //task context
+    const { totalTasks, task_dispatch } = useTaskContext();
+
+    useEffect(() => {
+        //fetch number of tasks
+        const numberOfTasks = async () => {
+            const response = await fetch("/api/tasks");
+            const json = await response.json();
+
+            if (response.ok) {
+                task_dispatch({
+                    type: "SET_NUMBER_OF_TOTAL_TASKS",
+                    payload: json,
+                });
+            }
+        };
+        numberOfTasks();
+    }, [task_dispatch]);
 
     // Extract the first letter of the user's email
     const firstLetter = user?.email?.charAt(0).toUpperCase();
@@ -17,6 +39,7 @@ const NavBar = () => {
         logout();
     };
 
+    //need to add fetch the number of tasks
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar sticky-top">
             <div className="container-fluid">
@@ -75,7 +98,7 @@ const NavBar = () => {
                         <li className="nav-item">
                             {user && user.admin && (
                                 <Link className="nav-link active" to={"/tasks"}>
-                                    Tasks
+                                    Tasks {totalTasks}
                                 </Link>
                             )}
                         </li>

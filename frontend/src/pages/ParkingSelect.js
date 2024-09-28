@@ -3,12 +3,29 @@ import { useLocation } from "react-router-dom";
 import { useParkLotContext } from "../hooks/useParkLotContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
+import { useTaskContext } from "../hooks/useTaskContext";
 
 //components
 import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
 
 const ParkingSelect = () => {
     const location = useLocation();
+
+    //task context
+    const { task_dispatch } = useTaskContext();
+
+    //fetch number of tasks
+    const numberOfTasks = async () => {
+        const response = await fetch("/api/tasks");
+        const json = await response.json();
+
+        if (response.ok) {
+            task_dispatch({
+                type: "CREATE_NUMBER_OF_TOTAL_TASKS",
+                payload: json,
+            });
+        }
+    };
 
     //fetch all parking lots
     const fetchAllParking = async () => {
@@ -94,6 +111,8 @@ const ParkingSelect = () => {
                 payload: json,
             });
             console.log("parking request added successful!");
+
+            numberOfTasks();
         }
 
         //selected parking lot should be emended as pending
