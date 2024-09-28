@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
 
+//components
+import Loader from "../components/Loader";
+
 const HomeUserForm = () => {
     const { buildings, dispatch } = useBuildingsContext();
 
@@ -10,12 +13,14 @@ const HomeUserForm = () => {
     const [apartment, setApartment] = useState("");
     const [room, setRoom] = useState("");
     const [requestComment, setRequestComment] = useState("");
+    const [loader, setLoader] = useState(false);
 
     //navigate to the parking selection page
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchAllBuildings = async () => {
+            setLoader(true);
             // api call to fetch all buildings
             const response = await fetch("/api/building");
 
@@ -23,6 +28,7 @@ const HomeUserForm = () => {
 
             if (response.ok) {
                 dispatch({ type: "SET_BUILDINGS", payload: json });
+                setLoader(false);
             }
         };
 
@@ -38,11 +44,13 @@ const HomeUserForm = () => {
     //sending the data once the form get submitted
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoader(true);
 
         const data = { building, apartment, room, requestComment };
 
         //the data will be set via the form elements
         navigate("/parking_view", { state: data });
+        setLoader(false);
     };
 
     return (
@@ -125,6 +133,7 @@ const HomeUserForm = () => {
                     </button>
                 </div>
             </form>
+            {loader && <Loader />}
         </div>
     );
 };
