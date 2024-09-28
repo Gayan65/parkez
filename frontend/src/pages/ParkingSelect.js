@@ -7,15 +7,20 @@ import { useTaskContext } from "../hooks/useTaskContext";
 
 //components
 import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
+import Loader from "../components/Loader";
 
 const ParkingSelect = () => {
     const location = useLocation();
+
+    //loader
+    const [loader, setLoader] = useState(false);
 
     //task context
     const { task_dispatch } = useTaskContext();
 
     //fetch number of tasks
     const numberOfTasks = async () => {
+        setLoader(true);
         const response = await fetch("/api/tasks");
         const json = await response.json();
 
@@ -28,16 +33,19 @@ const ParkingSelect = () => {
                     pendingUnassignTasks: json.pendingUnassignTasks,
                 },
             });
+            setLoader(false);
         }
     };
 
     //fetch all parking lots
     const fetchAllParking = async () => {
+        setLoader(true);
         const response = await fetch(`/api/park/${building.id}`);
         const json = await response.json();
 
         if (response.ok) {
             park_dispatch({ type: "SET_PARKS", payload: json });
+            setLoader(false);
         }
     };
 
@@ -67,6 +75,7 @@ const ParkingSelect = () => {
     };
 
     const handleClick = async () => {
+        setLoader(true);
         //selected parking lot details triggered
         console.log("request btn clicked");
         console.log(selectParkingLot.number);
@@ -170,6 +179,7 @@ const ParkingSelect = () => {
             >
                 Request for parking
             </button>
+            {loader && <Loader />}
         </div>
     );
 };
