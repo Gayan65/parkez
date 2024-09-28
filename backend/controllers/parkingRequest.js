@@ -64,3 +64,22 @@ export const updateParkingRequest = async (req, res) => {
 
     res.status(200).json(parkingRequest);
 };
+
+//search for pending requests in a same email address
+export const getDuplicatePendingRequests = async (req, res) => {
+    try {
+        const user = req.params.id;
+        const parkingRequests = await ParkingRequest.find({
+            user: user,
+            status: "initiate",
+        });
+        // If there is at least one pending request, return true, otherwise false
+        if (parkingRequests.length > 0) {
+            res.status(200).json(true);
+        } else {
+            res.status(200).json(false);
+        }
+    } catch (error) {
+        res.status(401).json({ error: error.message });
+    }
+};
