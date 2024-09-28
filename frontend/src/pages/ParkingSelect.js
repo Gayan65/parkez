@@ -14,6 +14,7 @@ const ParkingSelect = () => {
 
     //loader
     const [loader, setLoader] = useState(false);
+    const [isDuplicate, setIsDuplicate] = useState(false);
 
     //task context
     const { task_dispatch } = useTaskContext();
@@ -64,8 +65,23 @@ const ParkingSelect = () => {
         status: "",
     });
 
+    //fetch duplicate pending requests
+    const fetchDuplicateParking = async () => {
+        setLoader(true);
+        const response = await fetch(
+            `/api/park_request/duplicate/${user.email}`
+        );
+        const json = await response.json();
+
+        if (response.ok) {
+            setIsDuplicate(json);
+            setLoader(false);
+        }
+    };
+
     useEffect(() => {
         fetchAllParking();
+        fetchDuplicateParking();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [park_dispatch, building]);
 
@@ -126,6 +142,7 @@ const ParkingSelect = () => {
             console.log("parking request added successful!");
 
             numberOfTasks();
+            fetchDuplicateParking();
         }
 
         //selected parking lot should be emended as pending
@@ -144,6 +161,13 @@ const ParkingSelect = () => {
                 authorities, which may take some time. Once a decision has been
                 reached, we will notify you via email at {user && user.email}.
             </p>
+            {isDuplicate && (
+                <p className="paragraph text-center">
+                    There is currently a pending parking request associated with
+                    your email {user && user.email}. You cannot submit a new
+                    request until the existing one is resolved.
+                </p>
+            )}
             <div className="container text-center mb-3">
                 <div
                     className="row row-cols-5 btn-group mt-3"
@@ -175,7 +199,7 @@ const ParkingSelect = () => {
             <button
                 className="btn btn-primary custom-btn"
                 onClick={handleClick}
-                disabled={!selectParkingLot._id && true} //button get activated once the selection has been made
+                disabled={!selectParkingLot._id || isDuplicate} //button get activated once the selection has been made
             >
                 Request for parking
             </button>
