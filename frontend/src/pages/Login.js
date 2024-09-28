@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [loader, setLoader] = useState(false);
 
     const { login, error, loading } = useLogin();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoader(true);
         //call the login function
         await login(email, password);
-
+        setLoader(false);
         setEmail("");
         setPassword("");
     };
@@ -56,6 +59,7 @@ const Login = () => {
                 </form>
                 {error && <p> {error} </p>}
             </div>
+            {loader && <Loader />}
         </div>
     );
 };
