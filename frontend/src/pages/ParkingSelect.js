@@ -9,7 +9,7 @@ import { useTaskContext } from "../hooks/useTaskContext";
 import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
 import Loader from "../components/Loader";
 
-//toastify
+//toast
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -144,7 +144,9 @@ const ParkingSelect = () => {
                 payload: json,
             });
 
-            toast("Parking reservation request sent successfully !");
+            toast.success("Parking reservation request sent successfully !", {
+                position: "top-center",
+            });
 
             numberOfTasks();
             fetchDuplicateParking();
