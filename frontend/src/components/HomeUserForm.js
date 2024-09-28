@@ -128,6 +128,7 @@ const HomeUserForm = () => {
                     <button
                         type="submit"
                         className="btn btn-primary custom-btn"
+                        disabled={!building.id || !apartment} //button activation changes according to the values
                     >
                         Search Parking
                     </button>
