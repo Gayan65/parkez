@@ -819,3 +819,34 @@ body {
 .custom-badge {
     margin-left: 110%;
 }
+
+/*Spinner, Loader*/
+.spinner-container {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.spinner {
+    border: 8px solid #fff0d5; /* Light color for background of spinner */
+    border-top: 8px solid #226699; /* Main spinner color */
+    border-right: 8px solid #ffa500; /* Accent color */
+    border-radius: 50%;
+    width: 60px; /* Spinner size */
+    height: 60px; /* Spinner size */
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
