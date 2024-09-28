@@ -97,8 +97,16 @@ const NavBar = () => {
 
                         <li className="nav-item">
                             {user && user.admin && (
-                                <Link className="nav-link active" to={"/tasks"}>
-                                    Tasks {totalTasks}
+                                <Link
+                                    className="nav-link active position-relative"
+                                    to={"/tasks"}
+                                >
+                                    Tasks{" "}
+                                    {totalTasks > 0 && (
+                                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                            {totalTasks}
+                                        </span>
+                                    )}
                                 </Link>
                             )}
                         </li>
