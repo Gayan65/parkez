@@ -7,6 +7,7 @@ import parkRouter from "./routes/parklot.js";
 import buildingRouter from "./routes/building.js";
 import parkRequestRouter from "./routes/parkingRequest.js";
 import parkRequestUnassignRouter from "./routes/parkingRequestUnassign.js";
+import tasksRoute from "./routes/tasks.js";
 
 //express app
 const app = express();
@@ -28,6 +29,7 @@ app.use("/api/park", parkRouter);
 app.use("/api/building", buildingRouter);
 app.use("/api/park_request", parkRequestRouter);
 app.use("/api/park_unassign_request", parkRequestUnassignRouter);
+app.use("/tasks", tasksRoute);
 
 //db connection
 mongoose
