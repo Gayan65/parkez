@@ -47,7 +47,7 @@ const ParkingRequestDetail = ({
                 "approved",
                 comment,
                 parkingLot_id,
-                "assigned",
+                "assign",
                 email //sending the user if it get approved
             );
 
