@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
 import ParkingRequestDetail from "./ParkingRequestDetail";
 
-const PendingRequest = ({ totalNotifications }) => {
+const PendingRequest = () => {
     //context
     const { parkingRequests, parking_request_dispatch } =
         useParkingRequestContext();
@@ -32,16 +32,6 @@ const PendingRequest = ({ totalNotifications }) => {
     const pendingRequests = parkingRequests?.filter(
         (parkingRequest) => parkingRequest.status === "initiate"
     );
-
-    //Calculate total number of pending requests
-    const totalPendingRequests = pendingRequests ? pendingRequests.length : 0;
-
-    // Separate effect to update totalNotifications
-    useEffect(() => {
-        if (typeof totalNotifications === "function") {
-            totalNotifications(totalPendingRequests);
-        }
-    }, [totalPendingRequests, totalNotifications]);
 
     //Created handleStatusChange to update the status and re-fetch the list
     const handleStatusChange = async (

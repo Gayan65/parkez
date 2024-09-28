@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParkingUnassignRequestContext } from "../hooks/useParkingUnassignRequestContext";
 import PendingUnassignRequestDetail from "./PendingUnassignRequestDetail";
 
-const PendingUnassignRequest = ({ totalNotifications }) => {
+const PendingUnassignRequest = () => {
     //context
     const { parkingUnassignRequests, parking_unassign_request_dispatch } =
         useParkingUnassignRequestContext();
@@ -30,16 +30,6 @@ const PendingUnassignRequest = ({ totalNotifications }) => {
     const pendingRequests = parkingUnassignRequests?.filter(
         (parkingUnassignRequest) => parkingUnassignRequest.status === "initiate"
     );
-
-    //Calculate total number of pending requests
-    const totalPendingRequests = pendingRequests ? pendingRequests.length : 0;
-
-    // Separate effect to update totalNotifications
-    useEffect(() => {
-        if (typeof totalNotifications === "function") {
-            totalNotifications(totalPendingRequests);
-        }
-    }, [totalPendingRequests, totalNotifications]);
 
     //Created handleStatusChange to update the status and re-fetch the list
     const handleStatusChange = async (

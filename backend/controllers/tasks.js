@@ -23,7 +23,11 @@ export const getNumberOfTasks = async (req, res) => {
         const totalTasks =
             parkingRequestsInitiatedTotal +
             parkingUnassignRequestsInitiatedTotal;
-        res.status(200).json(totalTasks);
+        res.status(200).json({
+            totalTasks: totalTasks,
+            pendingTasks: parkingRequestsInitiatedTotal,
+            pendingUnassignTasks: parkingUnassignRequestsInitiatedTotal,
+        });
     } catch (error) {
         res.status(401).json({ error: error.message });
     }

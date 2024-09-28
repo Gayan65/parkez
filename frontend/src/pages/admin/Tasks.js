@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuthContext } from "../../hooks/useAuthContext";
+import { useTaskContext } from "../../hooks/useTaskContext";
 
 //components
 import PendingRequest from "../../components/PendingRequest";
@@ -9,16 +10,29 @@ const Tasks = () => {
     const { user } = useAuthContext();
     const [activeTab, setActiveTab] = useState("assign");
 
-    const [notifications, setNotifications] = useState(0);
-    const [unassignNotifications, setUnassignNotifications] = useState(0);
+    //task count context
+    const { pendingTasks, pendingUnassignTasks, task_dispatch } =
+        useTaskContext();
 
-    const handleTotalNotifications = (totalNotifications) => {
-        setNotifications(totalNotifications);
-    };
+    useEffect(() => {
+        //fetch number of tasks
+        const numberOfTasks = async () => {
+            const response = await fetch("/api/tasks");
+            const json = await response.json();
 
-    const handleUnassignTotalNotifications = (totalUnassignNotifications) => {
-        setUnassignNotifications(totalUnassignNotifications);
-    };
+            if (response.ok) {
+                task_dispatch({
+                    type: "SET_NUMBER_OF_TOTAL_TASKS",
+                    payload: {
+                        totalTasks: json.totalTasks,
+                        pendingTasks: json.pendingTasks,
+                        pendingUnassignTasks: json.pendingUnassignTasks,
+                    },
+                });
+            }
+        };
+        numberOfTasks();
+    }, [task_dispatch]);
 
     return (
         <div className="container mt-4">
@@ -35,7 +49,7 @@ const Tasks = () => {
                     >
                         Parking Assign Requests
                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {notifications}
+                            {pendingTasks}
                         </span>
                     </button>
                 </li>
@@ -50,7 +64,7 @@ const Tasks = () => {
                     >
                         Parking Unassign Requests
                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {unassignNotifications}
+                            {pendingUnassignTasks}
                         </span>
                     </button>
                 </li>
@@ -59,14 +73,10 @@ const Tasks = () => {
             {/* Conditionally render the appropriate component */}
             <div className="tab-content mt-3">
                 {activeTab === "assign" && user && user.admin && (
-                    <PendingRequest
-                        totalNotifications={handleTotalNotifications}
-                    />
+                    <PendingRequest />
                 )}
                 {activeTab === "unassign" && user && user.admin && (
-                    <PendingUnassignRequest
-                        totalNotifications={handleUnassignTotalNotifications}
-                    />
+                    <PendingUnassignRequest />
                 )}
             </div>
         </div>

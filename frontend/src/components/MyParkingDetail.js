@@ -32,7 +32,11 @@ const MyParkingDetail = ({
         if (response.ok) {
             task_dispatch({
                 type: "CREATE_NUMBER_OF_TOTAL_TASKS",
-                payload: json,
+                payload: {
+                    totalTasks: json.totalTasks,
+                    pendingTasks: json.pendingTasks,
+                    pendingUnassignTasks: json.pendingUnassignTasks,
+                },
             });
         }
     };
