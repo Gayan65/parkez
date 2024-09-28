@@ -76,34 +76,40 @@ const ParkingRequestDetail = ({
     };
 
     return (
-        <div className="card">
-            <div className="card-header"> {building} </div>
-            <div className="card-body">
-                <h5 className="card-title"> {email} </h5>
-                <p className="card-text">Apartment number {apartment}</p>
-                <p className="card-text">Room number {room}</p>
-                <p className="card-text">
+        <div className="card-custom ">
+            <div className="card-header-custom"> {building} </div>
+            <div className="card-body-custom">
+                <h5 className="card-title-custom "> {email} </h5>
+                <p className="card-text-custom">Apartment number {apartment}</p>
+                <p className="card-text-custom">Room number {room}</p>
+                <p className="card-text-custom">
                     Requested parking lot number {parkingLot}
                 </p>
-                <p className="card-text">parkingLot ID {parkingLot_id} </p>
-                <p className="card-text">Requested Date {requestedDate} </p>
-                <p className="card-text">Request comment {requestComment} </p>
+                <p className="card-text-custom">
+                    parkingLot ID {parkingLot_id}{" "}
+                </p>
+                <p className="card-text-custom">
+                    Requested Date {requestedDate}{" "}
+                </p>
+                <p className="card-text-custom">
+                    Request comment {requestComment}{" "}
+                </p>
                 <form onSubmit={handleSubmit}>
                     <textarea
-                        className="form-control"
+                        className="form-control-custom"
                         rows="2"
                         onChange={(e) => setComment(e.target.value)}
                     ></textarea>
                     <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="btn-custom-request btn-primary-custom"
                         value={"approve"}
                     >
                         Approve
                     </button>
                     <button
                         type="submit"
-                        className="btn btn-secondary"
+                        className="btn-custom-request btn-secondary-custom"
                         value={"decline"}
                     >
                         Decline

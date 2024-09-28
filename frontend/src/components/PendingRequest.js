@@ -68,7 +68,7 @@ const PendingRequest = () => {
         }
     };
     return (
-        <div className="container">
+        <div className="container-custom">
             {pendingRequests &&
                 pendingRequests.map((parkingRequest, i) => (
                     <ParkingRequestDetail
