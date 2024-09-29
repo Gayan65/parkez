@@ -13,6 +13,9 @@ import Loader from "../components/Loader";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+//sweet alerts
+import Swal from "sweetalert2";
+
 const ParkingSelect = () => {
     const location = useLocation();
 
@@ -95,62 +98,86 @@ const ParkingSelect = () => {
     };
 
     const handleClick = async () => {
-        setLoader(true);
-        //selected parking lot details triggered
-        console.log("request btn clicked");
-        console.log(selectParkingLot.number);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You want to reserve this parking!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Confirm!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                setLoader(true);
+                //selected parking lot details triggered
+                console.log("request btn clicked");
+                console.log(selectParkingLot.number);
 
-        //parking request object
-        const parkingRequest = {
-            user: user.email,
-            building: `${building.name} ${building.number}`,
-            apartment: apartment,
-            room: room,
-            parkingLot: selectParkingLot.number,
-            parkingLot_id: selectParkingLot._id,
-            status: "initiate",
-            comments: "",
-            requestComment: requestComment,
-        };
+                //parking request object
+                const parkingRequest = {
+                    user: user.email,
+                    building: `${building.name} ${building.number}`,
+                    apartment: apartment,
+                    room: room,
+                    parkingLot: selectParkingLot.number,
+                    parkingLot_id: selectParkingLot._id,
+                    status: "initiate",
+                    comments: "",
+                    requestComment: requestComment,
+                };
 
-        //this obj send to the api to create parking request
-        const response = await fetch("/api/park_request/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(parkingRequest),
-        });
+                //this obj send to the api to create parking request
+                const response = await fetch("/api/park_request/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(parkingRequest),
+                });
 
-        //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
-        const parkLotUpdateResponse = await fetch(
-            `/api/park/${selectParkingLot._id}`,
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ status: "pending", user: user.email }),
+                //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
+                const parkLotUpdateResponse = await fetch(
+                    `/api/park/${selectParkingLot._id}`,
+                    {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            status: "pending",
+                            user: user.email,
+                        }),
+                    }
+                );
+
+                if (parkLotUpdateResponse.ok) {
+                    fetchAllParking();
+                }
+
+                const json = await response.json();
+
+                if (response.ok) {
+                    parking_request_dispatch({
+                        type: "CREATE_PARKING_REQUEST",
+                        payload: json,
+                    });
+
+                    toast.success(
+                        "Parking reservation request sent successfully !",
+                        {
+                            position: "top-center",
+                        }
+                    );
+
+                    numberOfTasks();
+                    fetchDuplicateParking();
+                }
+
+                Swal.fire({
+                    title: "Done!",
+                    text: "Request sent.",
+                    icon: "success",
+                });
             }
-        );
-
-        if (parkLotUpdateResponse.ok) {
-            fetchAllParking();
-        }
-
-        const json = await response.json();
-
-        if (response.ok) {
-            parking_request_dispatch({
-                type: "CREATE_PARKING_REQUEST",
-                payload: json,
-            });
-
-            toast.success("Parking reservation request sent successfully !", {
-                position: "top-center",
-            });
-
-            numberOfTasks();
-            fetchDuplicateParking();
-        }
+        });
 
         //selected parking lot should be emended as pending
     };
