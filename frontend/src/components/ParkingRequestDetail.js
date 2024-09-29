@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useTaskContext } from "../hooks/useTaskContext";
 
+//date format
+import { format } from "date-fns";
+
 const ParkingRequestDetail = ({
     email,
     building,
@@ -78,22 +81,37 @@ const ParkingRequestDetail = ({
     return (
         <div className="card-custom ">
             <div className="card-header-custom"> {building} </div>
+            <p className="card-text-custom date-custom">
+                {format(new Date(requestedDate), "EEEE, d/M/yyyy h:mma")}
+            </p>
             <div className="card-body-custom">
                 <h5 className="card-title-custom "> {email} </h5>
-                <p className="card-text-custom">Apartment number {apartment}</p>
-                <p className="card-text-custom">Room number {room}</p>
-                <p className="card-text-custom">
-                    Requested parking lot number {parkingLot}
-                </p>
-                <p className="card-text-custom">
-                    parkingLot ID {parkingLot_id}{" "}
-                </p>
-                <p className="card-text-custom">
-                    Requested Date {requestedDate}{" "}
-                </p>
-                <p className="card-text-custom">
-                    Request comment {requestComment}{" "}
-                </p>
+
+                <table className="table-custom">
+                    <tbody>
+                        <tr>
+                            <td className="custom-td">Apartment Number</td>
+                            <td>{apartment}</td>
+                        </tr>
+                        <tr>
+                            <td className="custom-td">Room Number</td>
+                            <td>{room}</td>
+                        </tr>
+                        <tr>
+                            <td className="custom-td">Parking Number</td>
+                            <td>{parkingLot}</td>
+                        </tr>
+                        {/* <tr>
+                            <td>Parking lot ID:</td>
+                            <td>{parkingLot_id}</td>
+                        </tr> */}
+                        <tr>
+                            <td className="custom-td">Client Request</td>
+                            <td>{requestComment}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <form onSubmit={handleSubmit}>
                     <textarea
                         className="form-control-custom"

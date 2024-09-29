@@ -965,3 +965,58 @@ body {
         font-size: 12px;
     }
 }
+
+.date-custom {
+    font-size: 14px; /* Smaller font */
+    font-style: italic; /* Italic style */
+    color: #226699; /* Match your theme color */
+    text-align: right; /* Optional: Align to the right for a subtle design */
+    margin-top: 5px;
+}
+
+/* Date styling */
+.date-custom {
+    font-size: 14px; /* Smaller font */
+    font-style: italic; /* Italic style */
+    color: #226699; /* Match your theme color */
+    text-align: right; /* Optional: Align to the right for a subtle design */
+    margin-top: 5px;
+}
+
+/* General Table styling */
+.table-custom {
+    width: 100%;
+    table-layout: fixed; /* Ensures that width is respected */
+    border-collapse: collapse; /* Removes spacing between cells */
+    margin-bottom: 20px; /* Space between table and buttons */
+}
+
+/* Table cells */
+.table-custom td {
+    padding: 10px; /* Padding inside each cell */
+    border: 1px solid #226699; /* Theme color for borders */
+    font-size: 16px;
+    color: #555;
+    word-wrap: break-word; /* Ensure long content wraps */
+}
+
+/* Optional: Styling the table header */
+.table-custom th {
+    padding: 10px 15px;
+    background-color: #226699; /* Theme background color */
+    color: #fff;
+    text-align: left;
+}
+
+/* Specific column styling */
+.custom-td {
+    background-color: #1a4c7a1a;
+    width: 200px; /* Use width instead of max-width to ensure fixed width */
+    padding: 10px;
+    word-wrap: break-word; /* Long content will wrap to the next line */
+}
+
+/* Optional: You can style hover effects for table rows */
+.table-custom tr:hover {
+    background-color: #e6f7ff; /* Light background color on hover */
+}
