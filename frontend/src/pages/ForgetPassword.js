@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import OTPsentForm from "../components/OTPsentForm";
+import Loader from "../components/Loader";
 
 const ForgetPassword = () => {
     const [email, setEmail] = useState("");
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false); //use to trigger the disable for the input and button
+    const [loader, setLoader] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setLoader(true);
 
         //send email to the api for verify and send the otp
         const response = await fetch("/api/user/forget/", {
@@ -29,6 +33,8 @@ const ForgetPassword = () => {
         if (!response.ok) {
             setError(json.error);
         }
+
+        setLoader(false);
     };
     return (
         <div className="container container-custom-pw">
@@ -70,7 +76,7 @@ const ForgetPassword = () => {
                 <button
                     type="submit"
                     className="btn btn-primary btn-block mt-3"
-                    disabled={success}
+                    disabled={success || !email}
                 >
                     Request OTP
                 </button>
@@ -78,6 +84,7 @@ const ForgetPassword = () => {
                 {message && <p className="success-message"> {message} </p>}
             </form>
             {message && <OTPsentForm email={email} />}
+            {loader && <Loader />}
         </div>
     );
 };
