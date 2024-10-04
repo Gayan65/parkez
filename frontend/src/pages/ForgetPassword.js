@@ -31,7 +31,7 @@ const ForgetPassword = () => {
         }
     };
     return (
-        <div className="container container-custom">
+        <div className="container container-custom-pw">
             <h1 className="header">Password Reset Instructions</h1>
             <p className="paragraph">
                 To reset your password, please follow these steps:
