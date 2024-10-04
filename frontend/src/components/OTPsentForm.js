@@ -1,5 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+
+//components
+import Loader from "./Loader";
 
 const OTPsentForm = ({ email }) => {
     const [otp, setOtp] = useState(["", "", "", ""]);
@@ -7,6 +10,9 @@ const OTPsentForm = ({ email }) => {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+    const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+    const [loader, setLoader] = useState(false);
+
     // Handle change event for OTP input
     const handleChange = (e, index) => {
         const value = e.target.value;
@@ -32,6 +38,7 @@ const OTPsentForm = ({ email }) => {
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoader(true);
         const otpValue = otp.join(""); // Combine OTP values into a single string
         console.log("Submitted OTP:", otpValue); // Log the OTP to the console
 
@@ -59,7 +66,15 @@ const OTPsentForm = ({ email }) => {
         if (!response.ok) {
             setError(json.error);
         }
+
+        setLoader(false);
     };
+
+    // Effect to enable the submit button once all OTP inputs are filled
+    useEffect(() => {
+        const allFieldsFilled = otp.every((field) => field !== ""); // Check if all OTP fields are filled
+        setIsSubmitEnabled(allFieldsFilled);
+    }, [otp]); // This effect will run every time the OTP state changes
 
     return (
         <form onSubmit={handleSubmit} className="otp-form other-form">
@@ -79,7 +94,11 @@ const OTPsentForm = ({ email }) => {
                     />
                 ))}
             </div>
-            <button type="submit" className="btn" disabled={success}>
+            <button
+                type="submit"
+                className="btn"
+                disabled={!isSubmitEnabled || success}
+            >
                 Submit
             </button>
             {error && <p className="error-message">{error}</p>}
@@ -93,6 +112,7 @@ const OTPsentForm = ({ email }) => {
                     </Link>
                 </div>
             )}
+            {loader && <Loader />}
         </form>
     );
 };

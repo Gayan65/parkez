@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+
+//components
 import OTPsentForm from "../components/OTPsentForm";
 import Loader from "../components/Loader";
+
+//toast
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ForgetPassword = () => {
     const [email, setEmail] = useState("");
@@ -28,6 +34,9 @@ const ForgetPassword = () => {
             setMessage(json.message);
             setError("");
             setSuccess(json.success);
+            toast.success("OTP sent successfully!, Check your email.", {
+                position: "top-center",
+            });
         }
 
         if (!response.ok) {
@@ -85,6 +94,7 @@ const ForgetPassword = () => {
             </form>
             {message && <OTPsentForm email={email} />}
             {loader && <Loader />}
+            {<ToastContainer />}
         </div>
     );
 };
