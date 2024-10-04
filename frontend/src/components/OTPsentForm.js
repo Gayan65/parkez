@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 //components
 import Loader from "./Loader";
 
+//sweet alerts
+import Swal from "sweetalert2";
+
 const OTPsentForm = ({ email }) => {
     const [otp, setOtp] = useState(["", "", "", ""]);
     const inputRefs = useRef([]);
@@ -61,6 +64,14 @@ const OTPsentForm = ({ email }) => {
             setMessage(json.message);
             setError("");
             setSuccess(json.success);
+
+            // swl alert fires here..
+            Swal.fire({
+                icon: "success",
+                title: "Congratulations..",
+                text: "Your OTP has been verified! Simply click the link below to recreate your password or visit the user signup page.",
+                footer: '<a href="/signup">ReCreate user</a>',
+            });
         }
 
         if (!response.ok) {
