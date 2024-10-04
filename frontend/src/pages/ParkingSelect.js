@@ -183,62 +183,82 @@ const ParkingSelect = () => {
     };
     return (
         <div className="container other-form custom-from-center">
-            <h3 className="header mt-3">Select a reservation</h3>
-            {/* This you can access  Parking select Building{building.name} {building.number}, Apartment
+            <div className="row">
+                <div className="col-md-8">
+                    <h3 className="header mt-3 text-center">
+                        Select a reservation
+                    </h3>
+                    {/* This you can access  Parking select Building{building.name} {building.number}, Apartment
             {apartment}, Room{room}*/}
-            <p className="paragraph text-center">
-                As per your selection, you are looking for parking in{" "}
-                {building.name} {building.number}. Please note that pending,
-                maintenance, and reserved parking slots cannot be reserved. You
-                can only make a reservation for available free slots. After you
-                make a reservation, it will require approval from the
-                authorities, which may take some time. Once a decision has been
-                reached, we will notify you via email at {user && user.email}.
-            </p>
-            {isDuplicate && (
-                <p className="paragraph text-center">
-                    There is currently a pending parking request associated with
-                    your email {user && user.email}. You cannot submit a new
-                    request until the existing one is resolved.
-                </p>
-            )}
-            <div className="container text-center mb-3">
-                <div
-                    className="row row-cols-5 btn-group mt-3"
-                    role="group"
-                    aria-label="Basic radio toggle button group"
-                >
-                    {parks &&
-                        parks.map((parkingLot, i) => (
-                            <ParkingLotDetailsRadio
-                                key={parkingLot._id}
-                                lot={parkingLot.lot}
-                                status={parkingLot.status}
-                                i={i}
-                                disable={
-                                    parkingLot.status === "pending" ||
-                                    (parkingLot.status === "assign" && true) // radio button disable according to the status of the parking lot
-                                }
-                                onSelect={() =>
-                                    handleSelectChange(
-                                        parkingLot._id,
-                                        parkingLot.lot,
-                                        parkingLot.status
-                                    )
-                                }
-                            />
-                        ))}
+                    <p className="paragraph text-justify">
+                        As per your selection, you are looking for parking in{" "}
+                        {building.name} {building.number}. Please note that
+                        pending, maintenance, and reserved parking slots cannot
+                        be reserved. You can only make a reservation for
+                        available free slots. After you make a reservation, it
+                        will require approval from the authorities, which may
+                        take some time. Once a decision has been reached, we
+                        will notify you via email at {user && user.email}.
+                    </p>
+                    {isDuplicate && (
+                        <p className="paragraph text-center">
+                            There is currently a pending parking request
+                            associated with your email {user && user.email}. You
+                            cannot submit a new request until the existing one
+                            is resolved.
+                        </p>
+                    )}
+                    <div className="container text-center mb-3">
+                        <div
+                            className="row row-cols-5 btn-group mt-3"
+                            role="group"
+                            aria-label="Basic radio toggle button group"
+                        >
+                            {parks &&
+                                parks.map((parkingLot, i) => (
+                                    <ParkingLotDetailsRadio
+                                        key={parkingLot._id}
+                                        lot={parkingLot.lot}
+                                        status={parkingLot.status}
+                                        i={i}
+                                        disable={
+                                            parkingLot.status === "pending" ||
+                                            (parkingLot.status === "assign" &&
+                                                true) // radio button disable according to the status of the parking lot
+                                        }
+                                        onSelect={() =>
+                                            handleSelectChange(
+                                                parkingLot._id,
+                                                parkingLot.lot,
+                                                parkingLot.status
+                                            )
+                                        }
+                                    />
+                                ))}
+                        </div>
+                    </div>
+                    <div className="d-flex justify-content-center">
+                        <button
+                            className="btn btn-primary custom-btn"
+                            onClick={handleClick}
+                            disabled={!selectParkingLot._id || isDuplicate} //button get activated once the selection has been made
+                        >
+                            Request for parking
+                        </button>
+                    </div>
+
+                    {loader && <Loader />}
+                    <ToastContainer />
+                </div>
+                {/* Right side for image */}
+                <div className="col-md-4 text-center d-flex align-items-center justify-content-center">
+                    <img
+                        src="https://via.placeholder.com/300"
+                        alt="Parking illustration"
+                        className="img-fluid custom-img"
+                    />
                 </div>
             </div>
-            <button
-                className="btn btn-primary custom-btn"
-                onClick={handleClick}
-                disabled={!selectParkingLot._id || isDuplicate} //button get activated once the selection has been made
-            >
-                Request for parking
-            </button>
-            {loader && <Loader />}
-            <ToastContainer />
         </div>
     );
 };

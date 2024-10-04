@@ -1020,3 +1020,10 @@ body {
 .table-custom tr:hover {
     background-color: #e6f7ff; /* Light background color on hover */
 }
+
+.custom-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Rounded corners for a sleek look */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
