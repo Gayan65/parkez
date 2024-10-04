@@ -101,7 +101,7 @@ const HomeUserForm = () => {
 
                     <div className="col-md-4 mb-3">
                         <label className="form-label label">
-                            Add your room number (if any)
+                            Add your room number (if any, Ex: A1)
                         </label>
                         <input
                             type="number"
