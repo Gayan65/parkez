@@ -104,7 +104,7 @@ const HomeUserForm = () => {
                             Add your room number (if any, Ex: A1)
                         </label>
                         <input
-                            type="number"
+                            type="text"
                             className="form-control"
                             placeholder="room number"
                             value={room}
