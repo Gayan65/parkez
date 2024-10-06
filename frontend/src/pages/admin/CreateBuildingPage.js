@@ -8,45 +8,59 @@ import BuildingView from "../../components/BuildingView";
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 
 const CreateBuildingPage = () => {
-  //set state
+    //set state
 
-  const { buildings, dispatch } = useBuildingsContext();
+    const { buildings, dispatch } = useBuildingsContext();
 
-  useEffect(() => {
-    //api call to get all buildings
-    const fetchBuildings = async () => {
-      const response = await fetch("/api/building/");
-      const json = await response.json();
+    useEffect(() => {
+        //api call to get all buildings
+        const fetchBuildings = async () => {
+            const response = await fetch("/api/building/");
+            const json = await response.json();
 
-      if (response.ok) {
-        dispatch({ type: "SET_BUILDINGS", payload: json });
-      }
-    };
+            if (response.ok) {
+                dispatch({ type: "SET_BUILDINGS", payload: json });
+            }
+        };
 
-    fetchBuildings();
-  }, [dispatch]);
+        fetchBuildings();
+    }, [dispatch]);
 
-  return (
-    <div>
-      CreateBuildingPage
-      <div>
-        <CreateBuildingForm />
-      </div>
-      <div>
-        {buildings &&
-          buildings.map((building) => (
-            <BuildingView
-              key={building._id}
-              name={building.name}
-              number={building.number}
-              address={building.address}
-              image={building.image}
-              link={`/building/${building._id}`}
-            />
-          ))}
-      </div>
-    </div>
-  );
+    return (
+        <div className="container mt-3">
+            <h3 className="header mb-2">
+                Building Management and Parking Slot Allocation
+            </h3>
+            <p className="paragraph text-justify mb-5">
+                In this section, administrators can efficiently manage parking
+                facilities by adding new buildings and allocating parking slots
+                to each designated location. By visiting each building, you can
+                oversee the assignment of parking spaces, ensuring that all
+                areas are equipped with the necessary resources for effective
+                parking management. This feature simplifies the process of
+                organizing parking availability, enhancing the overall
+                functionality of our parking management system.
+            </p>
+            <div className="row">
+                <div className="col-md-6">
+                    <CreateBuildingForm />
+                </div>
+                <div className="col-md-6">
+                    {buildings &&
+                        buildings.map((building) => (
+                            <BuildingView
+                                key={building._id}
+                                name={building.name}
+                                number={building.number}
+                                address={building.address}
+                                image={building.image}
+                                link={`/building/${building._id}`}
+                            />
+                        ))}
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default CreateBuildingPage;
