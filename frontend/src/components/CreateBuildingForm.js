@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
+import Loader from "./Loader";
 
 const CreateBuildingForm = () => {
     const { dispatch } = useBuildingsContext();
@@ -13,9 +14,12 @@ const CreateBuildingForm = () => {
     const [error, setError] = useState(null);
     const [emptyField, setEmptyField] = useState([]);
 
+    const [loader, setLoader] = useState(false);
+
     //form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoader(true);
 
         const building = { name, number, image, address };
 
@@ -45,6 +49,8 @@ const CreateBuildingForm = () => {
             console.log("Building added successfully!", json);
             dispatch({ type: "CREATE_BUILDINGS", payload: json });
         }
+
+        setLoader(false);
     };
     return (
         <form className="other-form" onSubmit={handleSubmit}>
@@ -113,6 +119,7 @@ const CreateBuildingForm = () => {
             </div>
 
             {error && <p className="error-forms">{error}</p>}
+            {loader && <Loader />}
         </form>
     );
 };
