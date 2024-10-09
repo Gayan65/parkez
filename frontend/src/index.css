@@ -415,6 +415,11 @@ body {
     margin-top: 20px;
 }
 
+.error-forms {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+}
 /* "Forget Password" Link */
 .login-signup-form a {
     display: block;

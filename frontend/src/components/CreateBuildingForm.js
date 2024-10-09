@@ -112,7 +112,7 @@ const CreateBuildingForm = () => {
                 </button>
             </div>
 
-            {error && <div>{error}</div>}
+            {error && <p className="error-forms">{error}</p>}
         </form>
     );
 };
