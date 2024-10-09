@@ -1073,4 +1073,23 @@ body {
     text-decoration: underline;
 }
 
+/* Disable default link styles for custom card */
+.card-link-custom {
+    text-decoration: none; /* Remove underline */
+    color: inherit; /* Inherit text color from parent */
+    display: block; /* Make the link cover the entire card */
+}
+
+/* Optionally, you can set a custom hover effect for the entire card */
+.card-link-custom:hover {
+    text-decoration: none; /* Keep underline disabled on hover */
+    color: inherit; /* Ensure text color remains unchanged */
+}
+
 /*building creation card view container*/
+.custom-building-view-container {
+    overflow-y: scroll;
+    height: 440px;
+    scrollbar-color: #226699 #ffbd5963;
+    margin-bottom: 20px;
+}

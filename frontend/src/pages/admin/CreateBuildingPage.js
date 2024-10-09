@@ -45,7 +45,7 @@ const CreateBuildingPage = () => {
                 <div className="col-md-6">
                     <CreateBuildingForm />
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6 custom-building-view-container">
                     {buildings &&
                         buildings.map((building) => (
                             <BuildingView
