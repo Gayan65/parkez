@@ -1032,3 +1032,44 @@ body {
     border-radius: 10px; /* Rounded corners for a sleek look */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
+
+/* For building creation card view */
+.custom-card {
+    border: 2px solid #22659934;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(255, 189, 89, 0.253);
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
+}
+
+.custom-card:hover {
+    border: 2px solid #ffbd59ad; /* Change border color on hover */
+    box-shadow: 0 6px 12px rgba(255, 189, 89, 0.6); /* Darker shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+.custom-card .card-body {
+    color: #226699;
+}
+
+.custom-card .card-title {
+    font-weight: bold;
+    color: #226699;
+}
+
+.custom-card .card-text {
+    color: #226699;
+}
+
+.custom-card .view-link {
+    color: #ffbd59;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease; /* Smooth transition for link color change */
+}
+
+.custom-card .view-link:hover {
+    color: #226699;
+    text-decoration: underline;
+}
+
+/*building creation card view container*/
