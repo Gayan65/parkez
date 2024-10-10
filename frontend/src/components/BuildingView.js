@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FcHome, FcExternal } from "react-icons/fc";
+import { FaLocationDot } from "react-icons/fa6";
 
 const BuildingView = ({ name, number, image, address, link }) => {
     return (
@@ -19,12 +21,19 @@ const BuildingView = ({ name, number, image, address, link }) => {
                     </div>
                     <div className="col-md-8">
                         <div className="card-body">
-                            <h5 className="card-title">
-                                {" "}
-                                {name} {number}{" "}
+                            <h5 className="card-title d-flex align-items-center">
+                                <FcHome size={20} className="me-1" /> {name}{" "}
+                                {number}
                             </h5>
-                            <p className="card-text">{address}</p>
-                            <div className="view-link" to={link}>
+                            <p className="card-text d-flex align-items-center">
+                                <FcExternal
+                                    color="#ffbd59"
+                                    size={16}
+                                    className="me-2"
+                                />
+                                {address}
+                            </p>
+                            <div className="view-link " to={link}>
                                 Click me for parking
                             </div>
                         </div>

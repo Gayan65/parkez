@@ -1096,3 +1096,11 @@ body {
     margin-bottom: 20px;
     scroll-behavior: smooth;
 }
+
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
