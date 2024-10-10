@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
 import Loader from "./Loader";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { FaUpload, FaTimes } from "react-icons/fa";
+import { IoCloseCircle } from "react-icons/io5";
 
 //sweet alerts
 import Swal from "sweetalert2";
@@ -18,6 +21,16 @@ const CreateBuildingForm = () => {
     const [emptyField, setEmptyField] = useState([]);
 
     const [loader, setLoader] = useState(false);
+
+    //file handler
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        setImage(file);
+    };
+
+    const removeFile = () => {
+        setImage(null); // Reset the file
+    };
 
     //form submission
     const handleSubmit = async (e) => {
@@ -116,14 +129,31 @@ const CreateBuildingForm = () => {
                 />
             </div>
 
-            <div className="mb-3">
+            <div className="mb-3 custom-upload-wrapper">
                 <label className="form-label label">Image</label>
                 <input
-                    type="text"
-                    className="form-control"
-                    onChange={(e) => setImage(e.target.value)}
-                    value={image}
+                    type="file"
+                    id="file-upload"
+                    className="file-input"
+                    onChange={handleFileChange}
+                    accept="image/*"
                 />
+                {/* Icon acting as the button to trigger file selection */}
+                <label htmlFor="file-upload" className="file-upload-label">
+                    <IoCloudUploadOutline size={30} /> {/* Upload Icon */}
+                </label>
+
+                {image && (
+                    <div className="file-info">
+                        <p className="file-name form-label label">
+                            {image.name}
+                        </p>
+                        {/* Close button to remove the file */}
+                        <button className="remove-btn" onClick={removeFile}>
+                            <IoCloseCircle size={23} /> {/* Close icon */}
+                        </button>
+                    </div>
+                )}
             </div>
 
             <div className="mb-3">

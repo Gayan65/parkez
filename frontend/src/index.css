@@ -1104,3 +1104,57 @@ body {
 .align-items-center {
     align-items: center;
 }
+
+/*file upload input*/
+/* Hide the actual file input */
+.file-input {
+    display: none;
+}
+
+/* Style the icon that acts as the file upload button */
+.file-upload-label {
+    cursor: pointer;
+    display: inline-block;
+    color: #2860c9;
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+.file-upload-label:hover {
+    color: #ffbd59; /* Change icon color on hover */
+}
+
+/* Wrapper for custom file upload */
+.custom-upload-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Display the selected file name and the remove button */
+.file-info {
+    display: flex;
+    align-items: center;
+}
+
+.file-name {
+    margin-right: 10px;
+    word-break: break-all; /* Handle long file names */
+}
+
+/* Style the remove button (close icon) */
+.remove-btn {
+    margin-bottom: 8px; /*for align the close button*/
+    background: none;
+    color: #226699;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.remove-btn:hover {
+    color: #ff2f2f;
+    transform: scale(1.1); /* Slight zoom on hover for effect */
+}
