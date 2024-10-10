@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
+
+//components
 import Loader from "./Loader";
-import { IoCloudUploadOutline } from "react-icons/io5";
-import { FaUpload, FaTimes } from "react-icons/fa";
-import { IoCloseCircle } from "react-icons/io5";
+
+//icons
+import { IoCloudUploadOutline, IoCloseCircle } from "react-icons/io5";
 
 //sweet alerts
 import Swal from "sweetalert2";
