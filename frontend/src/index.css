@@ -1035,6 +1035,7 @@ body {
 
 /* For building creation card view */
 .custom-card {
+    margin-top: 10px;
     border: 2px solid #22659934;
     border-radius: 8px;
     box-shadow: 0 3px 8px rgba(255, 189, 89, 0.253);
@@ -1043,9 +1044,10 @@ body {
 
 .custom-card:hover {
     border: 2px solid #ffbd598e; /* Change border color on hover */
-    box-shadow: 0 6px 12px rgba(255, 189, 89, 0.6); /* Darker shadow on hover */
+
     transform: translateY(-2px); /* Slight lift effect */
     cursor: pointer;
+    background-color: #ffbd5942;
 }
 
 .custom-card .card-body {
@@ -1090,6 +1092,6 @@ body {
 .custom-building-view-container {
     overflow-y: scroll;
     height: 440px;
-    scrollbar-color: #226699 #ffbd5963;
+    scrollbar-color: #226699 #ffbd5942;
     margin-bottom: 20px;
 }
