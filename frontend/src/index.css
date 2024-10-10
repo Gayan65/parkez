@@ -1036,14 +1036,14 @@ body {
 /* For building creation card view */
 .custom-card {
     margin-top: 10px;
-    border: 2px solid #22659934;
+    border: 1px solid #22659969;
     border-radius: 8px;
     box-shadow: 0 3px 8px rgba(255, 189, 89, 0.253);
     transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 .custom-card:hover {
-    border: 2px solid #ffbd598e; /* Change border color on hover */
+    border: 1px solid #ffbd598e; /* Change border color on hover */
 
     transform: translateY(-2px); /* Slight lift effect */
     cursor: pointer;
@@ -1070,11 +1070,6 @@ body {
     transition: color 0.3s ease; /* Smooth transition for link color change */
 }
 
-.custom-card .view-link:hover {
-    color: #226699;
-    text-decoration: underline;
-}
-
 /* Disable default link styles for custom card */
 .card-link-custom {
     text-decoration: none; /* Remove underline */
@@ -1088,10 +1083,16 @@ body {
     color: inherit; /* Ensure text color remains unchanged */
 }
 
+/* color changed with the hover the parent */
+.card-link-custom:hover .view-link {
+    color: #226699;
+}
+
 /*building creation card view container*/
 .custom-building-view-container {
     overflow-y: scroll;
     height: 440px;
     scrollbar-color: #226699 #ffbd5942;
     margin-bottom: 20px;
+    scroll-behavior: smooth;
 }

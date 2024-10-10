@@ -24,10 +24,9 @@ const BuildingView = ({ name, number, image, address, link }) => {
                                 {name} {number}{" "}
                             </h5>
                             <p className="card-text">{address}</p>
-                            <Link className="view-link" to={link}>
-                                {" "}
-                                View{" "}
-                            </Link>
+                            <div className="view-link" to={link}>
+                                Click me for parking
+                            </div>
                         </div>
                     </div>
                 </div>
