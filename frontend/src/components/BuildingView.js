@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FcHome, FcExternal } from "react-icons/fc";
-import { FaLocationDot } from "react-icons/fa6";
 
 const BuildingView = ({ name, number, image, address, link }) => {
     return (

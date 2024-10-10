@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 //components
 import CreateBuildingForm from "../../components/CreateBuildingForm";
@@ -6,21 +6,24 @@ import BuildingView from "../../components/BuildingView";
 
 //custom hooks
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
+import Loader from "../../components/Loader";
 
 const CreateBuildingPage = () => {
     //set state
-
+    const [loader, setLoader] = useState(false);
     const { buildings, dispatch } = useBuildingsContext();
 
     useEffect(() => {
         //api call to get all buildings
         const fetchBuildings = async () => {
+            setLoader(true);
             const response = await fetch("/api/building/");
             const json = await response.json();
 
             if (response.ok) {
                 dispatch({ type: "SET_BUILDINGS", payload: json });
             }
+            setLoader(false);
         };
 
         fetchBuildings();
@@ -59,6 +62,7 @@ const CreateBuildingPage = () => {
                         ))}
                 </div>
             </div>
+            {loader && <Loader />}
         </div>
     );
 };
