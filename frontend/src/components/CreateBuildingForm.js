@@ -18,6 +18,7 @@ const CreateBuildingForm = () => {
     const [number, setNumber] = useState("");
     const [address, setAddress] = useState("");
     const [image, setImage] = useState("");
+    const [imgFile, setImgFile] = useState("");
 
     const [error, setError] = useState(null);
     const [emptyField, setEmptyField] = useState([]);
@@ -25,7 +26,7 @@ const CreateBuildingForm = () => {
     const [loader, setLoader] = useState(false);
 
     //file handler
-    const handleFileChange = (e) => {
+    const handleFileChange = async (e) => {
         const file = e.target.files[0];
         if (file) {
             const fileType = file.type; // Get file MIME type
@@ -48,12 +49,16 @@ const CreateBuildingForm = () => {
 
             // Clear the error if the file is valid
             setError(null);
-            setImage(file);
+            //call the function to set the file to base image
+            const base64 = await convertToBase64(file);
+            setImage(base64);
+            setImgFile(file);
         }
     };
 
     const removeFile = () => {
-        setImage(null); // Reset the file
+        setImage(null);
+        setImgFile(null); // Reset the file
     };
 
     //form submission
@@ -170,7 +175,7 @@ const CreateBuildingForm = () => {
                 {image && (
                     <div className="file-info">
                         <p className="file-name form-label label">
-                            {image.name}
+                            {imgFile.name}
                         </p>
                         {/* Close button to remove the file */}
                         <button className="remove-btn" onClick={removeFile}>
@@ -193,3 +198,17 @@ const CreateBuildingForm = () => {
 };
 
 export default CreateBuildingForm;
+
+//converting image file to Base64
+function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+            reject(error);
+        };
+    });
+}

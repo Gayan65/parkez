@@ -13,9 +13,14 @@ const BuildingView = ({ name, number, image, address, link }) => {
                     <div className="col-md-4  d-flex align-items-center">
                         {/* add this img tag later  */}
                         <img
-                            src="https://via.placeholder.com/110"
+                            src={
+                                image
+                                    ? image
+                                    : "https://via.placeholder.com/110"
+                            }
                             className="img-fluid rounded-start"
                             alt="..."
+                            style={{ width: "110px", height: "110px" }}
                         />
                     </div>
                     <div className="col-md-8">
