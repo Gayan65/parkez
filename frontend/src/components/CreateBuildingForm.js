@@ -27,7 +27,29 @@ const CreateBuildingForm = () => {
     //file handler
     const handleFileChange = (e) => {
         const file = e.target.files[0];
-        setImage(file);
+        if (file) {
+            const fileType = file.type; // Get file MIME type
+
+            // Check if the file is an image (MIME type starts with 'image/')
+            if (!fileType.startsWith("image/")) {
+                setError(
+                    "Please upload a valid image file (jpg, png, gif, etc.)."
+                );
+                setImage(null); // Reset the file
+
+                Swal.fire({
+                    title: "File can't upload",
+                    text: "Please upload a valid image file (jpg, png, gif, etc.).",
+                    icon: "error",
+                });
+
+                return;
+            }
+
+            // Clear the error if the file is valid
+            setError(null);
+            setImage(file);
+        }
     };
 
     const removeFile = () => {
