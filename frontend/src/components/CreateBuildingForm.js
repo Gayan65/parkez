@@ -47,12 +47,25 @@ const CreateBuildingForm = () => {
                 return;
             }
 
+            if (file.size > 10 * 1024 * 1024) {
+                setError("Please upload a file smaller than 10MB.");
+                setImage(null); // Reset the file
+                Swal.fire({
+                    title: "File too large",
+                    text: "Please upload a file smaller than 10MB.",
+                    icon: "error",
+                });
+
+                return;
+            }
+
             // Clear the error if the file is valid
             setError(null);
             //call the function to set the file to base image
             const base64 = await convertToBase64(file);
             setImage(base64);
             setImgFile(file);
+            console.log(file.size);
         }
     };
 
