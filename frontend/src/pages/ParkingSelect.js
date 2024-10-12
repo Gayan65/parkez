@@ -256,6 +256,7 @@ const ParkingSelect = () => {
                         src="https://via.placeholder.com/300"
                         alt="Parking illustration"
                         className="img-fluid custom-img"
+                        style={{ width: "300px", height: "300px" }}
                     />
                 </div>
             </div>
