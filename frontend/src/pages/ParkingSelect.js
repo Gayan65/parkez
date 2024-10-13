@@ -22,6 +22,7 @@ const ParkingSelect = () => {
     //loader
     const [loader, setLoader] = useState(false);
     const [isDuplicate, setIsDuplicate] = useState(false);
+    const [buidlingImg, setBuildingImg] = useState("");
 
     //task context
     const { task_dispatch } = useTaskContext();
@@ -86,9 +87,22 @@ const ParkingSelect = () => {
         }
     };
 
+    //fetch the building
+    const fetchBuildingImage = async () => {
+        setLoader(true);
+        const response = await fetch(`/api/building/${building.id}`);
+        const json = await response.json();
+
+        if (response.ok) {
+            setBuildingImg(json[0].image);
+            setLoader(false);
+        }
+    };
+
     useEffect(() => {
         fetchAllParking();
         fetchDuplicateParking();
+        fetchBuildingImage();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [park_dispatch, building]);
 
@@ -253,7 +267,11 @@ const ParkingSelect = () => {
                 {/* Right side for image */}
                 <div className="col-md-4 text-center d-flex align-items-center justify-content-center">
                     <img
-                        src="https://via.placeholder.com/300"
+                        src={
+                            buidlingImg
+                                ? buidlingImg
+                                : "https://via.placeholder.com/300"
+                        }
                         alt="Parking illustration"
                         className="img-fluid custom-img"
                         style={{ width: "300px", height: "300px" }}
