@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 import { useParkLotContext } from "../../hooks/useParkLotContext";
 
+//icon
+import { FaRegEdit } from "react-icons/fa";
+
 //components
 import BuildingViewCard from "../../components/BuildingViewCard";
 import CreateParkingForm from "../../components/CreateParkingForm";
@@ -60,9 +63,15 @@ const BuildingDetails = () => {
                         image={building[0].image}
                     />
                 )}
+                <button
+                    className="btn-outline-primary"
+                    style={{ display: "flex", alignItems: "center" }}
+                >
+                    <FaRegEdit size={20} className="me-1" /> Edit
+                </button>
             </div>
 
-            <div>
+            <div className="mt-5">
                 <h3>Parking Slots</h3>
                 <CreateParkingForm building_id={id} />
             </div>
