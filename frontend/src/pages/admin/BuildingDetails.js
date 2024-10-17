@@ -9,68 +9,76 @@ import CreateParkingForm from "../../components/CreateParkingForm";
 import ParkingLotDetails from "../../components/ParkingLotDetails";
 
 const BuildingDetails = () => {
-  const { building, dispatch } = useBuildingsContext();
-  const { parks, park_dispatch } = useParkLotContext();
+    const { building, dispatch } = useBuildingsContext();
+    const { parks, park_dispatch } = useParkLotContext();
 
-  //get id from the params
-  const { id } = useParams();
+    //get id from the params
+    const { id } = useParams();
 
-  useEffect(() => {
-    //fetch the building here...
-    const fetchBuilding = async () => {
-      const response = await fetch(`/api/building/${id}`);
-      const json = await response.json();
+    useEffect(() => {
+        //fetch the building here...
+        const fetchBuilding = async () => {
+            const response = await fetch(`/api/building/${id}`);
+            const json = await response.json();
 
-      if (response.ok) {
-        dispatch({ type: "SET_A_BUILDING", payload: json });
-      }
-    };
+            if (response.ok) {
+                dispatch({ type: "SET_A_BUILDING", payload: json });
+            }
+        };
 
-    // fetch the relevance parking lots for the above building here...
-    const fetchAllParking = async () => {
-      const response = await fetch(`/api/park/${id}`);
-      const json = await response.json();
+        // fetch the relevance parking lots for the above building here...
+        const fetchAllParking = async () => {
+            const response = await fetch(`/api/park/${id}`);
+            const json = await response.json();
 
-      if (response.ok) {
-        park_dispatch({ type: "SET_PARKS", payload: json });
-      }
-    };
+            if (response.ok) {
+                park_dispatch({ type: "SET_PARKS", payload: json });
+            }
+        };
 
-    fetchBuilding();
-    fetchAllParking();
-  }, [dispatch, park_dispatch, id]);
+        fetchBuilding();
+        fetchAllParking();
+    }, [dispatch, park_dispatch, id]);
 
-  return (
-    <div>
-      <div>
-        {building && (
-          <BuildingViewCard
-            name={building[0].name}
-            number={building[0].number}
-            address={building[0].address}
-          />
-        )}
-      </div>
+    return (
+        <div className="container mt-3">
+            <h3 className="header mt-3">Building View</h3>
+            <p className="paragraph">
+                In this section, you can update building details, add or delete
+                parking slots, and change the status of existing parking slots,
+                such as marking a slot for maintenance. This ensures efficient
+                management of parking availability while allowing for easy
+                updates to building and parking information.
+            </p>
+            <div>
+                {building && (
+                    <BuildingViewCard
+                        name={building[0].name}
+                        number={building[0].number}
+                        address={building[0].address}
+                    />
+                )}
+            </div>
 
-      <div>
-        <h3>Parking Slots</h3>
-        <CreateParkingForm building_id={id} />
-      </div>
+            <div>
+                <h3>Parking Slots</h3>
+                <CreateParkingForm building_id={id} />
+            </div>
 
-      <div className="container text-center">
-        <div className="row row-cols-3">
-          {parks &&
-            parks.map((parkingLot) => (
-              <ParkingLotDetails
-                key={parkingLot._id}
-                lot={parkingLot.lot}
-                status={parkingLot.status}
-              />
-            ))}
+            <div className="container text-center">
+                <div className="row row-cols-3">
+                    {parks &&
+                        parks.map((parkingLot) => (
+                            <ParkingLotDetails
+                                key={parkingLot._id}
+                                lot={parkingLot.lot}
+                                status={parkingLot.status}
+                            />
+                        ))}
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default BuildingDetails;

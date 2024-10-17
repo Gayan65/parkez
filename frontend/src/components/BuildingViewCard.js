@@ -3,7 +3,12 @@ import React from "react";
 const BuildingViewCard = ({ name, number, address }) => {
     return (
         <div className="card mb-3">
-            {/*add this img <img src="..." className="card-img-top" alt="..." />*/}
+            <img
+                src="https://via.placeholder.com/300"
+                className="card-img-top"
+                alt="..."
+                style={{ height: "200px", objectFit: "cover" }}
+            />
             <div className="card-body">
                 <h5 className="card-title">
                     {name} {number}
