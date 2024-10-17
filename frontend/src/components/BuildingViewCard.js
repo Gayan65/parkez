@@ -1,6 +1,9 @@
 import React from "react";
 
-const BuildingViewCard = ({ name, number, address }) => {
+//date format
+import { format } from "date-fns";
+
+const BuildingViewCard = ({ name, number, address, createdAt }) => {
     return (
         <div className="card mb-3">
             <img
@@ -10,13 +13,14 @@ const BuildingViewCard = ({ name, number, address }) => {
                 style={{ height: "200px", objectFit: "cover" }}
             />
             <div className="card-body">
-                <h5 className="card-title">
+                <h5 className="card-title paragraph">
                     {name} {number}
                 </h5>
-                <p className="card-text">{address}</p>
+                <p className="card-text paragraph">{address}</p>
                 <p className="card-text">
                     <small className="text-body-secondary">
-                        Last updated 3 mins ago need to be added
+                        Created on{" "}
+                        {format(new Date(createdAt), "EEEE, d/M/yyyy h:mma")}
                     </small>
                 </p>
             </div>

@@ -56,6 +56,7 @@ const BuildingDetails = () => {
                         name={building[0].name}
                         number={building[0].number}
                         address={building[0].address}
+                        createdAt={building[0].createdAt}
                     />
                 )}
             </div>

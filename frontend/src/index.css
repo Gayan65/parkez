@@ -484,6 +484,11 @@ body {
     color: #226699;
 }
 
+.text-body-secondary {
+    margin: 0 0 10px;
+    color: #226599bd !important;
+}
+
 .list {
     margin: 0 0 10px;
     padding-left: 20px;
