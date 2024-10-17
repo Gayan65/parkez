@@ -3,11 +3,12 @@ import React from "react";
 //date format
 import { format } from "date-fns";
 
-const BuildingViewCard = ({ name, number, address, createdAt }) => {
+const BuildingViewCard = ({ name, number, address, createdAt, image }) => {
     return (
         <div className="card mb-3">
             <img
-                src="https://via.placeholder.com/300"
+                //src="https://via.placeholder.com/300"
+                src={image ? image : "https://via.placeholder.com/300"}
                 className="card-img-top"
                 alt="..."
                 style={{ height: "200px", objectFit: "cover" }}
