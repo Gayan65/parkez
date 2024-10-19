@@ -54,15 +54,16 @@ const BuildingDetails = () => {
                 updates to building and parking information.
             </p>
             <div>
-                {building && (
-                    <BuildingViewCard
-                        name={building[0].name}
-                        number={building[0].number}
-                        address={building[0].address}
-                        createdAt={building[0].createdAt}
-                        image={building[0].image}
-                    />
-                )}
+                {building &&
+                    building[0] && ( //building[0] && this is solve the disappear of this component suddenly
+                        <BuildingViewCard
+                            name={building[0].name}
+                            number={building[0].number}
+                            address={building[0].address}
+                            createdAt={building[0].createdAt}
+                            image={building[0].image}
+                        />
+                    )}
                 <button
                     className="btn-outline-primary"
                     style={{ display: "flex", alignItems: "center" }}
