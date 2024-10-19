@@ -107,6 +107,7 @@ const BuildingDetails = () => {
                             type="text"
                             placeholder="Building Name"
                             className="form-control mb-3"
+                            value={building && building[0] && building[0].name}
                         />
                     </div>
                     <div className="col-md-4 mb-3">
@@ -114,9 +115,12 @@ const BuildingDetails = () => {
                             Building Number
                         </label>
                         <input
-                            type="text"
+                            type="number"
                             placeholder="Building Name"
                             className="form-control mb-3"
+                            value={
+                                building && building[0] && building[0].number
+                            }
                         />
                     </div>
                     <div className="col-md-4 mb-3">
@@ -126,6 +130,9 @@ const BuildingDetails = () => {
                             type="text"
                             placeholder="Building Address"
                             className="form-control mb-3"
+                            value={
+                                building && building[0] && building[0].address
+                            }
                         />
                     </div>
                     <div className="mb-3 custom-upload-wrapper">
