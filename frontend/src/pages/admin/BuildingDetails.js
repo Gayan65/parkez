@@ -1,10 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 import { useParkLotContext } from "../../hooks/useParkLotContext";
 
 //icon
 import { FaRegEdit } from "react-icons/fa";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 //components
 import BuildingViewCard from "../../components/BuildingViewCard";
@@ -14,6 +15,9 @@ import ParkingLotDetails from "../../components/ParkingLotDetails";
 const BuildingDetails = () => {
     const { building, dispatch } = useBuildingsContext();
     const { parks, park_dispatch } = useParkLotContext();
+
+    // State to handle accordion toggle
+    const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
     //get id from the params
     const { id } = useParams();
@@ -43,6 +47,13 @@ const BuildingDetails = () => {
         fetchAllParking();
     }, [dispatch, park_dispatch, id]);
 
+    // Function to toggle accordion
+    const toggleAccordion = () => {
+        setIsAccordionOpen(!isAccordionOpen);
+    };
+
+    const handleFileChange = () => {};
+
     return (
         <div className="container mt-3">
             <h3 className="header mt-3">Building View</h3>
@@ -65,11 +76,69 @@ const BuildingDetails = () => {
                         />
                     )}
                 <button
-                    className="btn-outline-primary"
+                    className="btn-outline-primary edit-btn"
                     style={{ display: "flex", alignItems: "center" }}
+                    onClick={toggleAccordion}
                 >
                     <FaRegEdit size={20} className="me-1" /> Edit
                 </button>
+            </div>
+
+            <div className={`accordion ${isAccordionOpen ? "open" : ""}`}>
+                <h5 className="header">Edit Building Details</h5>
+                <p className="paragraph" style={{ color: "#226699" }}>
+                    You can edit the building's name, address, and other details
+                    here.
+                </p>
+                <div className="row">
+                    <div className="col-md-4 mb-3">
+                        <label className="form-label label">
+                            Building Name
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Building Name"
+                            className="form-control mb-3"
+                        />
+                    </div>
+                    <div className="col-md-4 mb-3">
+                        <label className="form-label label">
+                            Building Number
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Building Name"
+                            className="form-control mb-3"
+                        />
+                    </div>
+                    <div className="col-md-4 mb-3">
+                        {" "}
+                        <label className="form-label label">Address</label>
+                        <input
+                            type="text"
+                            placeholder="Building Address"
+                            className="form-control mb-3"
+                        />
+                    </div>
+                    <div className="mb-3 custom-upload-wrapper">
+                        <label className="form-label label">Image</label>
+                        <input
+                            type="file"
+                            id="file-upload"
+                            className="file-input"
+                            onChange={handleFileChange}
+                            accept="image/*"
+                        />
+                        {/* Icon acting as the button to trigger file selection */}
+                        <label
+                            htmlFor="file-upload"
+                            className="file-upload-label"
+                        >
+                            <IoCloudUploadOutline size={30} />{" "}
+                            {/* Upload Icon */}
+                        </label>
+                    </div>
+                </div>
             </div>
 
             <div className="mt-5">
