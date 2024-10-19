@@ -102,7 +102,9 @@ const BuildingDetails = () => {
                 </button>
             </div>
 
-            <div className={`accordion ${isAccordionOpen ? "open" : ""}`}>
+            <div
+                className={`accordion-custom ${isAccordionOpen ? "open" : ""}`}
+            >
                 <h5 className="header">Edit Building Details</h5>
                 <p className="paragraph" style={{ color: "#226699" }}>
                     You can edit the building's name, address, and other details
