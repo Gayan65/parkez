@@ -11,8 +11,11 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import BuildingViewCard from "../../components/BuildingViewCard";
 import CreateParkingForm from "../../components/CreateParkingForm";
 import ParkingLotDetails from "../../components/ParkingLotDetails";
+import Loader from "../../components/Loader";
 
 const BuildingDetails = () => {
+    const [loader, setLoader] = useState(false);
+
     const { building, dispatch } = useBuildingsContext();
     const { parks, park_dispatch } = useParkLotContext();
 
@@ -25,22 +28,27 @@ const BuildingDetails = () => {
     useEffect(() => {
         //fetch the building here...
         const fetchBuilding = async () => {
+            setLoader(true);
             const response = await fetch(`/api/building/${id}`);
             const json = await response.json();
 
             if (response.ok) {
                 dispatch({ type: "SET_A_BUILDING", payload: json });
             }
+
+            setLoader(false);
         };
 
         // fetch the relevance parking lots for the above building here...
         const fetchAllParking = async () => {
+            setLoader(true);
             const response = await fetch(`/api/park/${id}`);
             const json = await response.json();
 
             if (response.ok) {
                 park_dispatch({ type: "SET_PARKS", payload: json });
             }
+            setLoader(false);
         };
 
         fetchBuilding();
@@ -158,6 +166,7 @@ const BuildingDetails = () => {
                         ))}
                 </div>
             </div>
+            {loader && <Loader />}
         </div>
     );
 };
