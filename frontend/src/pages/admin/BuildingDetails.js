@@ -26,33 +26,35 @@ const BuildingDetails = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        //fetch the building here...
-        const fetchBuilding = async () => {
-            setLoader(true);
-            const response = await fetch(`/api/building/${id}`);
-            const json = await response.json();
+        if (id) {
+            //building[0] && this is solve the disappear of this component suddenly
+            //fetch the building here...
+            const fetchBuilding = async () => {
+                setLoader(true);
+                const response = await fetch(`/api/building/${id}`);
+                const json = await response.json();
 
-            if (response.ok) {
-                dispatch({ type: "SET_A_BUILDING", payload: json });
-            }
+                if (response.ok) {
+                    dispatch({ type: "SET_A_BUILDING", payload: json });
+                }
 
-            setLoader(false);
-        };
+                setLoader(false);
+            };
 
-        // fetch the relevance parking lots for the above building here...
-        const fetchAllParking = async () => {
-            setLoader(true);
-            const response = await fetch(`/api/park/${id}`);
-            const json = await response.json();
+            // fetch the relevance parking lots for the above building here...
+            const fetchAllParking = async () => {
+                setLoader(true);
+                const response = await fetch(`/api/park/${id}`);
+                const json = await response.json();
 
-            if (response.ok) {
-                park_dispatch({ type: "SET_PARKS", payload: json });
-            }
-            setLoader(false);
-        };
-
-        fetchBuilding();
-        fetchAllParking();
+                if (response.ok) {
+                    park_dispatch({ type: "SET_PARKS", payload: json });
+                }
+                setLoader(false);
+            };
+            fetchBuilding();
+            fetchAllParking();
+        }
     }, [dispatch, park_dispatch, id]);
 
     // Function to toggle accordion
