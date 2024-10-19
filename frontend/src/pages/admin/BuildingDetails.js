@@ -4,7 +4,7 @@ import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 import { useParkLotContext } from "../../hooks/useParkLotContext";
 
 //icon
-import { FaRegEdit } from "react-icons/fa";
+import { FaRegEdit, FaRegWindowClose } from "react-icons/fa";
 import { IoCloudUploadOutline } from "react-icons/io5";
 
 //components
@@ -58,6 +58,7 @@ const BuildingDetails = () => {
     // Function to toggle accordion
     const toggleAccordion = () => {
         setIsAccordionOpen(!isAccordionOpen);
+        console.log(isAccordionOpen);
     };
 
     const handleFileChange = () => {};
@@ -88,7 +89,16 @@ const BuildingDetails = () => {
                     style={{ display: "flex", alignItems: "center" }}
                     onClick={toggleAccordion}
                 >
-                    <FaRegEdit size={20} className="me-1" /> Edit
+                    {!isAccordionOpen ? (
+                        <>
+                            <FaRegEdit size={20} className="me-1" /> Edit
+                        </>
+                    ) : (
+                        <>
+                            <FaRegWindowClose size={20} className="me-1" />{" "}
+                            Close
+                        </>
+                    )}
                 </button>
             </div>
 
