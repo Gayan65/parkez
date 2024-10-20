@@ -5,7 +5,7 @@ import { useParkLotContext } from "../../hooks/useParkLotContext";
 
 //icon
 import { FaRegEdit, FaRegWindowClose } from "react-icons/fa";
-import { IoCloudUploadOutline } from "react-icons/io5";
+import { IoCloudUploadOutline, IoCloseCircle } from "react-icons/io5";
 
 //components
 import BuildingViewCard from "../../components/BuildingViewCard";
@@ -64,6 +64,8 @@ const BuildingDetails = () => {
     };
 
     const handleFileChange = () => {};
+
+    const removeFile = () => {};
 
     return (
         <div className="container mt-3">
@@ -166,6 +168,22 @@ const BuildingDetails = () => {
                             <IoCloudUploadOutline size={30} />{" "}
                             {/* Upload Icon */}
                         </label>
+
+                        {building && building[0] && building[0].imgFile && (
+                            <div className="file-info">
+                                <p className="file-name form-label label">
+                                    {building[0].imgFile}
+                                </p>
+                                {/* Close button to remove the file */}
+                                <button
+                                    className="remove-btn"
+                                    onClick={removeFile}
+                                >
+                                    <IoCloseCircle size={23} />{" "}
+                                    {/* Close icon */}
+                                </button>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
