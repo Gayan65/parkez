@@ -22,6 +22,12 @@ const BuildingDetails = () => {
     // State to handle accordion toggle
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
+    const [name, setName] = useState("");
+    const [number, setNumber] = useState("");
+    const [address, setAddress] = useState("");
+    const [imgFile, setImgFile] = useState("");
+    const [image, setImage] = useState("");
+
     //get id from the params
     const { id } = useParams();
 
@@ -36,6 +42,13 @@ const BuildingDetails = () => {
 
                 if (response.ok) {
                     dispatch({ type: "SET_A_BUILDING", payload: json });
+                    // Set local state values once the building is fetched
+
+                    setName(json[0].name);
+                    setNumber(json[0].number);
+                    setAddress(json[0].address);
+                    setImgFile(json[0].imgFile);
+                    setImage(json[0].image);
                 }
 
                 setLoader(false);
@@ -123,7 +136,8 @@ const BuildingDetails = () => {
                             type="text"
                             placeholder="Building Name"
                             className="form-control mb-3"
-                            value={building && building[0] && building[0].name}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                         />
                     </div>
                     <div className="col-md-4 mb-3">
@@ -134,9 +148,8 @@ const BuildingDetails = () => {
                             type="number"
                             placeholder="Building Name"
                             className="form-control mb-3"
-                            value={
-                                building && building[0] && building[0].number
-                            }
+                            value={number}
+                            onChange={(e) => setNumber(e.target.value)}
                         />
                     </div>
                     <div className="col-md-4 mb-3">
@@ -146,9 +159,8 @@ const BuildingDetails = () => {
                             type="text"
                             placeholder="Building Address"
                             className="form-control mb-3"
-                            value={
-                                building && building[0] && building[0].address
-                            }
+                            value={address}
+                            onChange={(e) => setAddress(e.target.value)}
                         />
                     </div>
                     <div className="mb-3 custom-upload-wrapper">
@@ -169,10 +181,10 @@ const BuildingDetails = () => {
                             {/* Upload Icon */}
                         </label>
 
-                        {building && building[0] && building[0].imgFile && (
+                        {imgFile && (
                             <div className="file-info">
                                 <p className="file-name form-label label">
-                                    {building[0].imgFile}
+                                    {imgFile}
                                 </p>
                                 {/* Close button to remove the file */}
                                 <button
