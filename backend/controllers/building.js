@@ -3,7 +3,7 @@ import { Building } from "../models/BuildingModel.js";
 //create building controller - admin only
 
 export const createBuilding = async (req, res) => {
-    const { name, number, image, address } = req.body;
+    const { name, number, image, imgFile, address } = req.body;
 
     let emptyFields = [];
 
@@ -31,6 +31,7 @@ export const createBuilding = async (req, res) => {
             name,
             number,
             image,
+            imgFile,
             address,
         });
         res.status(200).json(building);

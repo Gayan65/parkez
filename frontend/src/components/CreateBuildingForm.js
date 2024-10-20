@@ -79,7 +79,13 @@ const CreateBuildingForm = () => {
         e.preventDefault();
         setLoader(true);
 
-        const building = { name, number, image, address };
+        const building = {
+            name,
+            number,
+            image,
+            imgFile: imgFile ? imgFile.name : "",
+            address,
+        };
 
         //API call to backend
         const response = await fetch("api/building/", {
