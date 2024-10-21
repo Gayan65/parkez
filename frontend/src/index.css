@@ -1194,7 +1194,7 @@ body {
 }
 
 .accordion-custom.open {
-    max-height: 300px; /* Adjust based on content */
+    max-height: 320px; /* Adjust based on content */
     padding: 1rem;
 }
 

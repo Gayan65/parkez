@@ -36,6 +36,7 @@ const BuildingDetails = () => {
     //get id from the params
     const { id } = useParams();
 
+    //fetch the building here...
     const fetchBuilding = async (id) => {
         setLoader(true);
         const response = await fetch(`/api/building/${id}`);
@@ -60,7 +61,6 @@ const BuildingDetails = () => {
     useEffect(() => {
         if (id) {
             //building[0] && this is solve the disappear of this component suddenly
-            //fetch the building here...
 
             // fetch the relevance parking lots for the above building here...
             const fetchAllParking = async () => {
@@ -76,6 +76,7 @@ const BuildingDetails = () => {
             fetchBuilding(id);
             fetchAllParking();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, park_dispatch, id]);
 
     // Function to toggle accordion
@@ -310,6 +311,7 @@ const BuildingDetails = () => {
                             </div>
                         </div>
                     </div>
+                    {error && <p className="error-forms">{error}</p>}
                 </form>
             </div>
 
