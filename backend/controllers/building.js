@@ -1,4 +1,5 @@
 import { Building } from "../models/BuildingModel.js";
+import mongoose from "mongoose";
 
 //create building controller - admin only
 
@@ -75,7 +76,8 @@ export const updateBuilding = async (req, res) => {
         { _id: id },
         {
             ...req.body,
-        }
+        },
+        { new: true } // This returns the updated document
     );
 
     if (!building) {

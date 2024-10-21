@@ -36,28 +36,31 @@ const BuildingDetails = () => {
     //get id from the params
     const { id } = useParams();
 
+    const fetchBuilding = async (id) => {
+        setLoader(true);
+        const response = await fetch(`/api/building/${id}`);
+        const json = await response.json();
+
+        if (response.ok) {
+            dispatch({ type: "SET_A_BUILDING", payload: json });
+            // Set local state values once the building is fetched
+
+            setName(json[0].name);
+            setNumber(json[0].number);
+            setAddress(json[0].address);
+            setImgFile(json[0].imgFile);
+            setImage(json[0].image);
+
+            setImageChanged(false); //this will make the imageChange in to false and the imgFile DB string can display to the user
+        }
+
+        setLoader(false);
+    };
+
     useEffect(() => {
         if (id) {
             //building[0] && this is solve the disappear of this component suddenly
             //fetch the building here...
-            const fetchBuilding = async () => {
-                setLoader(true);
-                const response = await fetch(`/api/building/${id}`);
-                const json = await response.json();
-
-                if (response.ok) {
-                    dispatch({ type: "SET_A_BUILDING", payload: json });
-                    // Set local state values once the building is fetched
-
-                    setName(json[0].name);
-                    setNumber(json[0].number);
-                    setAddress(json[0].address);
-                    setImgFile(json[0].imgFile);
-                    setImage(json[0].image);
-                }
-
-                setLoader(false);
-            };
 
             // fetch the relevance parking lots for the above building here...
             const fetchAllParking = async () => {
@@ -70,7 +73,7 @@ const BuildingDetails = () => {
                 }
                 setLoader(false);
             };
-            fetchBuilding();
+            fetchBuilding(id);
             fetchAllParking();
         }
     }, [dispatch, park_dispatch, id]);
@@ -78,8 +81,9 @@ const BuildingDetails = () => {
     // Function to toggle accordion
     const toggleAccordion = () => {
         setIsAccordionOpen(!isAccordionOpen);
-        console.log(isAccordionOpen);
     };
+
+    console.log("IMG File from Page loaded", imgFile, imageChanged);
 
     const handleFileChange = async (e) => {
         console.log("it get changed");
@@ -132,6 +136,44 @@ const BuildingDetails = () => {
         setImgFile(null); // Reset the file
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const updatedBuilding = {
+            name,
+            number,
+            image,
+            imgFile: imgFile ? imgFile.name : "",
+            address,
+        };
+
+        const response = await fetch(`/api/building/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedBuilding),
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setError(json.error);
+            console.log(json);
+        }
+
+        if (response.ok) {
+            setError(null);
+
+            // Re-fetch the updated building after submitting the form
+            fetchBuilding(id);
+
+            console.log("Building updated successfully!");
+            console.log("IMG File from handle submit", imgFile, imageChanged);
+            dispatch({ type: "SET_A_BUILDING", payload: json });
+        }
+    };
+
     return (
         <div className="container mt-3">
             <h3 className="header mt-3">Building View</h3>
@@ -179,78 +221,96 @@ const BuildingDetails = () => {
                     You can edit the building's name, address, and other details
                     here.
                 </p>
-                <div className="row">
-                    <div className="col-md-4 mb-3">
-                        <label className="form-label label">
-                            Building Name
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="Building Name"
-                            className="form-control mb-3"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        <label className="form-label label">
-                            Building Number
-                        </label>
-                        <input
-                            type="number"
-                            placeholder="Building Name"
-                            className="form-control mb-3"
-                            value={number}
-                            onChange={(e) => setNumber(e.target.value)}
-                        />
-                    </div>
-                    <div className="col-md-4 mb-3">
-                        {" "}
-                        <label className="form-label label">Address</label>
-                        <input
-                            type="text"
-                            placeholder="Building Address"
-                            className="form-control mb-3"
-                            value={address}
-                            onChange={(e) => setAddress(e.target.value)}
-                        />
-                    </div>
-                    <div className="mb-3 custom-upload-wrapper">
-                        <label className="form-label label">Image</label>
-                        <input
-                            type="file"
-                            id="file-upload"
-                            className="file-input"
-                            onChange={handleFileChange}
-                            accept="image/*"
-                        />
-                        {/* Icon acting as the button to trigger file selection */}
-                        <label
-                            htmlFor="file-upload"
-                            className="file-upload-label"
-                        >
-                            <IoCloudUploadOutline size={30} />{" "}
-                            {/* Upload Icon */}
-                        </label>
-
-                        {imgFile && (
-                            <div className="file-info">
-                                <p className="file-name form-label label">
-                                    {imageChanged ? imgFile.name : imgFile}{" "}
-                                    {/* imgFile has a name string originally but it get changed as a file handled */}
-                                </p>
-                                {/* Close button to remove the file */}
-                                <button
-                                    className="remove-btn"
-                                    onClick={removeFile}
-                                >
-                                    <IoCloseCircle size={23} />{" "}
-                                    {/* Close icon */}
-                                </button>
+                <form className="other-form" onSubmit={handleSubmit}>
+                    {" "}
+                    <div className="row">
+                        <div className="col-md-4 mb-3">
+                            <label className="form-label label">
+                                Building Name
+                            </label>
+                            <input
+                                type="text"
+                                placeholder="Building Name"
+                                className="form-control mb-3"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                            />
+                        </div>
+                        <div className="col-md-4 mb-3">
+                            <label className="form-label label">
+                                Building Number
+                            </label>
+                            <input
+                                type="number"
+                                placeholder="Building Name"
+                                className="form-control mb-3"
+                                value={number}
+                                onChange={(e) => setNumber(e.target.value)}
+                            />
+                        </div>
+                        <div className="col-md-4 mb-3">
+                            {" "}
+                            <label className="form-label label">Address</label>
+                            <input
+                                type="text"
+                                placeholder="Building Address"
+                                className="form-control mb-3"
+                                value={address}
+                                onChange={(e) => setAddress(e.target.value)}
+                            />
+                        </div>
+                        <div className="row">
+                            <div className="col-md-4 mb-3">
+                                <input
+                                    type="submit"
+                                    className="btn btn-primary"
+                                    value="Save Changes"
+                                />
                             </div>
-                        )}
+
+                            <div className="col-md-4 mb-3 custom-upload-wrapper">
+                                <label className="form-label label">
+                                    Image
+                                </label>
+                                <input
+                                    type="file"
+                                    id="file-upload"
+                                    className="file-input"
+                                    onChange={handleFileChange}
+                                    accept="image/*"
+                                />
+                                {/* Icon acting as the button to trigger file selection */}
+                                <label
+                                    htmlFor="file-upload"
+                                    className="file-upload-label"
+                                >
+                                    <IoCloudUploadOutline size={30} />{" "}
+                                    {/* Upload Icon */}
+                                </label>
+
+                                {imgFile && (
+                                    <div className="file-info">
+                                        <p className="file-name form-label label">
+                                            {imageChanged
+                                                ? imgFile.name
+                                                : imgFile}{" "}
+                                            {/* imgFile has a name string originally but it get changed as a file handled */}
+                                        </p>
+                                        {/* Close button to remove the file */}
+
+                                        <button
+                                            className="remove-btn"
+                                            onClick={removeFile}
+                                        >
+                                            <IoCloseCircle size={23} />{" "}
+                                            {/* Close icon */}
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
 
             <div className="mt-5">
