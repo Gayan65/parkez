@@ -13,6 +13,9 @@ import CreateParkingForm from "../../components/CreateParkingForm";
 import ParkingLotDetails from "../../components/ParkingLotDetails";
 import Loader from "../../components/Loader";
 
+//sweet alerts
+import Swal from "sweetalert2";
+
 const BuildingDetails = () => {
     const [loader, setLoader] = useState(false);
 
@@ -27,6 +30,8 @@ const BuildingDetails = () => {
     const [address, setAddress] = useState("");
     const [imgFile, setImgFile] = useState("");
     const [image, setImage] = useState("");
+    const [error, setError] = useState(null);
+    const [imageChanged, setImageChanged] = useState(false);
 
     //get id from the params
     const { id } = useParams();
@@ -76,9 +81,56 @@ const BuildingDetails = () => {
         console.log(isAccordionOpen);
     };
 
-    const handleFileChange = () => {};
+    const handleFileChange = async (e) => {
+        console.log("it get changed");
+        setImageChanged(true);
+        const file = e.target.files[0];
+        if (file) {
+            const fileType = file.type; // Get file MIME type
 
-    const removeFile = () => {};
+            // Check if the file is an image (MIME type starts with 'image/')
+            if (!fileType.startsWith("image/")) {
+                setError(
+                    "Please upload a valid image file (jpg, png, gif, etc.)."
+                );
+                setImage(null); // Reset the file
+
+                Swal.fire({
+                    title: "File can't upload",
+                    text: "Please upload a valid image file (jpg, png, gif, etc.).",
+                    icon: "error",
+                });
+
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                setError("Please upload a file smaller than 10MB.");
+                setImage(null); // Reset the file
+                Swal.fire({
+                    title: "File too large",
+                    text: "Please upload a file smaller than 10MB.",
+                    icon: "error",
+                });
+
+                return;
+            }
+
+            // Clear the error if the file is valid
+            setError(null);
+            //call the function to set the file to base image
+            const base64 = await convertToBase64(file);
+            setImage(base64);
+            setImgFile(file);
+            console.log(file.size);
+        }
+    };
+
+    const removeFile = () => {
+        setImageChanged(true);
+        setImage(null);
+        setImgFile(null); // Reset the file
+    };
 
     return (
         <div className="container mt-3">
@@ -184,7 +236,8 @@ const BuildingDetails = () => {
                         {imgFile && (
                             <div className="file-info">
                                 <p className="file-name form-label label">
-                                    {imgFile}
+                                    {imageChanged ? imgFile.name : imgFile}{" "}
+                                    {/* imgFile has a name string originally but it get changed as a file handled */}
                                 </p>
                                 {/* Close button to remove the file */}
                                 <button
@@ -223,3 +276,17 @@ const BuildingDetails = () => {
 };
 
 export default BuildingDetails;
+
+//converting image file to Base64
+function convertToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+        fileReader.onerror = (error) => {
+            reject(error);
+        };
+    });
+}
