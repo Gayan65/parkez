@@ -62,3 +62,25 @@ export const get_a_Building = async (req, res) => {
         res.status(401).json({ error: error.message });
     }
 };
+
+//update a building from building id
+export const updateBuilding = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "building not found" });
+    }
+
+    const building = await Building.findByIdAndUpdate(
+        { _id: id },
+        {
+            ...req.body,
+        }
+    );
+
+    if (!building) {
+        return res.status(404).json({ error: "building not found" });
+    }
+
+    res.status(200).json(building);
+};
