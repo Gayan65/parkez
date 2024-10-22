@@ -140,42 +140,64 @@ const BuildingDetails = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        setLoader(true);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you need to update?, You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, update it!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                setLoader(true);
 
-        const updatedBuilding = {
-            name,
-            number,
-            image,
-            imgFile: imgFile ? imgFile.name : "",
-            address,
-        };
+                const updatedBuilding = {
+                    name,
+                    number,
+                    image,
+                    imgFile: imgFile ? imgFile.name : "",
+                    address,
+                };
 
-        const response = await fetch(`/api/building/${id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedBuilding),
+                const response = await fetch(`/api/building/${id}`, {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(updatedBuilding),
+                });
+
+                const json = await response.json();
+
+                if (!response.ok) {
+                    setError(json.error);
+                    console.log(json);
+                }
+
+                if (response.ok) {
+                    setError(null);
+
+                    // Re-fetch the updated building after submitting the form
+                    fetchBuilding(id);
+
+                    console.log("Building updated successfully!");
+                    console.log(
+                        "IMG File from handle submit",
+                        imgFile,
+                        imageChanged
+                    );
+                    dispatch({ type: "SET_A_BUILDING", payload: json });
+                    setLoader(false);
+                }
+
+                Swal.fire({
+                    title: "Updated!",
+                    text: "Your building has been updated.",
+                    icon: "success",
+                });
+            }
         });
-
-        const json = await response.json();
-
-        if (!response.ok) {
-            setError(json.error);
-            console.log(json);
-        }
-
-        if (response.ok) {
-            setError(null);
-
-            // Re-fetch the updated building after submitting the form
-            fetchBuilding(id);
-
-            console.log("Building updated successfully!");
-            console.log("IMG File from handle submit", imgFile, imageChanged);
-            dispatch({ type: "SET_A_BUILDING", payload: json });
-            setLoader(false);
-        }
     };
 
     return (
