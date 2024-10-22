@@ -140,6 +140,8 @@ const BuildingDetails = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        setLoader(true);
+
         const updatedBuilding = {
             name,
             number,
@@ -172,6 +174,7 @@ const BuildingDetails = () => {
             console.log("Building updated successfully!");
             console.log("IMG File from handle submit", imgFile, imageChanged);
             dispatch({ type: "SET_A_BUILDING", payload: json });
+            setLoader(false);
         }
     };
 
