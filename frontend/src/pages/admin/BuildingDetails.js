@@ -33,8 +33,32 @@ const BuildingDetails = () => {
     const [error, setError] = useState(null);
     const [imageChanged, setImageChanged] = useState(false);
 
+    // New state to track initial values
+    const [initialValues, setInitialValues] = useState({
+        name: "",
+        number: "",
+        address: "",
+        image: "",
+    });
+
+    const [isChanged, setIsChanged] = useState(false); // Track if any value has changed
+
     //get id from the params
     const { id } = useParams();
+
+    // Function to check if any value has changed from the initial values
+    const checkForChanges = () => {
+        if (
+            name !== initialValues.name ||
+            number !== initialValues.number ||
+            address !== initialValues.address ||
+            imageChanged // Only check the image if it has changed
+        ) {
+            setIsChanged(true);
+        } else {
+            setIsChanged(false);
+        }
+    };
 
     //fetch the building here...
     const fetchBuilding = async (id) => {
@@ -51,6 +75,14 @@ const BuildingDetails = () => {
             setAddress(json[0].address);
             setImgFile(json[0].imgFile);
             setImage(json[0].image);
+
+            // Store the initial values to compare later
+            setInitialValues({
+                name: json[0].name,
+                number: json[0].number,
+                address: json[0].address,
+                image: json[0].image,
+            });
 
             setImageChanged(false); //this will make the imageChange in to false and the imgFile DB string can display to the user
         }
@@ -78,6 +110,12 @@ const BuildingDetails = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, park_dispatch, id]);
+
+    useEffect(() => {
+        // Check for changes whenever the form values change
+        checkForChanges();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [name, number, address, imageChanged]);
 
     // Function to toggle accordion
     const toggleAccordion = () => {
@@ -291,6 +329,7 @@ const BuildingDetails = () => {
                                     type="submit"
                                     className="btn btn-primary"
                                     value="Save Changes"
+                                    disabled={!isChanged} // Disable button if no changes
                                 />
                             </div>
 
