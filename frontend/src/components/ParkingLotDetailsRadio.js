@@ -17,7 +17,7 @@ const ParkingLotDetailsRadio = ({ lot, status, i, onSelect, disable }) => {
     };
 
     return (
-        <div>
+        <div className="parking-lot-margin">
             <input
                 type="radio"
                 className="parking-slot-btn"

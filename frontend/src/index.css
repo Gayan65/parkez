@@ -682,6 +682,10 @@ body {
     display: none; /* Hide default radio button */
 }
 
+.parking-lot-margin {
+    margin-right: 50px;
+}
+
 /* Styled Button for Parking Slot */
 .btn-outline-primary-parking {
     position: relative; /* To allow positioning of the car image */
