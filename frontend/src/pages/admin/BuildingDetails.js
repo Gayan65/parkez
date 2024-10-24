@@ -240,7 +240,7 @@ const BuildingDetails = () => {
 
     return (
         <div className="container mt-3">
-            <h3 className="header mt-3">Building View</h3>
+            <h3 className="header mt-3">Building Details</h3>
             <p className="paragraph">
                 In this section, you can update building details, add or delete
                 parking slots, and change the status of existing parking slots,
@@ -381,7 +381,13 @@ const BuildingDetails = () => {
             </div>
 
             <div className="mt-5">
-                <h3>Parking Slots</h3>
+                <h3 className="header mt-3">Parking Space Creation</h3>
+                <p className="paragraph">
+                    In this section, you can add parking spaces associated with
+                    the respective building. This allows you to efficiently
+                    manage and assign parking slots to each building, ensuring
+                    accurate and organized tracking of parking resources
+                </p>
                 <CreateParkingForm building_id={id} />
             </div>
 
