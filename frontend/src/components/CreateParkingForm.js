@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParkLotContext } from "../hooks/useParkLotContext";
 
 //icon
-import { FaRegEdit, FaRegWindowClose } from "react-icons/fa";
+import { FaRegWindowClose } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 
 const CreateParkingForm = ({ building_id }) => {

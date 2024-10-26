@@ -392,7 +392,7 @@ const BuildingDetails = () => {
             </div>
 
             <div className="container text-center mt-5">
-                <div className="row row-cols-3">
+                <div className="row row-cols-5 ">
                     {parks &&
                         parks.map((parkingLot) => (
                             <ParkingLotDetails
