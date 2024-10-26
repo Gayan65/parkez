@@ -42,26 +42,37 @@ const CreateParkingForm = ({ building_id }) => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label className="form-label">Parking Lot Number</label>
-                    <input
-                        type="number"
-                        className={
-                            emptyField
-                                ? emptyField.includes("lot")
-                                    ? "form-control is-invalid"
+            <form onSubmit={handleSubmit} className="other-form">
+                <div className="row-">
+                    <div className="col-md-auto mb-3">
+                        <label className="orm-label label">
+                            Parking number
+                        </label>
+                    </div>
+                    <div className="col-md-1 mb-3">
+                        <input
+                            type="number"
+                            className={
+                                emptyField
+                                    ? emptyField.includes("lot")
+                                        ? "form-control is-invalid"
+                                        : "form-control"
                                     : "form-control"
-                                : "form-control"
-                        }
-                        value={lot}
-                        onChange={(e) => setLot(e.target.value)}
-                    />
+                            }
+                            value={lot}
+                            onChange={(e) => setLot(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="col-md-1 mb-3">
+                        <input
+                            type="submit"
+                            className="btn btn-primary"
+                            value={"Add"}
+                        />
+                    </div>
                 </div>
 
-                <div className="mb-3">
-                    <input type="submit" className="btn btn-primary" />
-                </div>
                 {error && <div>{error}</div>}
             </form>
         </div>
