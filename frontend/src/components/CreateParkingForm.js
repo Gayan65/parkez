@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useParkLotContext } from "../hooks/useParkLotContext";
 
+//icon
+import { FaRegEdit, FaRegWindowClose } from "react-icons/fa";
+import { IoMdAdd } from "react-icons/io";
+
 const CreateParkingForm = ({ building_id }) => {
     const { park_dispatch } = useParkLotContext();
 
@@ -9,6 +13,9 @@ const CreateParkingForm = ({ building_id }) => {
 
     const [error, setError] = useState(null);
     const [emptyField, setEmptyField] = useState([]);
+
+    // State to handle accordion toggle
+    const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -40,41 +47,66 @@ const CreateParkingForm = ({ building_id }) => {
         }
     };
 
+    // Function to toggle accordion
+    const toggleAccordion = () => {
+        setIsAccordionOpen(!isAccordionOpen);
+    };
+
     return (
         <div>
-            <form onSubmit={handleSubmit} className="other-form">
-                <div className="row-">
-                    <div className="col-md-auto mb-3">
-                        <label className="orm-label label">
-                            Parking number
-                        </label>
-                    </div>
-                    <div className="col-md-1 mb-3">
-                        <input
-                            type="number"
-                            className={
-                                emptyField
-                                    ? emptyField.includes("lot")
-                                        ? "form-control is-invalid"
+            <button
+                className="btn-outline-primary edit-btn"
+                style={{ display: "flex", alignItems: "center" }}
+                onClick={toggleAccordion}
+            >
+                {!isAccordionOpen ? (
+                    <>
+                        <IoMdAdd size={20} className="me-1" /> Add Parking Space
+                    </>
+                ) : (
+                    <>
+                        <FaRegWindowClose size={20} className="me-1" /> Close
+                    </>
+                )}
+            </button>
+
+            <div
+                className={`accordion-custom ${isAccordionOpen ? "open" : ""}`}
+            >
+                <h5 className="header">Add Parking</h5>
+                <p className="paragraph" style={{ color: "#226699" }}>
+                    Add parking spaces for this building using the form below.
+                </p>
+                <form onSubmit={handleSubmit} className="other-form">
+                    <label className="orm-label label">Parking number</label>
+                    <div className="row mt-3">
+                        <div className="col-md-1 mb-3">
+                            <input
+                                type="number"
+                                className={
+                                    emptyField
+                                        ? emptyField.includes("lot")
+                                            ? "form-control is-invalid"
+                                            : "form-control"
                                         : "form-control"
-                                    : "form-control"
-                            }
-                            value={lot}
-                            onChange={(e) => setLot(e.target.value)}
-                        />
+                                }
+                                value={lot}
+                                onChange={(e) => setLot(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="col-md-1 mb-3">
+                            <input
+                                type="submit"
+                                className="btn btn-primary"
+                                value={"Add"}
+                            />
+                        </div>
                     </div>
 
-                    <div className="col-md-1 mb-3">
-                        <input
-                            type="submit"
-                            className="btn btn-primary"
-                            value={"Add"}
-                        />
-                    </div>
-                </div>
-
-                {error && <div>{error}</div>}
-            </form>
+                    {error && <div>{error}</div>}
+                </form>
+            </div>
         </div>
     );
 };

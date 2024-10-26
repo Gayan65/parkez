@@ -391,7 +391,7 @@ const BuildingDetails = () => {
                 <CreateParkingForm building_id={id} />
             </div>
 
-            <div className="container text-center">
+            <div className="container text-center mt-5">
                 <div className="row row-cols-3">
                     {parks &&
                         parks.map((parkingLot) => (
