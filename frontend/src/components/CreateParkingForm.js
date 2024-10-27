@@ -5,11 +5,23 @@ import { useParkLotContext } from "../hooks/useParkLotContext";
 import { FaRegWindowClose } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 
+//components
+import Loader from "./Loader";
+
+//import alerts
+import Swal from "sweetalert2";
+
+//toast
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const CreateParkingForm = ({ building_id }) => {
     const { park_dispatch } = useParkLotContext();
 
     //state
     const [lot, setLot] = useState("");
+
+    const [loader, setLoader] = useState(false);
 
     const [error, setError] = useState(null);
     const [emptyField, setEmptyField] = useState([]);
@@ -22,6 +34,8 @@ const CreateParkingForm = ({ building_id }) => {
 
         const parking = { lot, building_id, status: "active" };
 
+        setLoader(true);
+
         //API call to backend
         const response = await fetch("/api/park/", {
             method: "POST",
@@ -31,7 +45,14 @@ const CreateParkingForm = ({ building_id }) => {
 
         const json = await response.json();
 
+        setLoader(false);
+
         if (!response.ok) {
+            Swal.fire({
+                title: "Parking added unsuccessful!",
+                text: "Check the values you entered",
+                icon: "error",
+            });
             setError(json.error);
             console.log(json);
             setEmptyField(json.emptyFields);
@@ -42,6 +63,9 @@ const CreateParkingForm = ({ building_id }) => {
             setError(null);
             setEmptyField([]);
             console.log("Parking added successfully!");
+            toast.success("Parking added successfully !", {
+                position: "top-center",
+            });
 
             park_dispatch({ type: "CREATE_PARK", payload: json });
         }
@@ -113,6 +137,8 @@ const CreateParkingForm = ({ building_id }) => {
                     {error && <div className="error-message">{error}</div>}
                 </form>
             </div>
+            {loader && <Loader />}
+            <ToastContainer />
         </div>
     );
 };

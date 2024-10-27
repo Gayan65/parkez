@@ -19,6 +19,12 @@ export const createParkLot = async (req, res) => {
         });
     }
 
+    if (lot <= 0) {
+        return res.status(400).json({
+            error: "Value should be more than 0",
+        });
+    }
+
     try {
         const parkLot = await ParkLot.create({ lot, status, building_id });
         res.status(200).json(parkLot);
