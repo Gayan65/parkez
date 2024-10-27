@@ -80,7 +80,7 @@ const CreateParkingForm = ({ building_id }) => {
                 <form onSubmit={handleSubmit} className="other-form">
                     <label className="orm-label label">Parking number</label>
                     <div className="row mt-3">
-                        <div className="col-md-1 mb-3">
+                        <div className="col-md-4 mb-3">
                             <input
                                 type="number"
                                 className={
@@ -95,7 +95,13 @@ const CreateParkingForm = ({ building_id }) => {
                             />
                         </div>
 
-                        <div className="col-md-1 mb-3">
+                        <div className="col-md-4 mb-3">
+                            <select className="form-select">
+                                <option value="">Change status</option>
+                            </select>
+                        </div>
+
+                        <div className="col-md-4 mb-3">
                             <input
                                 type="submit"
                                 className="btn btn-primary"
@@ -104,7 +110,7 @@ const CreateParkingForm = ({ building_id }) => {
                         </div>
                     </div>
 
-                    {error && <div>{error}</div>}
+                    {error && <div className="error-message">{error}</div>}
                 </form>
             </div>
         </div>
