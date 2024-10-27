@@ -7,10 +7,10 @@ const BuildingView = ({ name, number, image, address, link }) => {
         <Link to={link} className="card-link-custom">
             <div
                 className="card mb-3 container custom-card "
-                style={{ maxWidth: "340px" }}
+                style={{ maxWidth: "400px" }}
             >
                 <div className="row g-0">
-                    <div className="col-md-4  d-flex align-items-center">
+                    <div className="col-md-6  d-flex align-items-center">
                         {/* add this img tag later  */}
                         <img
                             src={
@@ -20,10 +20,10 @@ const BuildingView = ({ name, number, image, address, link }) => {
                             }
                             className="img-fluid rounded-start"
                             alt="..."
-                            style={{ width: "110px", height: "110px" }}
+                            style={{ width: "195px", height: "110px" }}
                         />
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-6">
                         <div className="card-body">
                             <h5 className="card-title d-flex align-items-center">
                                 <FcHome size={20} className="me-1" /> {name}{" "}

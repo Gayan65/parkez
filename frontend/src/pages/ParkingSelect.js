@@ -198,7 +198,7 @@ const ParkingSelect = () => {
     return (
         <div className="container other-form custom-from-center">
             <div className="row">
-                <div className="col-md-8">
+                <div className="col-md-7">
                     <h3 className="header mt-3 text-center">
                         Select a reservation
                     </h3>
@@ -265,7 +265,7 @@ const ParkingSelect = () => {
                     <ToastContainer />
                 </div>
                 {/* Right side for image */}
-                <div className="col-md-4 text-center d-flex align-items-center justify-content-center">
+                <div className="col-md-5 text-center d-flex align-items-center justify-content-center">
                     <img
                         src={
                             buidlingImg
@@ -274,7 +274,7 @@ const ParkingSelect = () => {
                         }
                         alt="Parking illustration"
                         className="img-fluid custom-img"
-                        style={{ width: "300px", height: "300px" }}
+                        style={{ width: "533px", height: "300px" }}
                     />
                 </div>
             </div>
