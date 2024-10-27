@@ -25,6 +25,16 @@ export const createParkLot = async (req, res) => {
         });
     }
 
+    const findDuplicate = await ParkLot.find({
+        lot: lot,
+        building_id: building_id,
+    });
+
+    if (findDuplicate.length > 0) {
+        return res.status(400).json({
+            error: "Duplicate parking lot can not be created!",
+        });
+    }
     try {
         const parkLot = await ParkLot.create({ lot, status, building_id });
         res.status(200).json(parkLot);
