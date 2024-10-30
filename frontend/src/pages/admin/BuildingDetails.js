@@ -33,6 +33,13 @@ const BuildingDetails = () => {
     const [error, setError] = useState(null);
     const [imageChanged, setImageChanged] = useState(false);
 
+    //states for select parking lots
+    const [selectParkingLot, setSelectParkingLot] = useState({
+        _id: "",
+        number: "",
+        status: "",
+    });
+
     // New state to track initial values
     const [initialValues, setInitialValues] = useState({
         name: "",
@@ -238,6 +245,11 @@ const BuildingDetails = () => {
         });
     };
 
+    //passes multiple values and set via the function
+    const handleSelectChange = (_id, number, status) => {
+        setSelectParkingLot({ _id, number, status });
+    };
+
     return (
         <div className="container mt-3">
             <h3 className="header mt-3">Building Details</h3>
@@ -392,13 +404,29 @@ const BuildingDetails = () => {
             </div>
 
             <div className="container text-center mt-5">
-                <div className="row row-cols-5 ">
+                <div
+                    className="row row-cols-5 btn-group mt-3"
+                    role="group"
+                    aria-label="Basic radio toggle button group"
+                >
                     {parks &&
-                        parks.map((parkingLot) => (
+                        parks.map((parkingLot, i) => (
                             <ParkingLotDetails
                                 key={parkingLot._id}
                                 lot={parkingLot.lot}
                                 status={parkingLot.status}
+                                i={i}
+                                disable={
+                                    parkingLot.status === "pending" ||
+                                    (parkingLot.status === "assign" && true) // radio button disable according to the status of the parking lot
+                                }
+                                onSelect={() =>
+                                    handleSelectChange(
+                                        parkingLot._id,
+                                        parkingLot.lot,
+                                        parkingLot.status
+                                    )
+                                }
                             />
                         ))}
                 </div>
