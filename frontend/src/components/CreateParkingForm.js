@@ -120,7 +120,7 @@ const CreateParkingForm = ({ building_id }) => {
                         </div>
 
                         <div className="col-md-4 mb-3">
-                            <select className="form-select">
+                            <select className="form-select" disabled>
                                 <option value="">Change status</option>
                             </select>
                         </div>
