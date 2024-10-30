@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useParkLotContext } from "../hooks/useParkLotContext";
 
 //icon
-import { FaRegWindowClose } from "react-icons/fa";
+import { FaRegWindowClose, FaRegEdit } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 
 //components
@@ -15,7 +15,8 @@ import Swal from "sweetalert2";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const CreateParkingForm = ({ building_id }) => {
+//once the update feature activated the selectParkingLot activated
+const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
     const { park_dispatch } = useParkLotContext();
 
     //state
@@ -76,6 +77,7 @@ const CreateParkingForm = ({ building_id }) => {
         setIsAccordionOpen(!isAccordionOpen);
     };
 
+    console.log(selectParkingLot);
     return (
         <div>
             <button
@@ -84,9 +86,17 @@ const CreateParkingForm = ({ building_id }) => {
                 onClick={toggleAccordion}
             >
                 {!isAccordionOpen ? (
-                    <>
-                        <IoMdAdd size={20} className="me-1" /> Add Parking Space
-                    </>
+                    selectParkingLot && selectParkingLot._id ? (
+                        <>
+                            {" "}
+                            <FaRegEdit size={20} className="me-1" /> Edit
+                        </>
+                    ) : (
+                        <>
+                            <IoMdAdd size={20} className="me-1" /> Add Parking
+                            Space
+                        </>
+                    )
                 ) : (
                     <>
                         <FaRegWindowClose size={20} className="me-1" /> Close
@@ -114,14 +124,27 @@ const CreateParkingForm = ({ building_id }) => {
                                             : "form-control"
                                         : "form-control"
                                 }
-                                value={lot}
+                                value={
+                                    selectParkingLot && selectParkingLot._id
+                                        ? selectParkingLot.number
+                                        : lot
+                                }
                                 onChange={(e) => setLot(e.target.value)}
                             />
                         </div>
 
                         <div className="col-md-4 mb-3">
-                            <select className="form-select" disabled>
+                            <select
+                                className="form-select"
+                                disabled={
+                                    selectParkingLot && selectParkingLot._id
+                                        ? false
+                                        : true
+                                }
+                            >
                                 <option value="">Change status</option>
+                                <option value="">Assign manually</option>
+                                <option value="">Maintenance</option>
                             </select>
                         </div>
 
@@ -129,7 +152,11 @@ const CreateParkingForm = ({ building_id }) => {
                             <input
                                 type="submit"
                                 className="btn btn-primary"
-                                value={"Add"}
+                                value={
+                                    selectParkingLot && selectParkingLot._id
+                                        ? "Save changes"
+                                        : "Add"
+                                }
                             />
                         </div>
                     </div>

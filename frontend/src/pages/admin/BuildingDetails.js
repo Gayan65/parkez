@@ -400,7 +400,10 @@ const BuildingDetails = () => {
                     manage and assign parking slots to each building, ensuring
                     accurate and organized tracking of parking resources
                 </p>
-                <CreateParkingForm building_id={id} />
+                <CreateParkingForm
+                    building_id={id}
+                    selectParkingLot={selectParkingLot}
+                />
             </div>
 
             <div className="container text-center mt-5">
