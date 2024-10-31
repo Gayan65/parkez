@@ -10,11 +10,11 @@ import { IoCloudUploadOutline, IoCloseCircle } from "react-icons/io5";
 //components
 import BuildingViewCard from "../../components/BuildingViewCard";
 import CreateParkingForm from "../../components/CreateParkingForm";
-import ParkingLotDetails from "../../components/ParkingLotDetails";
 import Loader from "../../components/Loader";
 
 //sweet alerts
 import Swal from "sweetalert2";
+import ParkingLotDetailsAdmin from "../../components/ParkingLotDetailsAdmin";
 
 const BuildingDetails = () => {
     const [loader, setLoader] = useState(false);
@@ -414,15 +414,11 @@ const BuildingDetails = () => {
                 >
                     {parks &&
                         parks.map((parkingLot, i) => (
-                            <ParkingLotDetails
+                            <ParkingLotDetailsAdmin
                                 key={parkingLot._id}
                                 lot={parkingLot.lot}
                                 status={parkingLot.status}
                                 i={i}
-                                disable={
-                                    parkingLot.status === "pending" ||
-                                    (parkingLot.status === "assign" && true) // radio button disable according to the status of the parking lot
-                                }
                                 onSelect={() =>
                                     handleSelectChange(
                                         parkingLot._id,

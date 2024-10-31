@@ -759,6 +759,11 @@ body {
     border-radius: 5px;
 }
 
+.admin-status {
+    pointer-events: all;
+    cursor: pointer;
+}
+
 .btn-outline-primary-parking-pending {
     background-image: url("../src/assets/img/PendingStamp.png"); /* Set the image NEW*/
     pointer-events: none; /*Disable hover effects*/
