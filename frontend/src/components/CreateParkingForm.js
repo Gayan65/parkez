@@ -187,7 +187,12 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                                                     : "form-control"
                                                 : "form-control"
                                         }
-                                        value={email}
+                                        value={
+                                            selectParkingLot &&
+                                            selectParkingLot.user
+                                                ? selectParkingLot.user
+                                                : email
+                                        }
                                         onChange={(e) =>
                                             setEmail(e.target.value)
                                         }
