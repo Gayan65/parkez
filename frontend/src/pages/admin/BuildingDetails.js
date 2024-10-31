@@ -38,6 +38,7 @@ const BuildingDetails = () => {
         _id: "",
         number: "",
         status: "",
+        user: "",
     });
 
     // New state to track initial values
@@ -246,8 +247,8 @@ const BuildingDetails = () => {
     };
 
     //passes multiple values and set via the function
-    const handleSelectChange = (_id, number, status) => {
-        setSelectParkingLot({ _id, number, status });
+    const handleSelectChange = (_id, number, status, user) => {
+        setSelectParkingLot({ _id, number, status, user });
     };
 
     return (
@@ -423,7 +424,8 @@ const BuildingDetails = () => {
                                     handleSelectChange(
                                         parkingLot._id,
                                         parkingLot.lot,
-                                        parkingLot.status
+                                        parkingLot.status,
+                                        parkingLot.user ?? null // safely handle missing `parkingLot.user`
                                     )
                                 }
                             />
