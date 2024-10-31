@@ -171,7 +171,7 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                             />
                         </div>
                     </div>
-                    {parkingLotStatus && (
+                    {parkingLotStatus === "assign" && (
                         <div>
                             <label className="orm-label label">
                                 Add email for manual assignment
