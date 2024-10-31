@@ -30,6 +30,12 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
     // State to handle accordion toggle
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
+    //parking lot status
+    const [parkingLotStatus, setParkingLotStatus] = useState(null);
+
+    //email for the manual assignment
+    const [email, setEmail] = useState("");
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -78,6 +84,10 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
     };
 
     console.log(selectParkingLot);
+
+    const handleSelectChange = (e) => {
+        setParkingLotStatus(e.target.value);
+    };
     return (
         <div>
             <button
@@ -141,10 +151,11 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                                         ? false
                                         : true
                                 }
+                                onChange={handleSelectChange}
                             >
                                 <option value="">Change status</option>
-                                <option value="">Assign manually</option>
-                                <option value="">Maintenance</option>
+                                <option value="assign">Assign manually</option>
+                                <option value="maintenance">Maintenance</option>
                             </select>
                         </div>
 
@@ -160,7 +171,31 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                             />
                         </div>
                     </div>
-
+                    {parkingLotStatus && (
+                        <div>
+                            <label className="orm-label label">
+                                Add email for manual assignment
+                            </label>
+                            <div className="row mt-3">
+                                <div className="col-md-4 mb-3">
+                                    <input
+                                        type="email"
+                                        className={
+                                            emptyField
+                                                ? emptyField.includes("lot")
+                                                    ? "form-control is-invalid"
+                                                    : "form-control"
+                                                : "form-control"
+                                        }
+                                        value={email}
+                                        onChange={(e) =>
+                                            setEmail(e.target.value)
+                                        }
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    )}
                     {error && <div className="error-message">{error}</div>}
                 </form>
             </div>
