@@ -112,6 +112,11 @@ const CreateParkingForm = ({
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
 
+        if (parkingLotStatus === "assign" && !email) {
+            setError("Email is required for manual assignment.");
+            return; // Prevent submission if email is empty for 'assign' status
+        }
+
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!, Do you really want to save the changes?",
@@ -125,12 +130,7 @@ const CreateParkingForm = ({
                 const updatedParking = {
                     lot: lot || selectParkingLot.number,
                     status: parkingLotStatus,
-                    user:
-                        parkingLotStatus === "maintenance"
-                            ? ""
-                            : email || parkingLotStatus === "active"
-                            ? ""
-                            : email,
+                    user: parkingLotStatus === "assign" ? email : "",
                 };
 
                 setLoader(true);
@@ -147,31 +147,29 @@ const CreateParkingForm = ({
 
                 const json = await response.json();
 
+                setLoader(false);
+
                 if (!response.ok) {
                     setError(json.error);
                     console.log(json);
-                    setLoader(false);
-                }
-
-                if (response.ok) {
+                } else {
                     setError(null);
-
-                    console.log("Parking updated successfully!");
-
+                    console.log(
+                        "Parking updated successfully!",
+                        updatedParking
+                    );
                     park_dispatch({ type: "UPDATE_PARK", payload: json });
-                    // Trigger fetchAllParking after successful update
-                    if (onUpdateSuccess) onUpdateSuccess();
-                    setLoader(false);
+                    if (onUpdateSuccess) onUpdateSuccess(); // Refresh data after update
+                    Swal.fire({
+                        title: "Updated!",
+                        text: "Changes have been updated!",
+                        icon: "success",
+                    });
                 }
-
-                Swal.fire({
-                    title: "Updated!",
-                    text: "Changes have been updated!.",
-                    icon: "success",
-                });
             }
         });
     };
+
     return (
         <div>
             <button
@@ -201,9 +199,15 @@ const CreateParkingForm = ({
             <div
                 className={`accordion-custom ${isAccordionOpen ? "open" : ""}`}
             >
-                <h5 className="header">Add Parking</h5>
+                <h5 className="header">
+                    {selectParkingLot && selectParkingLot._id
+                        ? "Edit Parking"
+                        : "Add Parking"}
+                </h5>
                 <p className="paragraph" style={{ color: "#226699" }}>
-                    Add parking spaces for this building using the form below.
+                    {selectParkingLot && selectParkingLot._id
+                        ? "You can edit the parking lots such as classifying as maintenance, changed ownership and etc"
+                        : "Add parking spaces for this building using the form below."}
                 </p>
                 <form
                     onSubmit={
