@@ -47,6 +47,15 @@ const CreateParkingForm = ({
             setParkingLotStatus(selectParkingLot.status || "active");
         }
     }, [selectParkingLot]);
+
+    const isFormModified = () => {
+        return (
+            lot !== selectParkingLot?.number ||
+            email !== selectParkingLot?.user ||
+            parkingLotStatus !== selectParkingLot?.status
+        );
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -245,6 +254,13 @@ const CreateParkingForm = ({
 
                         <div className="col-md-4 mb-3">
                             <input
+                                disabled={
+                                    selectParkingLot && selectParkingLot._id
+                                        ? !isFormModified()
+                                        : false || lot
+                                        ? false
+                                        : true
+                                }
                                 type="submit"
                                 className="btn btn-primary"
                                 value={
