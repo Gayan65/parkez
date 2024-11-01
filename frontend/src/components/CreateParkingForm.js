@@ -88,6 +88,11 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
     const handleSelectChange = (e) => {
         setParkingLotStatus(e.target.value);
     };
+
+    const handleUpdateSubmit = (e) => {
+        e.preventDefault();
+        console.log("update function starts!");
+    };
     return (
         <div>
             <button
@@ -121,7 +126,14 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                 <p className="paragraph" style={{ color: "#226699" }}>
                     Add parking spaces for this building using the form below.
                 </p>
-                <form onSubmit={handleSubmit} className="other-form">
+                <form
+                    onSubmit={
+                        selectParkingLot && selectParkingLot._id
+                            ? handleUpdateSubmit
+                            : handleSubmit
+                    }
+                    className="other-form"
+                >
                     <label className="orm-label label">Parking number</label>
                     <div className="row mt-3">
                         <div className="col-md-4 mb-3">
@@ -153,7 +165,9 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                                 }
                                 onChange={handleSelectChange}
                             >
-                                <option value="">Change status</option>
+                                <option value="">
+                                    Select an option to Change status
+                                </option>
                                 <option value="assign">Assign manually</option>
                                 <option value="maintenance">Maintenance</option>
                             </select>
