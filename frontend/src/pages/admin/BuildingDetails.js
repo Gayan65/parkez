@@ -97,22 +97,22 @@ const BuildingDetails = () => {
 
         setLoader(false);
     };
+    // fetch the relevance parking lots for the above building here...
+    const fetchAllParking = async () => {
+        setLoader(true);
+        const response = await fetch(`/api/park/${id}`);
+        const json = await response.json();
+
+        if (response.ok) {
+            park_dispatch({ type: "SET_PARKS", payload: json });
+        }
+        setLoader(false);
+    };
 
     useEffect(() => {
         if (id) {
             //building[0] && this is solve the disappear of this component suddenly
 
-            // fetch the relevance parking lots for the above building here...
-            const fetchAllParking = async () => {
-                setLoader(true);
-                const response = await fetch(`/api/park/${id}`);
-                const json = await response.json();
-
-                if (response.ok) {
-                    park_dispatch({ type: "SET_PARKS", payload: json });
-                }
-                setLoader(false);
-            };
             fetchBuilding(id);
             fetchAllParking();
         }
@@ -404,6 +404,7 @@ const BuildingDetails = () => {
                 <CreateParkingForm
                     building_id={id}
                     selectParkingLot={selectParkingLot}
+                    onUpdateSuccess={fetchAllParking} // Pass fetchAllParking as onUpdateSuccess pro
                 />
             </div>
 

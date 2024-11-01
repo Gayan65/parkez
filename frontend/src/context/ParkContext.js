@@ -10,6 +10,13 @@ export const parksReducer = (state, action) => {
         case "CREATE_PARK":
             return { parks: [action.payload, ...state.parks] };
 
+        case "UPDATE_PARK":
+            return {
+                parks: state.parks.map((park) =>
+                    park._id === action.payload._id ? action.payload : park
+                ),
+            };
+
         //delete parks
         //modify parks
         default:

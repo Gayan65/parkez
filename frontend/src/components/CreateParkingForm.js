@@ -16,7 +16,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 //once the update feature activated the selectParkingLot activated
-const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
+const CreateParkingForm = ({
+    building_id,
+    selectParkingLot = null,
+    onUpdateSuccess,
+}) => {
     const { park_dispatch } = useParkLotContext();
 
     //state
@@ -96,7 +100,7 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
         setParkingLotStatus(e.target.value);
     };
 
-    const handleUpdateSubmit = (e) => {
+    const handleUpdateSubmit = async (e) => {
         e.preventDefault();
 
         const updatedParking = {
@@ -105,6 +109,34 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
             user: parkingLotStatus === "maintenance" ? "" : email,
         };
         console.log("update function starts!", updatedParking);
+
+        setLoader(true);
+        const response = await fetch(`/api/park/${selectParkingLot._id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedParking),
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setError(json.error);
+            console.log(json);
+            setLoader(false);
+        }
+
+        if (response.ok) {
+            setError(null);
+
+            console.log("Parking updated successfully!");
+
+            park_dispatch({ type: "UPDATE_PARK", payload: json });
+            // Trigger fetchAllParking after successful update
+            if (onUpdateSuccess) onUpdateSuccess();
+            setLoader(false);
+        }
     };
     return (
         <div>
@@ -161,6 +193,11 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                                 }
                                 value={lot}
                                 onChange={(e) => setLot(e.target.value)}
+                                disabled={
+                                    selectParkingLot &&
+                                    selectParkingLot._id &&
+                                    true
+                                }
                             />
                         </div>
 
