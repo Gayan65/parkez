@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParkLotContext } from "../hooks/useParkLotContext";
 
 //icon
@@ -31,11 +31,18 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
     //parking lot status
-    const [parkingLotStatus, setParkingLotStatus] = useState(null);
+    const [parkingLotStatus, setParkingLotStatus] = useState("");
 
     //email for the manual assignment
     const [email, setEmail] = useState("");
-
+    // Load data into state if editing an existing parking lot
+    useEffect(() => {
+        if (selectParkingLot) {
+            setLot(selectParkingLot.number || "");
+            setEmail(selectParkingLot.user || "");
+            setParkingLotStatus(selectParkingLot.status || "active");
+        }
+    }, [selectParkingLot]);
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -91,7 +98,13 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
 
     const handleUpdateSubmit = (e) => {
         e.preventDefault();
-        console.log("update function starts!");
+
+        const updatedParking = {
+            lot: lot || selectParkingLot.number,
+            status: parkingLotStatus,
+            user: parkingLotStatus === "maintenance" ? "" : email,
+        };
+        console.log("update function starts!", updatedParking);
     };
     return (
         <div>
@@ -146,11 +159,7 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                                             : "form-control"
                                         : "form-control"
                                 }
-                                value={
-                                    selectParkingLot && selectParkingLot._id
-                                        ? selectParkingLot.number
-                                        : lot
-                                }
+                                value={lot}
                                 onChange={(e) => setLot(e.target.value)}
                             />
                         </div>
@@ -164,6 +173,7 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                                         : true
                                 }
                                 onChange={handleSelectChange}
+                                value={parkingLotStatus}
                             >
                                 <option value="">
                                     Select an option to Change status
@@ -201,12 +211,7 @@ const CreateParkingForm = ({ building_id, selectParkingLot = null }) => {
                                                     : "form-control"
                                                 : "form-control"
                                         }
-                                        value={
-                                            selectParkingLot &&
-                                            selectParkingLot.user
-                                                ? selectParkingLot.user
-                                                : email
-                                        }
+                                        value={email}
                                         onChange={(e) =>
                                             setEmail(e.target.value)
                                         }
