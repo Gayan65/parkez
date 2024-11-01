@@ -103,45 +103,65 @@ const CreateParkingForm = ({
     const handleUpdateSubmit = async (e) => {
         e.preventDefault();
 
-        const updatedParking = {
-            lot: lot || selectParkingLot.number,
-            status: parkingLotStatus,
-            user:
-                parkingLotStatus === "maintenance"
-                    ? ""
-                    : email || parkingLotStatus === "active"
-                    ? ""
-                    : email,
-        };
-        console.log("update function starts!", updatedParking);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!, Do you really want to save the changes?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Save changes!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const updatedParking = {
+                    lot: lot || selectParkingLot.number,
+                    status: parkingLotStatus,
+                    user:
+                        parkingLotStatus === "maintenance"
+                            ? ""
+                            : email || parkingLotStatus === "active"
+                            ? ""
+                            : email,
+                };
 
-        setLoader(true);
-        const response = await fetch(`/api/park/${selectParkingLot._id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updatedParking),
+                setLoader(true);
+                const response = await fetch(
+                    `/api/park/${selectParkingLot._id}`,
+                    {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(updatedParking),
+                    }
+                );
+
+                const json = await response.json();
+
+                if (!response.ok) {
+                    setError(json.error);
+                    console.log(json);
+                    setLoader(false);
+                }
+
+                if (response.ok) {
+                    setError(null);
+
+                    console.log("Parking updated successfully!");
+
+                    park_dispatch({ type: "UPDATE_PARK", payload: json });
+                    // Trigger fetchAllParking after successful update
+                    if (onUpdateSuccess) onUpdateSuccess();
+                    setLoader(false);
+                }
+
+                Swal.fire({
+                    title: "Updated!",
+                    text: "Changes have been updated!.",
+                    icon: "success",
+                });
+            }
         });
-
-        const json = await response.json();
-
-        if (!response.ok) {
-            setError(json.error);
-            console.log(json);
-            setLoader(false);
-        }
-
-        if (response.ok) {
-            setError(null);
-
-            console.log("Parking updated successfully!");
-
-            park_dispatch({ type: "UPDATE_PARK", payload: json });
-            // Trigger fetchAllParking after successful update
-            if (onUpdateSuccess) onUpdateSuccess();
-            setLoader(false);
-        }
     };
     return (
         <div>
@@ -243,6 +263,7 @@ const CreateParkingForm = ({
                             <div className="row mt-3">
                                 <div className="col-md-4 mb-3">
                                     <input
+                                        required
                                         type="email"
                                         className={
                                             emptyField
