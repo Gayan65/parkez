@@ -106,7 +106,12 @@ const CreateParkingForm = ({
         const updatedParking = {
             lot: lot || selectParkingLot.number,
             status: parkingLotStatus,
-            user: parkingLotStatus === "maintenance" ? "" : email,
+            user:
+                parkingLotStatus === "maintenance"
+                    ? ""
+                    : email || parkingLotStatus === "active"
+                    ? ""
+                    : email,
         };
         console.log("update function starts!", updatedParking);
 
@@ -212,9 +217,7 @@ const CreateParkingForm = ({
                                 onChange={handleSelectChange}
                                 value={parkingLotStatus}
                             >
-                                <option value="">
-                                    Select an option to Change status
-                                </option>
+                                <option value="active">Make available</option>
                                 <option value="assign">Assign manually</option>
                                 <option value="maintenance">Maintenance</option>
                             </select>
