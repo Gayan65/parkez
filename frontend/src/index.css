@@ -759,6 +759,15 @@ body {
     border-radius: 5px;
 }
 
+.btn-outline-primary-parking-maintenance {
+    background-image: url("../src/assets/img/MaintenanceStamp.png"); /* Set the image NEW*/
+    pointer-events: none; /*Disable hover effects*/
+    cursor: not-allowed; /* Show a 'disabled' cursor */
+    background-color: #ee160654;
+    border: 2px solid #a1c5e09d; /* Thicker border to resemble parking slot outline */
+    border-radius: 5px;
+}
+
 .admin-status {
     pointer-events: all;
     cursor: pointer;
