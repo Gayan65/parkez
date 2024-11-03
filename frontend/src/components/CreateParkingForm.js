@@ -257,22 +257,28 @@ const CreateParkingForm = ({
                         </div>
 
                         <div className="col-md-4 mb-3">
-                            <input
-                                disabled={
-                                    selectParkingLot && selectParkingLot._id
-                                        ? !isFormModified()
-                                        : false || lot
-                                        ? false
-                                        : true
-                                }
-                                type="submit"
-                                className="btn btn-primary"
-                                value={
-                                    selectParkingLot && selectParkingLot._id
-                                        ? "Save changes"
-                                        : "Add"
-                                }
-                            />
+                            <div className="d-flex">
+                                <input
+                                    disabled={
+                                        selectParkingLot && selectParkingLot._id
+                                            ? !isFormModified()
+                                            : false || lot
+                                            ? false
+                                            : true
+                                    }
+                                    type="submit"
+                                    className="btn btn-primary"
+                                    value={
+                                        selectParkingLot && selectParkingLot._id
+                                            ? "Save changes"
+                                            : "Add"
+                                    }
+                                />
+                                <input
+                                    className="btn btn-danger ms-3"
+                                    value={"Delete"}
+                                />
+                            </div>
                         </div>
                     </div>
                     {parkingLotStatus === "assign" && (

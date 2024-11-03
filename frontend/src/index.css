@@ -1248,3 +1248,7 @@ body {
         padding: 0.5rem;
     }
 }
+
+.btn-danger {
+    background-color: rgba(182, 8, 8, 0.767) !important;
+}
