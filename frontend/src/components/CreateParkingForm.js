@@ -170,6 +170,10 @@ const CreateParkingForm = ({
         });
     };
 
+    const handleDelete = (e) => {
+        console.log("delete clicked");
+    };
+
     return (
         <div>
             <button
@@ -275,8 +279,15 @@ const CreateParkingForm = ({
                                     }
                                 />
                                 <input
+                                    disabled={
+                                        selectParkingLot &&
+                                        selectParkingLot.status === "active"
+                                            ? false
+                                            : true
+                                    }
                                     className="btn btn-danger ms-3"
                                     value={"Delete"}
+                                    onClick={handleDelete}
                                 />
                             </div>
                         </div>
