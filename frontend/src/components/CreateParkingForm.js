@@ -170,8 +170,28 @@ const CreateParkingForm = ({
         });
     };
 
-    const handleDelete = (e) => {
-        console.log("delete clicked");
+    const handleDelete = async (e) => {
+        setLoader(true);
+        const response = await fetch(`/api/park/${selectParkingLot._id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setLoader(false);
+            setError(json.error);
+        }
+
+        if (response.ok) {
+            setLoader(false);
+            setError("");
+            park_dispatch({ type: "DELETE_PARK", payload: json });
+            console.log("deleted successfully!");
+        }
     };
 
     return (

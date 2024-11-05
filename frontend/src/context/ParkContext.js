@@ -18,6 +18,10 @@ export const parksReducer = (state, action) => {
             };
 
         //delete parks
+        case "DELETE_PARK":
+            return {
+                parks: state.parks.filter((p) => p._id !== action.payload._id),
+            };
         //modify parks
         default:
             return state;
