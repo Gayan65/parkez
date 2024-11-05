@@ -171,27 +171,48 @@ const CreateParkingForm = ({
     };
 
     const handleDelete = async (e) => {
-        setLoader(true);
-        const response = await fetch(`/api/park/${selectParkingLot._id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                setLoader(true);
+                const response = await fetch(
+                    `/api/park/${selectParkingLot._id}`,
+                    {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    }
+                );
+
+                const json = await response.json();
+
+                if (!response.ok) {
+                    setLoader(false);
+                    setError(json.error);
+                }
+
+                if (response.ok) {
+                    setLoader(false);
+                    setError("");
+                    park_dispatch({ type: "DELETE_PARK", payload: json });
+                    console.log("deleted successfully!");
+                }
+
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Parking lot has been deleted.",
+                    icon: "success",
+                });
+            }
         });
-
-        const json = await response.json();
-
-        if (!response.ok) {
-            setLoader(false);
-            setError(json.error);
-        }
-
-        if (response.ok) {
-            setLoader(false);
-            setError("");
-            park_dispatch({ type: "DELETE_PARK", payload: json });
-            console.log("deleted successfully!");
-        }
     };
 
     return (
