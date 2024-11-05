@@ -4,6 +4,7 @@ import {
     allParkLotsBuilding,
     allParkLotUser,
     createParkLot,
+    deleteParkingLot,
     updateParkLot,
 } from "../controllers/parklot.js";
 
@@ -23,5 +24,8 @@ router.patch("/:id", updateParkLot);
 
 //get all parking lots belongs to an email (user)
 router.post("/by_email", allParkLotUser);
+
+//delete parking lot
+router.delete("/:id", deleteParkingLot);
 
 export default router;

@@ -97,3 +97,28 @@ export const allParkLotUser = async (req, res) => {
         res.status(401).json({ error: error.message });
     }
 };
+
+//delete a parking lot (if the status = "active" only)..
+export const deleteParkingLot = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "Parking lot not found" });
+    }
+
+    // Find the parking lot by ID
+    const parkingLot = await ParkLot.findById(id);
+
+    // Check if parking lot exists and has "active" status
+    if (!parkingLot) {
+        return res.status(404).json({ error: "Parking lot not found" });
+    } else if (parkingLot.status !== "active") {
+        return res
+            .status(400)
+            .json({ error: "Only active parking lots can be deleted" });
+    }
+
+    await ParkLot.findByIdAndDelete({ _id: id });
+
+    res.status(200).json(parkingLot);
+};
