@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FcHome, FcExternal } from "react-icons/fc";
 
+//image
+import no_image from "../assets/img/no_image.png";
+
 const BuildingView = ({ name, number, image, address, link }) => {
     return (
         <Link to={link} className="card-link-custom">
@@ -13,11 +16,7 @@ const BuildingView = ({ name, number, image, address, link }) => {
                     <div className="col-md-6  d-flex align-items-center">
                         {/* add this img tag later  */}
                         <img
-                            src={
-                                image
-                                    ? image
-                                    : "https://via.placeholder.com/110"
-                            }
+                            src={image ? image : no_image}
                             className="img-fluid rounded-start"
                             alt="..."
                             style={{ width: "195px", height: "110px" }}

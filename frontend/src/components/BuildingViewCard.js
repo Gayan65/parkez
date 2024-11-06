@@ -6,12 +6,15 @@ import { FcHome, FcExternal, FcDataSheet } from "react-icons/fc";
 //date format
 import { format } from "date-fns";
 
+//image
+import no_image from "../assets/img/no_image.png";
+
 const BuildingViewCard = ({ name, number, address, createdAt, image }) => {
     return (
         <div className="card mb-3">
             <img
                 //src="https://via.placeholder.com/300"
-                src={image ? image : "https://via.placeholder.com/300"}
+                src={image ? image : no_image}
                 className="card-img-top"
                 alt="..."
                 style={{ height: "200px", objectFit: "cover" }}
