@@ -6,9 +6,9 @@ import { FaRegTrashCan } from "react-icons/fa6";
 //image
 import no_image from "../assets/img/no_image.png";
 
-const BuildingView = ({ name, number, image, address, link }) => {
-    const handleDelete = () => {
-        console.log("Delete Clicked");
+const BuildingView = ({ _id, name, number, image, address, link }) => {
+    const handleDelete = (id) => {
+        console.log("Delete Clicked", id);
     };
 
     return (
@@ -53,7 +53,10 @@ const BuildingView = ({ name, number, image, address, link }) => {
                 </Link>
             </div>
             <div className="col-md-2 d-flex align-items-center">
-                <button className="btn btn-danger" onClick={handleDelete}>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => handleDelete(_id)}
+                >
                     <FaRegTrashCan size={20} className="my-1" />
                 </button>
             </div>

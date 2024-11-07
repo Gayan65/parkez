@@ -53,6 +53,7 @@ const CreateBuildingPage = () => {
                         buildings.map((building) => (
                             <BuildingView
                                 key={building._id}
+                                _id={building._id}
                                 name={building.name}
                                 number={building.number}
                                 address={building.address}
