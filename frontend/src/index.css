@@ -1250,5 +1250,22 @@ body {
 }
 
 .btn-danger {
-    background-color: rgba(182, 8, 8, 0.767) !important;
+    background-color: transparent !important; /* Adjusted to a darker red */
+    color: rgb(223, 43, 43) !important; /* White text */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    border: 1px solid rgb(223, 43, 43) !important;
+    padding: 10px 20px; /* Adjust padding for better sizing */
+    border-radius: 5px; /* Slightly rounded corners for a modern look */
+    font-weight: bold; /* Make text bold */
+}
+
+.btn-danger:hover {
+    background-color: rgba(
+        182,
+        8,
+        8,
+        0.9
+    ) !important; /* Darker shade on hover */
+    color: white !important; /* Ensure text stays white */
+    transform: scale(1.05); /* Slightly enlarge button */
 }
