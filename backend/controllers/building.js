@@ -1,4 +1,5 @@
 import { Building } from "../models/BuildingModel.js";
+
 import mongoose from "mongoose";
 
 //create building controller - admin only
@@ -86,3 +87,5 @@ export const updateBuilding = async (req, res) => {
 
     res.status(200).json(building);
 };
+
+// delete a building (if the building does not have any parking lot allocated)
