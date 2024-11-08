@@ -15,7 +15,6 @@ import Swal from "sweetalert2";
 
 const BuildingView = ({ _id, name, number, image, address, link }) => {
     //states
-    const [error, setError] = useState(null);
     const [loader, setLoader] = useState(false);
 
     const { dispatch } = useBuildingsContext();
@@ -46,7 +45,6 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
 
                 if (!response.ok) {
                     setLoader(false);
-                    setError(json.error);
                     Swal.fire({
                         title: "Delete unsuccessful!",
                         text: "Your building has not been deleted, since it may have already allocated parkings.",
@@ -56,7 +54,6 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
 
                 if (response.ok) {
                     setLoader(false);
-                    setError("");
                     dispatch({ type: "DELETE_BUILDING", payload: json });
                     console.log("deleted successfully!");
                     Swal.fire({
