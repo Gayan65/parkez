@@ -8,6 +8,10 @@ import { useBuildingsContext } from "../hooks/useBuildingsContext";
 
 //image
 import no_image from "../assets/img/no_image.png";
+import Loader from "./Loader";
+
+//sweet alerts
+import Swal from "sweetalert2";
 
 const BuildingView = ({ _id, name, number, image, address, link }) => {
     //states
@@ -20,27 +24,49 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
         console.log("Delete Clicked", id);
         //api call here ..
 
-        setLoader(true);
-        const response = await fetch(`/api/building/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                setLoader(true);
+                const response = await fetch(`/api/building/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                const json = await response.json();
+
+                if (!response.ok) {
+                    setLoader(false);
+                    setError(json.error);
+                    Swal.fire({
+                        title: "Delete unsuccessful!",
+                        text: "Your building has not been deleted, since it may have already allocated parkings",
+                        icon: "error",
+                    });
+                }
+
+                if (response.ok) {
+                    setLoader(false);
+                    setError("");
+                    dispatch({ type: "DELETE_BUILDING", payload: json });
+                    console.log("deleted successfully!");
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your building has been deleted.",
+                        icon: "success",
+                    });
+                }
+            }
         });
-
-        const json = await response.json();
-
-        if (!response.ok) {
-            setLoader(false);
-            setError(json.error);
-        }
-
-        if (response.ok) {
-            setLoader(false);
-            setError("");
-            dispatch({ type: "DELETE_BUILDING", payload: json });
-            console.log("deleted successfully!");
-        }
     };
 
     return (
@@ -92,7 +118,7 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
                     <FaRegTrashCan size={20} className="my-1" />
                 </button>
             </div>
-            <p className="error">{error && error}</p>
+            {loader && <Loader />}
         </div>
     );
 };
