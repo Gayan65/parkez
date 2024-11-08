@@ -49,7 +49,7 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
                     setError(json.error);
                     Swal.fire({
                         title: "Delete unsuccessful!",
-                        text: "Your building has not been deleted, since it may have already allocated parkings",
+                        text: "Your building has not been deleted, since it may have already allocated parkings.",
                         icon: "error",
                     });
                 }
