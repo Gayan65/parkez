@@ -1,14 +1,46 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FcHome, FcExternal } from "react-icons/fc";
 import { FaRegTrashCan } from "react-icons/fa6";
+
+//context
+import { useBuildingsContext } from "../hooks/useBuildingsContext";
 
 //image
 import no_image from "../assets/img/no_image.png";
 
 const BuildingView = ({ _id, name, number, image, address, link }) => {
-    const handleDelete = (id) => {
+    //states
+    const [error, setError] = useState(null);
+    const [loader, setLoader] = useState(false);
+
+    const { dispatch } = useBuildingsContext();
+
+    const handleDelete = async (id) => {
         console.log("Delete Clicked", id);
+        //api call here ..
+
+        setLoader(true);
+        const response = await fetch(`/api/building/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setLoader(false);
+            setError(json.error);
+        }
+
+        if (response.ok) {
+            setLoader(false);
+            setError("");
+            dispatch({ type: "DELETE_BUILDING", payload: json });
+            console.log("deleted successfully!");
+        }
     };
 
     return (
@@ -60,6 +92,7 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
                     <FaRegTrashCan size={20} className="my-1" />
                 </button>
             </div>
+            <p className="error">{error && error}</p>
         </div>
     );
 };
