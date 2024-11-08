@@ -2,6 +2,7 @@ import express from "express";
 import {
     allBuildings,
     createBuilding,
+    deleteBuilding,
     get_a_Building,
     updateBuilding,
 } from "../controllers/building.js";
@@ -19,5 +20,8 @@ router.post("/", createBuilding);
 
 //update a building
 router.patch("/:id", updateBuilding);
+
+//delete a building
+router.delete("/:id", deleteBuilding);
 
 export default router;

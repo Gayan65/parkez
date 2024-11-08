@@ -1,4 +1,5 @@
 import { Building } from "../models/BuildingModel.js";
+import { ParkLot } from "../models/ParkLotModel.js";
 
 import mongoose from "mongoose";
 
@@ -89,3 +90,28 @@ export const updateBuilding = async (req, res) => {
 };
 
 // delete a building (if the building does not have any parking lot allocated)
+
+export const deleteBuilding = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "Parking lot not found" });
+    }
+
+    // Find the parking lots base on the building_id
+    const parkingLot = await ParkLot.findOne({
+        building_id: id,
+    });
+
+    // Check if parking lot exists
+    if (parkingLot) {
+        return res
+            .status(404)
+            .json({ error: "Allocated parking lots available!" });
+    }
+
+    if (!parkingLot) {
+        const building = await Building.findByIdAndDelete({ _id: id });
+        res.status(200).json(building);
+    }
+};
