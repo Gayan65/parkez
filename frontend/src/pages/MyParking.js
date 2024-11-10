@@ -35,8 +35,18 @@ const MyParking = () => {
     console.log(myParks);
 
     return (
-        <div>
-            My parking page
+        <div className="container mt-3">
+            <h3 className="header mb-2">My Parking Slots</h3>
+            <p className="paragraph text-justify">
+                In this section, you can view your allocated parking spaces and,
+                if needed, request to release a space. Submit an unallocation
+                request if you’re permanently moving out of MOAS or transferring
+                between MOAS apartments.
+            </p>
+            <p className="paragraph text-justify fw-light fst-italic">
+                Please note: Once you submit an unallocation request, it may
+                take some time for approval by the administration.
+            </p>
             <div className="container">
                 <div className="row">
                     <div className="col-sm-6 ">
