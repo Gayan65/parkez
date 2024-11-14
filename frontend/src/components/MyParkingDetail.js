@@ -120,20 +120,25 @@ const MyParkingDetail = ({
         }
     };
     return (
-        <div className="card mt-2 ">
-            <div className="card-body">
+        <div className="card-my-parking mt-2 ">
+            <div className="card-my-parking-body">
                 <div className="row g-0">
-                    <div className="col-md-6  d-flex align-items-center">
-                        <h5 className="card-title">
+                    <div className="col-md-4  d-flex align-items-center">
+                        <div className="parking-sign-container">
+                            <div className="parking-sign">P-{lot}</div>
+                            <div className="assigned-seal">
+                                {status === "assign" && "Assigned"}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-7 ms-3">
+                        <h3 className="my-parking-h1">
                             {building && building[0].name}{" "}
                             {building && building[0].number}{" "}
+                        </h3>
+                        <p className="my-parking-p">
                             {building && building[0].address}
-                        </h5>
-                    </div>
-                    <div className="col-md-6">
-                        {" "}
-                        <p className="card-text">Parking Number: {lot}</p>
-                        <p className="card-text"> Parking Status: {status}</p>
+                        </p>
                         <p className="card-text">
                             {" "}
                             Date assigned : {modifiedDate}

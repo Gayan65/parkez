@@ -1269,3 +1269,68 @@ body {
     color: white !important; /* Ensure text stays white */
     transform: scale(1.05); /* Slightly enlarge button */
 }
+
+.parking-sign-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+/* Main parking sign */
+.parking-sign {
+    width: 100%;
+    height: 150px;
+    background-color: #226699; /* Blue background for parking sign */
+    border: 5px solid #fff;
+    color: #fff;
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Assigned seal */
+.assigned-seal {
+    width: 100%;
+    height: 40px;
+    background-color: #ffbd59; /* Accent color for the assigned seal */
+    color: #226699; /* Contrast color for text */
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 0 10px 10px; /* Rounded bottom corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-my-parking {
+    border: 1px solid #ddd; /* Light border for subtle separation */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for elevation */
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.card-my-parking-body {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.my-parking-h1 {
+    font-weight: bolder;
+    color: #226699;
+}
+
+.my-parking-p {
+    color: #226599a4;
+    font-style: italic;
+}
