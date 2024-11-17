@@ -3,6 +3,9 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useParkingUnassignRequestContext } from "../hooks/useParkingUnassignRequestContext";
 import { useTaskContext } from "../hooks/useTaskContext";
 
+//date format
+import { format } from "date-fns";
+
 const MyParkingDetail = ({
     lot,
     status,
@@ -139,9 +142,14 @@ const MyParkingDetail = ({
                         <p className="my-parking-p">
                             {building && building[0].address}
                         </p>
-                        <p className="card-text">
-                            {" "}
-                            Date assigned : {modifiedDate}
+                        <p className="my-parking-d">
+                            Parking was assigned on{" "}
+                            {format(
+                                new Date(modifiedDate),
+                                "EEEE, d/M/yyyy h:mma"
+                            )}{" "}
+                            and you can make any changes via "More" button
+                            below.
                         </p>
                     </div>
                 </div>

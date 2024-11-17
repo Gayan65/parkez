@@ -1311,10 +1311,10 @@ body {
 }
 
 .card-my-parking {
-    border: 1px solid #ddd; /* Light border for subtle separation */
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for elevation */
-    background-color: #fff;
+    /* border: 1px solid #ddd;  Light border for subtle separation */
+    /*border-radius: 10px;*/
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  Soft shadow for elevation */
+    /*background-color: #fff; */
     overflow: hidden;
 }
 
@@ -1333,4 +1333,8 @@ body {
 .my-parking-p {
     color: #226599a4;
     font-style: italic;
+}
+
+.my-parking-d {
+    color: #226699;
 }
