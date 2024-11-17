@@ -20,6 +20,9 @@ const MyParkingDetail = ({
     const [room, setRoom] = useState("");
     const [requestComment, setRequestComment] = useState("");
 
+    // State to handle accordion toggle
+    const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+
     const { user } = useAuthContext();
     const { parking_unassign_request_dispatch } =
         useParkingUnassignRequestContext();
@@ -122,6 +125,11 @@ const MyParkingDetail = ({
             fetchMyParking();
         }
     };
+
+    // Function to toggle accordion
+    const toggleAccordion = () => {
+        setIsAccordionOpen(!isAccordionOpen);
+    };
     return (
         <div className="card-my-parking mt-2 ">
             <div className="card-my-parking-body">
@@ -148,107 +156,94 @@ const MyParkingDetail = ({
                                 new Date(modifiedDate),
                                 "EEEE, d/M/yyyy h:mma"
                             )}{" "}
-                            and you can make any changes via "More" button
-                            below.
                         </p>
+                        <button
+                            className="btn-outline-primary edit-btn"
+                            style={{ display: "flex", alignItems: "center" }}
+                            onClick={toggleAccordion}
+                        >
+                            {!isAccordionOpen ? <>More</> : <>Close</>}
+                        </button>
                     </div>
                 </div>
 
                 <div
-                    className="accordion accordion-flush"
-                    id="accordionFlushExample"
+                    className={`accordion-custom-my-parking ${
+                        isAccordionOpen ? "open" : ""
+                    }`}
                 >
                     <div className="accordion-item">
-                        <h2 className="accordion-header">
-                            <button
-                                className="accordion-button collapsed"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target={`#${index}`}
-                                aria-expanded="false"
-                                aria-controls={`${index}`}
+                        <div className="paragraph" style={{ color: "#226699" }}>
+                            This may leads to cancel your current allocated
+                            parks.
+                            <form
+                                className="other-form"
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    handleSubmit(
+                                        building[0].name,
+                                        building[0].number,
+                                        apartment,
+                                        room,
+                                        lot,
+                                        index,
+                                        requestComment
+                                    );
+                                }}
                             >
-                                Make an unassign request
-                            </button>
-                        </h2>
-                        <div
-                            id={`${index}`}
-                            className="accordion-collapse collapse"
-                            data-bs-parent="#accordionFlushExample"
-                        >
-                            <div className="accordion-body">
-                                This may leads to cancel your current allocated
-                                parks.
-                                <form
-                                    onSubmit={(e) => {
-                                        e.preventDefault();
-                                        handleSubmit(
-                                            building[0].name,
-                                            building[0].number,
-                                            apartment,
-                                            room,
-                                            lot,
-                                            index,
-                                            requestComment
-                                        );
-                                    }}
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        Add your apartment number
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="apartment number"
+                                        required
+                                        value={apartment}
+                                        onChange={(e) =>
+                                            setApartment(e.target.value)
+                                        }
+                                    />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        Add your room number (if any)
+                                    </label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        placeholder="room number"
+                                        value={room}
+                                        onChange={(e) =>
+                                            setRoom(e.target.value)
+                                        }
+                                    />
+                                </div>
+
+                                <div className="mb-3">
+                                    <label className="form-label">
+                                        Add your request, if you have a parking
+                                        already
+                                    </label>
+                                    <textarea
+                                        className="form-control"
+                                        rows="2"
+                                        onChange={(e) =>
+                                            setRequestComment(e.target.value)
+                                        }
+                                        value={requestComment}
+                                    ></textarea>
+                                </div>
+
+                                <button
+                                    className="btn btn-danger"
+                                    disabled={status === "pending" && true}
                                 >
-                                    <div className="mb-3">
-                                        <label className="form-label">
-                                            Add your apartment number
-                                        </label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            placeholder="apartment number"
-                                            required
-                                            value={apartment}
-                                            onChange={(e) =>
-                                                setApartment(e.target.value)
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">
-                                            Add your room number (if any)
-                                        </label>
-                                        <input
-                                            type="number"
-                                            className="form-control"
-                                            placeholder="room number"
-                                            value={room}
-                                            onChange={(e) =>
-                                                setRoom(e.target.value)
-                                            }
-                                        />
-                                    </div>
-
-                                    <div className="mb-3">
-                                        <label className="form-label">
-                                            Add your request, if you have a
-                                            parking already
-                                        </label>
-                                        <textarea
-                                            className="form-control"
-                                            rows="2"
-                                            onChange={(e) =>
-                                                setRequestComment(
-                                                    e.target.value
-                                                )
-                                            }
-                                            value={requestComment}
-                                        ></textarea>
-                                    </div>
-
-                                    <button
-                                        className="btn btn-danger"
-                                        disabled={status === "pending" && true}
-                                    >
-                                        Unassigned Request
-                                    </button>
-                                </form>
-                            </div>
+                                    Unassigned Request
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

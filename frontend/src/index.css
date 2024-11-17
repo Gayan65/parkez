@@ -1338,3 +1338,57 @@ body {
 .my-parking-d {
     color: #226699;
 }
+
+/* Accordion styles for my parking */
+.accordion-custom-my-parking {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.5s ease-out, padding 0.5s ease-out;
+    padding: 0 1rem;
+    background-color: #fff0d586;
+    border: 1px solid #ffbd5977;
+    margin-top: 1rem;
+    border-radius: 5px;
+}
+
+.accordion-custom-my-parking.open {
+    max-height: 520px; /* Adjust based on content */
+    padding: 1rem;
+}
+
+.accordion-custom-my-parking .header {
+    color: #226699;
+    font-weight: bold;
+}
+
+.accordion-custom-my-parking .paragraph {
+    color: #333;
+    margin: 0.5rem 0;
+}
+
+/* Input fields inside the accordion */
+.accordion-custom-my-parking input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 0.5rem;
+}
+
+/* Hover and focus effects for input */
+.accordion-custom-my-parking input:focus {
+    border-color: #226699;
+    outline: none;
+    box-shadow: 0 0 5px rgba(34, 102, 153, 0.5);
+}
+
+/* Media Queries for responsiveness */
+@media (max-width: 768px) {
+    .accordion-custom-my-parking {
+        padding: 0.5rem;
+    }
+
+    .edit-btn {
+        padding: 0.5rem;
+    }
+}
