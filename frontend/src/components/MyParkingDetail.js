@@ -6,8 +6,11 @@ import { useTaskContext } from "../hooks/useTaskContext";
 //date format
 import { format } from "date-fns";
 
-// LOader component
+// Loader component
 import Loader from "./Loader";
+
+//sweet alerts
+import Swal from "sweetalert2";
 
 const MyParkingDetail = ({
     lot,
@@ -76,61 +79,79 @@ const MyParkingDetail = ({
         parkingLot_id,
         requestComment
     ) => {
-        //parking unassigned object here..
-        const unassignedRequest = {
-            user: user.email,
-            building: buildingName + buildingNUmber,
-            apartment: apartment,
-            room: room,
-            parkingLot: parkingLot,
-            parkingLot_id: parkingLot_id,
-            status: "initiate",
-            comments: "",
-            requestComment: requestComment,
-        };
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Do you want to Unassign this parking, You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, confirm!",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                //parking unassigned object here..
+                const unassignedRequest = {
+                    user: user.email,
+                    building: buildingName + buildingNUmber,
+                    apartment: apartment,
+                    room: room,
+                    parkingLot: parkingLot,
+                    parkingLot_id: parkingLot_id,
+                    status: "initiate",
+                    comments: "",
+                    requestComment: requestComment,
+                };
 
-        setLoader(true);
+                setLoader(true);
 
-        //this obj send to the api to create parking unassign request
-        const response = await fetch("/api/park_unassign_request/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(unassignedRequest),
-        });
+                //this obj send to the api to create parking unassign request
+                const response = await fetch("/api/park_unassign_request/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(unassignedRequest),
+                });
 
-        const json = await response.json();
+                const json = await response.json();
 
-        if (response.ok) {
-            parking_unassign_request_dispatch({
-                type: "CREATE_PARKING_UNASSIGN_REQUEST",
-                payload: json,
-            });
-            setLoader(false);
-            //calling to make the total tasks
-            numberOfTasks();
-        }
+                if (response.ok) {
+                    parking_unassign_request_dispatch({
+                        type: "CREATE_PARKING_UNASSIGN_REQUEST",
+                        payload: json,
+                    });
+                    setLoader(false);
+                    //calling to make the total tasks
+                    numberOfTasks();
+                }
 
-        console.log("successfully send the request");
+                console.log("successfully send the request");
 
-        //parking lot status make as pending here..
-        setLoader(true);
-        //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
-        const parkLotUpdateResponse = await fetch(
-            `/api/park/${parkingLot_id}`,
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ status: "pending" }),
+                //parking lot status make as pending here..
+                setLoader(true);
+                //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
+                const parkLotUpdateResponse = await fetch(
+                    `/api/park/${parkingLot_id}`,
+                    {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ status: "pending" }),
+                    }
+                );
+
+                if (parkLotUpdateResponse.ok) {
+                    setLoader(false);
+                    //calling the fetch function again once the parking lot status get pending
+                    fetchMyParking();
+                }
+
+                Swal.fire({
+                    title: "Sent!",
+                    text: "Your request has been sent to administrator and wait for his approval.",
+                    icon: "success",
+                });
             }
-        );
-
-        if (parkLotUpdateResponse.ok) {
-            setLoader(false);
-            //calling the fetch function again once the parking lot status get pending
-            fetchMyParking();
-        }
+        });
     };
 
     // Function to toggle accordion
