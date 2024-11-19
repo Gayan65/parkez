@@ -18,6 +18,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import ForgetPassword from "./pages/ForgetPassword";
 import Tasks from "./pages/admin/Tasks";
+import Profile from "./pages/Profile";
 
 function App() {
     //user object
@@ -78,6 +79,11 @@ function App() {
                         element={
                             user ? <ParkingSelect /> : <Navigate to={"/"} />
                         }
+                    />
+
+                    <Route
+                        path="/profile-page"
+                        element={user ? <Profile /> : <Navigate to={"/"} />}
                     />
 
                     <Route

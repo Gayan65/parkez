@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useTaskContext } from "../hooks/useTaskContext";
@@ -12,6 +12,9 @@ const NavBar = () => {
 
     //task context
     const { totalTasks, task_dispatch } = useTaskContext();
+
+    //make navigation
+    const navigate = useNavigate();
 
     useEffect(() => {
         //fetch number of tasks
@@ -38,7 +41,6 @@ const NavBar = () => {
     const handelClick = () => {
         logout();
     };
-
     //need to add fetch the number of tasks
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar sticky-top">
@@ -155,7 +157,12 @@ const NavBar = () => {
                                 <ul className="dropdown-menu dropdown-menu-end">
                                     <li>
                                         {/* Email Box */}
-                                        <div className="email-box">
+                                        <div
+                                            className="email-box"
+                                            onClick={() =>
+                                                navigate("/profile-page")
+                                            }
+                                        >
                                             <div className="profile-icon-inside-email-box">
                                                 {firstLetter}
                                             </div>
