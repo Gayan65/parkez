@@ -137,8 +137,17 @@ const MyParkingDetail = ({
                     <div className="col-md-4  d-flex align-items-center">
                         <div className="parking-sign-container">
                             <div className="parking-sign">P-{lot}</div>
-                            <div className="assigned-seal">
+                            <div
+                                className={
+                                    status === "assign"
+                                        ? "assigned-seal"
+                                        : status === "pending"
+                                        ? "pending-seal"
+                                        : ""
+                                }
+                            >
                                 {status === "assign" && "Assigned"}
+                                {status === "pending" && "Approval Pending"}
                             </div>
                         </div>
                     </div>
