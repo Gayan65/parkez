@@ -6,6 +6,9 @@ import { useTaskContext } from "../hooks/useTaskContext";
 //date format
 import { format } from "date-fns";
 
+// LOader component
+import Loader from "./Loader";
+
 const MyParkingDetail = ({
     lot,
     status,
@@ -19,6 +22,7 @@ const MyParkingDetail = ({
     const [apartment, setApartment] = useState("");
     const [room, setRoom] = useState("");
     const [requestComment, setRequestComment] = useState("");
+    const [loader, setLoader] = useState(false);
 
     // State to handle accordion toggle
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -49,15 +53,15 @@ const MyParkingDetail = ({
 
     useEffect(() => {
         const fetchBuilding = async () => {
+            setLoader(true);
             //fetch building details from api
             const response = await fetch(`/api/building/${buildingId}`);
             const json = await response.json();
 
             if (response.ok) {
                 setBuilding(json);
+                setLoader(false);
             }
-
-            console.log(json);
         };
 
         fetchBuilding();
@@ -85,6 +89,8 @@ const MyParkingDetail = ({
             requestComment: requestComment,
         };
 
+        setLoader(true);
+
         //this obj send to the api to create parking unassign request
         const response = await fetch("/api/park_unassign_request/", {
             method: "POST",
@@ -99,7 +105,7 @@ const MyParkingDetail = ({
                 type: "CREATE_PARKING_UNASSIGN_REQUEST",
                 payload: json,
             });
-
+            setLoader(false);
             //calling to make the total tasks
             numberOfTasks();
         }
@@ -107,7 +113,7 @@ const MyParkingDetail = ({
         console.log("successfully send the request");
 
         //parking lot status make as pending here..
-
+        setLoader(true);
         //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
         const parkLotUpdateResponse = await fetch(
             `/api/park/${parkingLot_id}`,
@@ -121,6 +127,7 @@ const MyParkingDetail = ({
         );
 
         if (parkLotUpdateResponse.ok) {
+            setLoader(false);
             //calling the fetch function again once the parking lot status get pending
             fetchMyParking();
         }
@@ -257,6 +264,7 @@ const MyParkingDetail = ({
                     </div>
                 </div>
             </div>
+            {loader && <Loader />}
         </div>
     );
 };
