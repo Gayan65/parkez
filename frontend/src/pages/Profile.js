@@ -1,16 +1,31 @@
 import React from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Profile = () => {
-    const handleSubmit = () => {};
+    //user
+    const { user } = useAuthContext();
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    const handleOtpRequest = () => {};
     return (
         <div className=" container ">
             <form onSubmit={handleSubmit} className="other-form">
                 <h3 className="header mt-3">Change your password</h3>
                 <p className="paragraph">
-                    In this section, You can update your password. Please ensure
-                    your new password meets the following security criteria.
+                    In this section, You can update your password. Before change
+                    your password we need to verify your identity, therefore
+                    please request an OTP to your email{" "}
+                    <b>{user && user.email}</b>.
                 </p>
+                <button
+                    className="btn-outline-primary"
+                    onClick={handleOtpRequest}
+                >
+                    Request OTP
+                </button>
                 <div>
                     <p className="paragraph">
                         Please ensure your password meets the following
