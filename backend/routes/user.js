@@ -5,6 +5,7 @@ import {
     userLogin,
     userSignup,
     verifyOTP,
+    verifyOTPNoDeletion,
 } from "../controllers/user.js";
 
 const router = express.Router();
@@ -21,5 +22,5 @@ router.post("/otp_verify", verifyOTP);
 
 //user email verify and change password routes
 router.post("/email_verify", userEmailVerify);
-router.post("/otp_verify", verifyOTP);
+router.post("/otp_verify_no_deletion", verifyOTPNoDeletion);
 export default router;

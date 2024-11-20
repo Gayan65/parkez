@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 //components
 import Loader from "./Loader";
@@ -52,7 +51,7 @@ const GeneralOTPSendForm = ({ email }) => {
         };
 
         //submit the otp for the api
-        const response = await fetch("/api/user/otp_verify/", {
+        const response = await fetch("/api/user/otp_verify_no_deletion/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(otpObj),
@@ -112,7 +111,8 @@ const GeneralOTPSendForm = ({ email }) => {
                     ))}
                     <button
                         type="submit"
-                        className="btn btn-fixed"
+                        className="btn"
+                        style={{ width: "100px" }}
                         disabled={!isSubmitEnabled || success}
                     >
                         Submit

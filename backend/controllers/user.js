@@ -218,3 +218,39 @@ export const userEmailVerify = async (req, res) => {
         res.status(400).json({ error: error.message, success: false });
     }
 };
+
+//verify OTP and no deletion of the email
+//Verify OTP
+export const verifyOTPNoDeletion = async (req, res) => {
+    try {
+        const { email, otp } = req.body;
+
+        // Check if OTP exists for the given email
+        if (!otpStore[email]) {
+            return res
+                .status(400)
+                .json({ message: "No OTP found for this email" });
+        }
+
+        const { otp: storedOtp, expiresAt } = otpStore[email];
+
+        // Check if OTP has expired
+        if (Date.now() > expiresAt) {
+            delete otpStore[email]; // Remove expired OTP
+            return res.status(400).json({ error: "OTP has expired" });
+        }
+
+        // Verify the OTP
+        if (otp === storedOtp) {
+            // OTP is valid, delete it from the store and proceed with further actions (like activating the account)
+            delete otpStore[email];
+            return res
+                .status(200)
+                .json({ message: "OTP verified successfully", success: true });
+        } else {
+            return res.status(400).json({ error: "Invalid OTP" });
+        }
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
