@@ -159,7 +159,7 @@ export const userEmailVerify = async (req, res) => {
 
         const user = await User.forgetEmailFind(email);
 
-        //console.log(user.email);
+        console.log(user.email);
 
         // Generate OTP
         let otp = randomstring.generate({ length: 4, charset: "numeric" });

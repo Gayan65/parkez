@@ -6,6 +6,7 @@ import Loader from "./Loader";
 
 //sweet alerts
 import Swal from "sweetalert2";
+import PasswordEditForm from "./PasswordEditForm";
 
 const GeneralOTPSendForm = ({ email }) => {
     const [otp, setOtp] = useState(["", "", "", ""]);
@@ -87,46 +88,49 @@ const GeneralOTPSendForm = ({ email }) => {
     }, [otp]); // This effect will run every time the OTP state changes
 
     return (
-        <form onSubmit={handleSubmit} className="otp-form mt-3">
-            <h4 className="header">Enter the 4-digit OTP</h4>
-            <p className="paragraph">
-                Now the OTP has sent to your email, please check the email and
-                type the correct four digits, please note the the OTP will be
-                expired with in 10 miniutes.
-            </p>
-            <div className="otp-inputs">
-                {otp.map((value, index) => (
-                    <input
-                        key={index}
-                        type="text"
-                        maxLength="1"
-                        value={value}
-                        onChange={(e) => handleChange(e, index)}
-                        onKeyDown={(e) => handleKeyDown(e, index)}
-                        ref={(el) => (inputRefs.current[index] = el)}
-                        className="form-control otp-input"
-                        disabled={success}
-                    />
-                ))}
-                <button
-                    type="submit"
-                    className="btn btn-fixed"
-                    disabled={!isSubmitEnabled || success}
-                >
-                    Submit
-                </button>
-            </div>
-
-            {error && <p className="error-message">{error}</p>}
-            {message && <p className="success-message"> {message} </p>}
-            {success && (
-                <div>
-                    <h3>Congratulations!</h3>
-                    <h3> Your OTP has been verified.</h3>
+        <>
+            <form onSubmit={handleSubmit} className="otp-form mt-3">
+                <h4 className="header">Enter the 4-digit OTP</h4>
+                <p className="paragraph">
+                    Now the OTP has sent to your email, please check the email
+                    and type the correct four digits, please note the the OTP
+                    will be expired with in 10 miniutes.
+                </p>
+                <div className="otp-inputs">
+                    {otp.map((value, index) => (
+                        <input
+                            key={index}
+                            type="text"
+                            maxLength="1"
+                            value={value}
+                            onChange={(e) => handleChange(e, index)}
+                            onKeyDown={(e) => handleKeyDown(e, index)}
+                            ref={(el) => (inputRefs.current[index] = el)}
+                            className="form-control otp-input"
+                            disabled={success}
+                        />
+                    ))}
+                    <button
+                        type="submit"
+                        className="btn btn-fixed"
+                        disabled={!isSubmitEnabled || success}
+                    >
+                        Submit
+                    </button>
                 </div>
-            )}
+
+                {error && <p className="error-message">{error}</p>}
+                {message && <p className="success-message"> {message} </p>}
+                {success && (
+                    <div>
+                        <h3>Congratulations!</h3>
+                        <h3> Your OTP has been verified.</h3>
+                    </div>
+                )}
+            </form>
             {loader && <Loader />}
-        </form>
+            {success && <PasswordEditForm />}
+        </>
     );
 };
 
