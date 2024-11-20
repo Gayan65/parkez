@@ -564,7 +564,9 @@ body {
     background-color: #ddd;
     cursor: not-allowed;
 }
-
+.other-form .btn-fixed {
+    width: 100px !important;
+}
 /* Error Message */
 .error-message {
     color: red;
