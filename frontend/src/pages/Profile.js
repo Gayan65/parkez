@@ -1,6 +1,9 @@
 import React from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+//sweet alert
+import Swal from "sweetalert2";
+
 const Profile = () => {
     //user
     const { user } = useAuthContext();
@@ -9,7 +12,43 @@ const Profile = () => {
         e.preventDefault();
     };
 
-    const handleOtpRequest = () => {};
+    const handleOtpRequest = () => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn-outline-primary ms-2",
+                cancelButton: "btn btn-danger",
+            },
+            buttonsStyling: false,
+        });
+        swalWithBootstrapButtons
+            .fire({
+                title: "Are you sure?",
+                text: "You need OTP to your email for changing your password",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, send",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true,
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Sent!",
+                        text: "Please check your email, OTP has been sent.",
+                        icon: "success",
+                    });
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "OTP has not been sent",
+                        icon: "error",
+                    });
+                }
+            });
+    };
     return (
         <div className=" container ">
             <form onSubmit={handleSubmit} className="other-form">
