@@ -95,13 +95,21 @@ const Profile = () => {
                     <b>{user && user.email}</b>.
                 </p>
                 <button
-                    className="btn-outline-primary"
+                    className="btn-outline-primary mb-3"
                     onClick={handleOtpRequest}
                 >
                     Request OTP
                 </button>
             </form>
             {isOtpRequested && <GeneralOTPSendForm email={user.email} />}
+            {error && <p className="error-message">{error}</p>}
+            {message && <p className="success-message"> {message} </p>}
+            {success && (
+                <p className="success-message">
+                    {" "}
+                    Go through the rest of the steps..{" "}
+                </p>
+            )}
         </div>
     );
 };
