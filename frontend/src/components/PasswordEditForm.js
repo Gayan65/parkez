@@ -4,10 +4,35 @@ const PasswordEditForm = ({ email }) => {
     //states
     const [password, setPassword] = useState("");
     const [re_password, setRe_Password] = useState("");
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(password, re_password, email);
+        const user = { email, password, re_password };
+        // API call for the password change
+
+        const response = await fetch("api/user/pw_change", {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user),
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setError(json.error);
+            console.log(json);
+        }
+
+        if (response.ok) {
+            setError("");
+            console.log("password changed successfully");
+            setMessage(json.message);
+        }
     };
 
     return (
@@ -93,6 +118,8 @@ const PasswordEditForm = ({ email }) => {
                     />
                 </div>
             </form>
+            {error && <p className="error-message">{error}</p>}
+            {message && <p className="success-message"> {message} </p>}
         </div>
     );
 };

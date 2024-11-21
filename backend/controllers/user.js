@@ -254,3 +254,16 @@ export const verifyOTPNoDeletion = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+
+//change user password
+export const userChangePassword = async (req, res) => {
+    try {
+        const { email, password, re_password } = req.body;
+
+        const user = await User.changePw(email, password, re_password);
+
+        res.status(200).json({ message: "password changed successfully!" });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};

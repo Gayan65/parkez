@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    userChangePassword,
     userEmailVerify,
     userForgetEmailVerify,
     userLogin,
@@ -23,4 +24,6 @@ router.post("/otp_verify", verifyOTP);
 //user email verify and change password routes
 router.post("/email_verify", userEmailVerify);
 router.post("/otp_verify_no_deletion", verifyOTPNoDeletion);
+router.patch("/pw_change", userChangePassword);
+
 export default router;
