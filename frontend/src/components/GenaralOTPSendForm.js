@@ -129,7 +129,7 @@ const GeneralOTPSendForm = ({ email }) => {
                 )}
             </form>
             {loader && <Loader />}
-            {success && <PasswordEditForm />}
+            {success && <PasswordEditForm email={email} />}
         </>
     );
 };

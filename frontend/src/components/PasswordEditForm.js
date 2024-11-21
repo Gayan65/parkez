@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 
-const PasswordEditForm = () => {
-    const handleSubmit = () => {
-        console.log("submitted");
+const PasswordEditForm = ({ email }) => {
+    //states
+    const [password, setPassword] = useState("");
+    const [re_password, setRe_Password] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(password, re_password, email);
     };
 
     return (
@@ -60,6 +65,9 @@ const PasswordEditForm = () => {
                             className="form-control"
                             placeholder="Enter your new password"
                             autoComplete="new-password"
+                            required
+                            onChange={(e) => setPassword(e.target.value)}
+                            value={password}
                         />
                     </div>
                     <div className="col-md-4 mb-3">
@@ -71,6 +79,9 @@ const PasswordEditForm = () => {
                             className="form-control"
                             placeholder="Re-enter your new password"
                             autoComplete="new-password"
+                            onChange={(e) => setRe_Password(e.target.value)}
+                            value={re_password}
+                            required
                         />
                     </div>
                 </div>

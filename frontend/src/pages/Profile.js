@@ -13,7 +13,6 @@ const Profile = () => {
     const [isOtpRequested, setIsOtpRequested] = useState(false);
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
-    const [success, setSuccess] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -55,7 +54,6 @@ const Profile = () => {
                     if (response.ok) {
                         setMessage(json.message);
                         setError("");
-                        setSuccess(json.success);
 
                         swalWithBootstrapButtons.fire({
                             title: "Sent!",
@@ -101,15 +99,10 @@ const Profile = () => {
                     Request OTP
                 </button>
             </form>
-            {isOtpRequested && <GeneralOTPSendForm email={user.email} />}
-            {error && <p className="error-message">{error}</p>}
+
             {message && <p className="success-message"> {message} </p>}
-            {success && (
-                <p className="success-message">
-                    {" "}
-                    Go through the rest of the steps..{" "}
-                </p>
-            )}
+            {error && <p className="error-message">{error}</p>}
+            {isOtpRequested && <GeneralOTPSendForm email={user.email} />}
         </div>
     );
 };
