@@ -4,6 +4,7 @@ import { useAuthContext } from "../hooks/useAuthContext";
 //sweet alert
 import Swal from "sweetalert2";
 import GeneralOTPSendForm from "../components/GenaralOTPSendForm";
+import Loader from "../components/Loader";
 
 const Profile = () => {
     //user
@@ -13,6 +14,9 @@ const Profile = () => {
     const [isOtpRequested, setIsOtpRequested] = useState(false);
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
+
+    //loader
+    const [loader, setLoader] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,6 +45,7 @@ const Profile = () => {
                     //set the otp request true
                     setIsOtpRequested(true);
 
+                    setLoader(true);
                     //send the OTP api
                     const response = await fetch("/api/user/email_verify/", {
                         method: "POST",
@@ -54,6 +59,7 @@ const Profile = () => {
                     if (response.ok) {
                         setMessage(json.message);
                         setError("");
+                        setLoader(false);
 
                         swalWithBootstrapButtons.fire({
                             title: "Sent!",
@@ -63,6 +69,7 @@ const Profile = () => {
                     }
 
                     if (!response.ok) {
+                        setLoader(false);
                         setError(json.error);
                         swalWithBootstrapButtons.fire({
                             title: "Not Sent!",
@@ -103,6 +110,7 @@ const Profile = () => {
             {message && <p className="success-message"> {message} </p>}
             {error && <p className="error-message">{error}</p>}
             {isOtpRequested && <GeneralOTPSendForm email={user.email} />}
+            {loader && <Loader />}
         </div>
     );
 };

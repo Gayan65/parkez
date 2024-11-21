@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import Loader from "./Loader";
+
+//sweet alerts
+import Swal from "sweetalert2";
 
 const PasswordEditForm = ({ email }) => {
     //states
@@ -7,12 +11,15 @@ const PasswordEditForm = ({ email }) => {
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
 
+    //loader
+    const [loader, setLoader] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(password, re_password, email);
         const user = { email, password, re_password };
         // API call for the password change
-
+        setLoader(true);
         const response = await fetch("api/user/pw_change", {
             method: "PATCH",
             headers: {
@@ -24,14 +31,21 @@ const PasswordEditForm = ({ email }) => {
         const json = await response.json();
 
         if (!response.ok) {
+            setLoader(false);
             setError(json.error);
             console.log(json);
         }
 
         if (response.ok) {
+            setLoader(false);
             setError("");
             console.log("password changed successfully");
             setMessage(json.message);
+            Swal.fire({
+                title: "Password",
+                text: "Now your password has changed successfully!",
+                icon: "success",
+            });
         }
     };
 
@@ -120,6 +134,7 @@ const PasswordEditForm = ({ email }) => {
             </form>
             {error && <p className="error-message">{error}</p>}
             {message && <p className="success-message"> {message} </p>}
+            {loader && <Loader />}
         </div>
     );
 };
