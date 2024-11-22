@@ -5,6 +5,7 @@ import { useTaskContext } from "../hooks/useTaskContext";
 
 import navLogo from "../assets/img/NavLogo.png";
 import { useEffect } from "react";
+import LanguageDropdown from "./LanguageDropdown";
 
 const NavBar = () => {
     //get user
@@ -124,7 +125,9 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </div>
-
+                <div className="me-3">
+                    <LanguageDropdown />
+                </div>
                 <div className="flex-d">
                     {!user && (
                         <div>
