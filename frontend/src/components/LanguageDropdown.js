@@ -42,11 +42,14 @@ const LanguageDropdown = () => {
                 />
                 {selectedLanguage.label}
             </button>
-            <ul className="dropdown-menu" aria-labelledby="languageDropdown">
+            <ul
+                className="dropdown-menu dropdown-menu-end"
+                aria-labelledby="languageDropdown"
+            >
                 {languages.map((language) => (
                     <li key={language.lang}>
                         <button
-                            className="dropdown-item d-flex align-items-center"
+                            className="dropdown-item d-flex align-items-center logout"
                             onClick={() => handleLanguageChange(language)}
                         >
                             <img
