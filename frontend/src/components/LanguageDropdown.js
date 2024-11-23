@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const LanguageDropdown = () => {
+    const { i18n } = useTranslation("homepage");
     const [selectedLanguage, setSelectedLanguage] = useState({
         lang: "fi",
         label: "Finnish",
@@ -23,6 +25,7 @@ const LanguageDropdown = () => {
     const handleLanguageChange = (language) => {
         setSelectedLanguage(language);
         console.log("Selected Language:", language.lang); // Optional: Add further logic here
+        i18n.changeLanguage(language.lang);
     };
 
     return (
