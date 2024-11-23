@@ -6,10 +6,13 @@ import { useTaskContext } from "../hooks/useTaskContext";
 import navLogo from "../assets/img/NavLogo.png";
 import { useEffect } from "react";
 import LanguageDropdown from "./LanguageDropdown";
+import { useTranslation } from "react-i18next";
 
 const NavBar = () => {
     //get user
     const { user } = useAuthContext();
+
+    const [t] = useTranslation("navbar");
 
     //task context
     const { totalTasks, task_dispatch } = useTaskContext();
@@ -71,7 +74,7 @@ const NavBar = () => {
                         <li className="nav-item">
                             {user && (
                                 <Link className="nav-link active" to={"/"}>
-                                    Home
+                                    {t("home")}
                                 </Link>
                             )}
                         </li>
@@ -82,7 +85,7 @@ const NavBar = () => {
                                     className="nav-link active"
                                     to={"/park-request"}
                                 >
-                                    Reservation
+                                    {t("reservation")}
                                 </Link>
                             )}
                         </li>
@@ -93,7 +96,7 @@ const NavBar = () => {
                                     className="nav-link active"
                                     to={"/create"}
                                 >
-                                    Parking Management
+                                    {t("parking_mgt")}
                                 </Link>
                             )}
                         </li>
@@ -104,7 +107,7 @@ const NavBar = () => {
                                     className="nav-link active position-relative"
                                     to={"/tasks"}
                                 >
-                                    Tasks{" "}
+                                    {t("tasks")}
                                     {totalTasks > 0 && (
                                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                             {totalTasks}
@@ -119,7 +122,7 @@ const NavBar = () => {
                                     className="nav-link active"
                                     to={"/my-parking"}
                                 >
-                                    My Parking
+                                    {t("my_parking")}
                                 </Link>
                             )}
                         </li>
