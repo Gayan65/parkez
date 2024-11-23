@@ -3,5 +3,8 @@
     "reservation": "Reservation",
     "parking_mgt": "Parking Management",
     "tasks": "Tasks",
-    "my_parking": "My Parking"
+    "my_parking": "My Parking",
+    "logout": "Logout",
+    "login": "Login",
+    "sign_up": "Sign up"
 }

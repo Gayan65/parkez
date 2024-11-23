@@ -3,5 +3,8 @@
     "reservation": "Varaus",
     "parking_mgt": "Pysäköintihallinto",
     "tasks": "Tehtävät",
-    "my_parking": "Minun Pysäköinti"
+    "my_parking": "Minun Pysäköinti",
+    "logout": "kirjaudu ulos",
+    "login": "Kirjaudu",
+    "sign_up": "Rekisteröidy"
 }

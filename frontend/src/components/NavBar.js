@@ -139,13 +139,13 @@ const NavBar = () => {
                                 className="btn btn-outline-primary me-1"
                                 to={"/login"}
                             >
-                                Login
+                                {t("login")}
                             </Link>
                             <Link
                                 className="btn btn-outline-primary me-1"
                                 to={"/signup"}
                             >
-                                Sign up
+                                {t("sign_up")}
                             </Link>
                         </div>
                     )}
@@ -178,7 +178,7 @@ const NavBar = () => {
                                     <li>
                                         <div className="my-parking">
                                             <Link to={"/my-parking"}>
-                                                My Parking
+                                                {t("my_parking")}
                                             </Link>
                                         </div>
                                     </li>
@@ -188,7 +188,7 @@ const NavBar = () => {
                                             className="logout"
                                             onClick={handelClick}
                                         >
-                                            Logout
+                                            {t("logout")}
                                         </button>
                                     </li>
                                 </ul>
