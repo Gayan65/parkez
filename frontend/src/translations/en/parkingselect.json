@@ -1,0 +1,22 @@
+{
+    "header": "Select a parking slot",
+    "para": {
+        "para1": "As per your selection, you are looking for parking in",
+        "para2": "Please note that pending, maintenance, and reserved parking slots cannot be reserved. You can only make a reservation for available free slots. After you make a reservation, it will require approval from the authorities, which may take some time. Once a decision has been reached, we will notify you via email at"
+    },
+    "duplicate": {
+        "para1": "There is currently a pending parking request associated with your email",
+        "para2": "You cannot submit a new request until the existing one is resolved."
+    },
+    "button": "Request for Parking",
+    "toast": "Parking reservation request sent successfully !",
+    "fire": {
+        "title": "Are you sure?",
+        "text": "You want to reserve this parking!",
+        "btn_confirm": "Yes, Confirm!",
+        "btn_cancel": "Cancel",
+        "title2": "Done!",
+        "text2": "Request sent.",
+        "btn_ok": "Ok"
+    }
+}

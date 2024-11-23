@@ -1,0 +1,22 @@
+{
+    "header": "Valitse pysäköintipaikka",
+    "para": {
+        "para1": "Valintasi mukaan etsit pysäköintipaikkaa",
+        "para2": "Huomaa, että vireillä olevia, huollettavia ja varattuja pysäköintipaikkoja ei voi varata. Voit varata vain vapaana olevia ilmaisia ​​kolikkopelejä. Kun olet tehnyt varauksen, se vaatii viranomaisten hyväksynnän, mikä voi kestää jonkin aikaa. Kun päätös on tehty, ilmoitamme sinulle sähköpostitse osoitteeseen"
+    },
+    "duplicate": {
+        "para1": "Sähköpostiisi liittyy tällä hetkellä vireillä oleva pysäköintipyyntö",
+        "para2": "Et voi lähettää uutta pyyntöä ennen kuin olemassa oleva on ratkaistu."
+    },
+    "button": "Pysäköintipyyntö",
+    "toast": "Pysäköintivarauspyyntö lähetetty onnistuneesti!",
+    "fire": {
+        "title": "Oletko varma?",
+        "text": "Haluat varata tämän pysäköinnin!",
+        "btn_confirm": "Kyllä, vahvista!",
+        "btn_cancel": "Peruuttaa",
+        "title2": "Tehty!",
+        "text2": "Pyyntö lähetetty.",
+        "btn_ok": "Okei"
+    }
+}

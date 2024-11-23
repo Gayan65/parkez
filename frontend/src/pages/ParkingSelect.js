@@ -4,6 +4,7 @@ import { useParkLotContext } from "../hooks/useParkLotContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
 import { useTaskContext } from "../hooks/useTaskContext";
+import { useTranslation } from "react-i18next";
 
 //components
 import ParkingLotDetailsRadio from "../components/ParkingLotDetailsRadio";
@@ -18,6 +19,8 @@ import Swal from "sweetalert2";
 
 const ParkingSelect = () => {
     const location = useLocation();
+
+    const [t] = useTranslation("parkingselect");
 
     //loader
     const [loader, setLoader] = useState(false);
@@ -113,13 +116,14 @@ const ParkingSelect = () => {
 
     const handleClick = async () => {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You want to reserve this parking!",
+            title: t("fire.title"),
+            text: t("fire.text"),
             icon: "warning",
             showCancelButton: true,
+            cancelButtonText: t("fire.btn_cancel"),
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Confirm!",
+            confirmButtonText: t("fire.btn_confirm"),
         }).then(async (result) => {
             if (result.isConfirmed) {
                 setLoader(true);
@@ -174,21 +178,19 @@ const ParkingSelect = () => {
                         payload: json,
                     });
 
-                    toast.success(
-                        "Parking reservation request sent successfully !",
-                        {
-                            position: "top-center",
-                        }
-                    );
+                    toast.success(t("toast"), {
+                        position: "top-center",
+                    });
 
                     numberOfTasks();
                     fetchDuplicateParking();
                 }
 
                 Swal.fire({
-                    title: "Done!",
-                    text: "Request sent.",
+                    title: t("fire.title2"),
+                    text: t("fire.text2"),
                     icon: "success",
+                    confirmButtonText: t("fire.btn_ok"),
                 });
             }
         });
@@ -199,27 +201,17 @@ const ParkingSelect = () => {
         <div className="container other-form custom-from-center">
             <div className="row">
                 <div className="col-md-7">
-                    <h3 className="header mt-3 text-center">
-                        Select a reservation
-                    </h3>
+                    <h3 className="header mt-3 text-center">{t("header")}</h3>
                     {/* This you can access  Parking select Building{building.name} {building.number}, Apartment
             {apartment}, Room{room}*/}
                     <p className="paragraph text-justify">
-                        As per your selection, you are looking for parking in{" "}
-                        {building.name} {building.number}. Please note that
-                        pending, maintenance, and reserved parking slots cannot
-                        be reserved. You can only make a reservation for
-                        available free slots. After you make a reservation, it
-                        will require approval from the authorities, which may
-                        take some time. Once a decision has been reached, we
-                        will notify you via email at {user && user.email}.
+                        {t("para.para1")} {building.name} {building.number}.{" "}
+                        {t("para.para2")} {user && user.email}.
                     </p>
                     {isDuplicate && (
                         <p className="paragraph text-center">
-                            There is currently a pending parking request
-                            associated with your email {user && user.email}. You
-                            cannot submit a new request until the existing one
-                            is resolved.
+                            {t("duplicate.para1")} {user && user.email}.{" "}
+                            {t("duplicate.para2")}
                         </p>
                     )}
                     <div className="container text-center mb-3">
@@ -257,7 +249,7 @@ const ParkingSelect = () => {
                             onClick={handleClick}
                             disabled={!selectParkingLot._id || isDuplicate} //button get activated once the selection has been made
                         >
-                            Request for parking
+                            {t("button")}
                         </button>
                     </div>
 
