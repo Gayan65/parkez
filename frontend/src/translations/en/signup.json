@@ -1,0 +1,10 @@
+{
+    "header": "Sign Up",
+    "email": "Email address",
+    "email_place": "Enter email",
+    "password": "Password",
+    "password_place": "Enter password",
+    "re_password": "Retype Password",
+    "re_password_place": "Retype password",
+    "button": "Sign Up"
+}

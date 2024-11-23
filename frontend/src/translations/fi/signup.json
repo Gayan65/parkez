@@ -1,0 +1,10 @@
+{
+    "header": "Rekisteröidy",
+    "email": "Sähköpostiosoite",
+    "email_place": "Anna sähköpostiosoite",
+    "password": "Salasana",
+    "password_place": "Anna salasana",
+    "re_password": "Kirjoita salasana uudelleen",
+    "re_password_place": "Kirjoita salasana uudelleen",
+    "button": "Rekisteröidy"
+}
