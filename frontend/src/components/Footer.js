@@ -32,13 +32,13 @@ const Footer = () => {
                     <div className="col-md-4 footer-section">
                         <h5> {t("headers.connect")} </h5>
                         <div className="social-icons">
-                            <a href="#">
+                            <a href="/">
                                 <i className="fab fa-facebook"></i>
                             </a>
-                            <a href="#">
+                            <a href="/">
                                 <i className="fab fa-twitter"></i>
                             </a>
-                            <a href="#">
+                            <a href="/">
                                 <i className="fab fa-linkedin"></i>
                             </a>
                         </div>

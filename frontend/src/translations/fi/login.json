@@ -1,0 +1,9 @@
+{
+    "header": "Kirjaudu",
+    "email": "Sähköpostiosoite",
+    "email_place": "Anna sähköpostiosoite",
+    "password": "Salasana",
+    "password_place": "Anna salasana",
+    "button": "Kirjaudu",
+    "link": "Unohda salasana"
+}

@@ -10,12 +10,15 @@ import { MyParkingsContextProvider } from "./context/MyParkingContext";
 import { ParkingUnassignRequestsContextProvider } from "./context/ParkingUnassignRequest";
 import { TasksContextProvider } from "./context/TaskContext";
 
+//translation pages
 import homepage_en from "./translations/en/homepage.json";
 import homepage_fi from "./translations/fi/homepage.json";
 import navbar_en from "./translations/en/navbar.json";
 import navbar_fi from "./translations/fi/navbar.json";
 import footer_en from "./translations/en/footer.json";
 import footer_fi from "./translations/fi/footer.json";
+import login_en from "./translations/en/login.json";
+import login_fi from "./translations/fi/login.json";
 
 import i18next from "i18next";
 import { I18nextProvider } from "react-i18next";
@@ -24,8 +27,18 @@ i18next.init({
     interpolation: { escapeValue: false },
     lng: "fi",
     resources: {
-        fi: { homepage: homepage_fi, navbar: navbar_fi, footer: footer_fi },
-        en: { homepage: homepage_en, navbar: navbar_en, footer: footer_en },
+        fi: {
+            homepage: homepage_fi,
+            navbar: navbar_fi,
+            footer: footer_fi,
+            login: login_fi,
+        },
+        en: {
+            homepage: homepage_en,
+            navbar: navbar_en,
+            footer: footer_en,
+            login: login_en,
+        },
     },
 });
 

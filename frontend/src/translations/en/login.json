@@ -1,0 +1,9 @@
+{
+    "header": "Login",
+    "email": "Email address",
+    "email_place": "Enter email",
+    "password": "Password",
+    "password_place": "Enter password",
+    "button": "Login",
+    "link": "Forget Password"
+}

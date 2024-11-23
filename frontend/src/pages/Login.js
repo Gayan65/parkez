@@ -3,10 +3,14 @@ import { useLogin } from "../hooks/useLogin";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 
+import { useTranslation } from "react-i18next";
+
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loader, setLoader] = useState(false);
+
+    const [t] = useTranslation("login");
 
     const { login, error, loading } = useLogin();
 
@@ -23,25 +27,25 @@ const Login = () => {
     return (
         <div className="login-signup-container">
             <div className="login-signup-form">
-                <h2 className="text-center">Login</h2>
+                <h2 className="text-center"> {t("header")} </h2>
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
-                        <label className="label">Email address</label>
+                        <label className="label"> {t("email")} </label>
                         <input
                             type="email"
                             className="form-control"
-                            placeholder="Enter email"
+                            placeholder={t("email_place")}
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             required
                         />
                     </div>
                     <div className="form-group mt-3">
-                        <label className="label">Password</label>
+                        <label className="label"> {t("password")} </label>
                         <input
                             type="password"
                             className="form-control"
-                            placeholder="Password"
+                            placeholder={t("password_place")}
                             autoComplete="true"
                             onChange={(e) => setPassword(e.target.value)}
                             value={password}
@@ -53,9 +57,9 @@ const Login = () => {
                         className="btn btn-primary btn-block mt-3"
                         disabled={loading}
                     >
-                        Login
+                        {t("button")}
                     </button>
-                    <Link to={"/forget_password"}>Forget password</Link>
+                    <Link to={"/forget_password"}> {t("link")} </Link>
                 </form>
                 {error && <p> {error} </p>}
             </div>
