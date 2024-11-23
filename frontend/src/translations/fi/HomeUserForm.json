@@ -1,0 +1,16 @@
+{
+    "header": "Tee varaus",
+    "para": "Tässä osiossa voit täyttää kaikki tietosi ja varata parkkipaikan.",
+    "label": {
+        "location": "Valitse sijaintisi",
+        "apartment": "Lisää asunnon numero",
+        "room": "Lisää huoneesi numero (jos sellainen on, esim. A1)",
+        "comments": "Lisää pyyntösi, jos sinulla on jo parkkipaikka."
+    },
+    "text_field": {
+        "location": "Valitse paikkakuntasi",
+        "apartment": "asunnon numero",
+        "room": "huoneen numero"
+    },
+    "button": "Etsi Pysäköinti"
+}

@@ -1,0 +1,16 @@
+{
+    "header": "Make a reservation",
+    "para": "In this section, you can fill all your information and make a reservation for a parking slot.",
+    "label": {
+        "location": "Select your location",
+        "apartment": "Add your apartment number",
+        "room": "Add your room number (if any, Ex: A1)",
+        "comments": "Add your request, if you have a parking already."
+    },
+    "text_field": {
+        "location": "Select your locality",
+        "apartment": "apartment number",
+        "room": "room number)"
+    },
+    "button": "Search Parking"
+}

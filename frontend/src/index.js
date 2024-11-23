@@ -21,6 +21,8 @@ import login_en from "./translations/en/login.json";
 import login_fi from "./translations/fi/login.json";
 import signup_en from "./translations/en/signup.json";
 import signup_fi from "./translations/fi/signup.json";
+import homeuserform_en from "./translations/en/HomeUserForm.json";
+import homeuserform_fi from "./translations/fi/HomeUserForm.json";
 
 import i18next from "i18next";
 import { I18nextProvider } from "react-i18next";
@@ -35,6 +37,7 @@ i18next.init({
             footer: footer_fi,
             login: login_fi,
             signup: signup_fi,
+            homeuserform: homeuserform_fi,
         },
         en: {
             homepage: homepage_en,
@@ -42,6 +45,7 @@ i18next.init({
             footer: footer_en,
             login: login_en,
             signup: signup_en,
+            homeuserform: homeuserform_en,
         },
     },
 });

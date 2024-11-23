@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
+import { useTranslation } from "react-i18next";
 
 //components
 import Loader from "../components/Loader";
 
 const HomeUserForm = () => {
+    const [t] = useTranslation("homeuserform");
+
     const { buildings, dispatch } = useBuildingsContext();
 
     //user form states
@@ -56,22 +59,19 @@ const HomeUserForm = () => {
     return (
         <div className=" container ">
             <form onSubmit={handleSubmit} className="other-form">
-                <h3 className="header mt-3">Make a reservation</h3>
-                <p className="paragraph">
-                    In this section, you can fill all your information and make
-                    a reservation for a parking slot.{" "}
-                </p>
+                <h3 className="header mt-3"> {t("header")} </h3>
+                <p className="paragraph">{t("para")}</p>
                 <div className="row">
                     <div className="col-md-4 mb-3">
                         <label className="form-label label">
-                            Select your location{" "}
+                            {t("label.location")}
                         </label>
                         <select
                             className="form-select"
                             required
                             onChange={handleSelectChange}
                         >
-                            <option value="">Select your locality</option>
+                            <option value="">{t("text_field.location")}</option>
                             {buildings &&
                                 buildings.map((building) => (
                                     <option
@@ -87,12 +87,12 @@ const HomeUserForm = () => {
 
                     <div className="col-md-4 mb-3">
                         <label className="form-label label">
-                            Add your apartment number
+                            {t("label.apartment")}
                         </label>
                         <input
                             type="number"
                             className="form-control"
-                            placeholder="apartment number"
+                            placeholder={t("text_field.location")}
                             required
                             value={apartment}
                             onChange={(e) => setApartment(e.target.value)}
@@ -101,12 +101,12 @@ const HomeUserForm = () => {
 
                     <div className="col-md-4 mb-3">
                         <label className="form-label label">
-                            Add your room number (if any, Ex: A1)
+                            {t("label.room")}
                         </label>
                         <input
                             type="text"
                             className="form-control"
-                            placeholder="room number"
+                            placeholder={t("text_field.location")}
                             value={room}
                             onChange={(e) => setRoom(e.target.value)}
                         />
@@ -115,7 +115,7 @@ const HomeUserForm = () => {
 
                 <div className="mb-3">
                     <label className="form-label label">
-                        Add your request, if you have a parking already
+                        {t("label.comments")}
                     </label>
                     <textarea
                         className="form-control"
@@ -130,7 +130,7 @@ const HomeUserForm = () => {
                         className="btn btn-primary custom-btn"
                         disabled={!building.id || !apartment} //button activation changes according to the values
                     >
-                        Search Parking
+                        {t("button")}
                     </button>
                 </div>
             </form>
