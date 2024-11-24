@@ -8,10 +8,16 @@ import BuildingView from "../../components/BuildingView";
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 import Loader from "../../components/Loader";
 
+//translation
+import { useTranslation } from "react-i18next";
+
 const CreateBuildingPage = () => {
     //set state
     const [loader, setLoader] = useState(false);
     const { buildings, dispatch } = useBuildingsContext();
+
+    //translation
+    const { t } = useTranslation("createbuildingpage");
 
     useEffect(() => {
         //api call to get all buildings
@@ -31,19 +37,8 @@ const CreateBuildingPage = () => {
 
     return (
         <div className="container mt-3">
-            <h3 className="header mb-2">
-                Building Management and Parking Slot Allocation
-            </h3>
-            <p className="paragraph text-justify mb-5">
-                In this section, administrators can efficiently manage parking
-                facilities by adding new buildings and allocating parking slots
-                to each designated location. By visiting each building, you can
-                oversee the assignment of parking spaces, ensuring that all
-                areas are equipped with the necessary resources for effective
-                parking management. This feature simplifies the process of
-                organizing parking availability, enhancing the overall
-                functionality of our parking management system.
-            </p>
+            <h3 className="header mb-2">{t("header")}</h3>
+            <p className="paragraph text-justify mb-5">{t("para")}</p>
             <div className="row">
                 <div className="col-md-6">
                     <CreateBuildingForm />

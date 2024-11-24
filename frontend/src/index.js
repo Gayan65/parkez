@@ -25,6 +25,8 @@ import homeuserform_en from "./translations/en/HomeUserForm.json";
 import homeuserform_fi from "./translations/fi/HomeUserForm.json";
 import parkingselect_en from "./translations/en/parkingselect.json";
 import parkingselect_fi from "./translations/fi/parkingselect.json";
+import createbuildingpage_en from "./translations/en/createbuildingpage.json";
+import createbuildingpage_fi from "./translations/fi/createbuildingpage.json";
 
 import i18next from "i18next";
 import { I18nextProvider } from "react-i18next";
@@ -41,6 +43,7 @@ i18next.init({
             signup: signup_fi,
             homeuserform: homeuserform_fi,
             parkingselect: parkingselect_fi,
+            createbuildingpage: createbuildingpage_fi,
         },
         en: {
             homepage: homepage_en,
@@ -50,6 +53,7 @@ i18next.init({
             signup: signup_en,
             homeuserform: homeuserform_en,
             parkingselect: parkingselect_en,
+            createbuildingpage: createbuildingpage_en,
         },
     },
 });
