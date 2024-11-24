@@ -1,0 +1,10 @@
+{
+    "name": "Rakennuksen nimi",
+    "name_place": "Anna rakennuksen nimi. Esimerkki: MOAS",
+    "number": "Rakennuksen numero",
+    "number_place": "Anna rakennuksen numero. Esim: 5",
+    "address": "Rakennuksen osoite",
+    "address_place": "Anna rakennuksen sijainti/osoite. Esimerkiksi: Raviradantie 7",
+    "image": "kuva",
+    "button": "Luo rakennus"
+}

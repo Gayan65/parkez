@@ -10,7 +10,13 @@ import { IoCloudUploadOutline, IoCloseCircle } from "react-icons/io5";
 //sweet alerts
 import Swal from "sweetalert2";
 
+//translation
+import { useTranslation } from "react-i18next";
+
 const CreateBuildingForm = () => {
+    //translation
+    const { t } = useTranslation("createbuildingform");
+
     const { dispatch } = useBuildingsContext();
     //set states
 
@@ -130,7 +136,7 @@ const CreateBuildingForm = () => {
     return (
         <form className="other-form" onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-label label">Building Name</label>
+                <label className="form-label label"> {t("name")} </label>
                 <input
                     type="text"
                     className={
@@ -142,12 +148,12 @@ const CreateBuildingForm = () => {
                     }
                     onChange={(e) => setName(e.target.value)}
                     value={name}
-                    placeholder="Enter building name. Ex: MOAS"
+                    placeholder={t("name_place")}
                 />
             </div>
 
             <div className="mb-3">
-                <label className="form-label label">Building Number</label>
+                <label className="form-label label">{t("number")}</label>
                 <input
                     type="number"
                     className={
@@ -159,12 +165,12 @@ const CreateBuildingForm = () => {
                     }
                     onChange={(e) => setNumber(e.target.value)}
                     value={number}
-                    placeholder="Enter building number. Ex: 5"
+                    placeholder={t("number_place")}
                 />
             </div>
 
             <div className="mb-3">
-                <label className="form-label label">Building Address</label>
+                <label className="form-label label">{t("address")}</label>
                 <input
                     type="text"
                     className={
@@ -176,12 +182,12 @@ const CreateBuildingForm = () => {
                     }
                     onChange={(e) => setAddress(e.target.value)}
                     value={address}
-                    placeholder="Enter building location / address. Ex: Raviradantie 7"
+                    placeholder={t("address_place")}
                 />
             </div>
 
             <div className="mb-3 custom-upload-wrapper">
-                <label className="form-label label">Image</label>
+                <label className="form-label label">{t("image")}</label>
                 <input
                     type="file"
                     id="file-upload"
@@ -209,7 +215,7 @@ const CreateBuildingForm = () => {
 
             <div className="mb-3">
                 <button type="submit" className="btn btn-primary">
-                    Create Building
+                    {t("button")}
                 </button>
             </div>
 

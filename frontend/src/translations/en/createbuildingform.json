@@ -1,0 +1,10 @@
+{
+    "name": "Building name",
+    "name_place": "Enter building name. Ex: MOAS",
+    "number": "Building number",
+    "number_place": "Enter building number. Ex: 5",
+    "address": "Building address",
+    "address_place": "Enter building location / address. Ex: Raviradantie 7",
+    "image": "Image",
+    "button": "Create building"
+}
