@@ -130,7 +130,7 @@ const CreateBuildingForm = () => {
     return (
         <form className="other-form" onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-label label">Name</label>
+                <label className="form-label label">Building Name</label>
                 <input
                     type="text"
                     className={
@@ -142,11 +142,12 @@ const CreateBuildingForm = () => {
                     }
                     onChange={(e) => setName(e.target.value)}
                     value={name}
+                    placeholder="Enter building name. Ex: MOAS"
                 />
             </div>
 
             <div className="mb-3">
-                <label className="form-label label">Number</label>
+                <label className="form-label label">Building Number</label>
                 <input
                     type="number"
                     className={
@@ -158,11 +159,12 @@ const CreateBuildingForm = () => {
                     }
                     onChange={(e) => setNumber(e.target.value)}
                     value={number}
+                    placeholder="Enter building number. Ex: 5"
                 />
             </div>
 
             <div className="mb-3">
-                <label className="form-label label">Address</label>
+                <label className="form-label label">Building Address</label>
                 <input
                     type="text"
                     className={
@@ -174,6 +176,7 @@ const CreateBuildingForm = () => {
                     }
                     onChange={(e) => setAddress(e.target.value)}
                     value={address}
+                    placeholder="Enter building location / address. Ex: Raviradantie 7"
                 />
             </div>
 
