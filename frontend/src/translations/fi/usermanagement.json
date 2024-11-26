@@ -1,0 +1,5 @@
+{
+    "header": "Käyttäjien hallinta",
+    "para": "Tässä osiossa voit etsiä asianmukaista käyttäjää avainsanojen tai hänen sähköpostiosoitteensa avulla alla olevasta hakukentästä ja tehdä tarvittavat toimenpiteet, kuten antaa järjestelmänvalvojan oikeudet tai poistaa käyttäjän.",
+    "note": "Huomautus: Järjestelmänvalvojan oikeuksien myöntäminen antaa käyttäjälle mahdollisuuden muokata kaikkia järjestelmäasetuksia, ja käyttäjien poistot ovat pysyviä eikä niitä voi kumota, mikä tekee näistä toiminnoista erittäin arkaluonteisia."
+}
