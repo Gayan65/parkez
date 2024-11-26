@@ -104,6 +104,17 @@ const NavBar = () => {
                         <li className="nav-item">
                             {user && user.admin && (
                                 <Link
+                                    className="nav-link active"
+                                    to={"/user_management"}
+                                >
+                                    {t("user_mgt")}
+                                </Link>
+                            )}
+                        </li>
+
+                        <li className="nav-item">
+                            {user && user.admin && (
+                                <Link
                                     className="nav-link active position-relative"
                                     to={"/tasks"}
                                 >

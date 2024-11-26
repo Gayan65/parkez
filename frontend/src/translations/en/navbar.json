@@ -2,6 +2,7 @@
     "home": "Home",
     "reservation": "Reservation",
     "parking_mgt": "Parking Management",
+    "user_mgt": "User Management",
     "tasks": "Tasks",
     "my_parking": "My Parking",
     "logout": "Logout",

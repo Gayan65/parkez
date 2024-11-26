@@ -2,6 +2,7 @@
     "home": "Kotiin",
     "reservation": "Varaus",
     "parking_mgt": "Pysäköintihallinto",
+    "user_mgt": "Käyttäjien hallinta",
     "tasks": "Tehtävät",
     "my_parking": "Minun Pysäköinti",
     "logout": "kirjaudu ulos",

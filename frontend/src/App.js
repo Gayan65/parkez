@@ -19,6 +19,7 @@ import Contact from "./pages/Contact";
 import ForgetPassword from "./pages/ForgetPassword";
 import Tasks from "./pages/admin/Tasks";
 import Profile from "./pages/Profile";
+import UserManagement from "./pages/admin/UserManagement";
 
 function App() {
     //user object
@@ -69,6 +70,16 @@ function App() {
                         element={
                             user && user.admin ? (
                                 <Tasks />
+                            ) : (
+                                <Navigate to={"/"} />
+                            )
+                        }
+                    />
+                    <Route
+                        path="/user_management"
+                        element={
+                            user && user.admin ? (
+                                <UserManagement />
                             ) : (
                                 <Navigate to={"/"} />
                             )
