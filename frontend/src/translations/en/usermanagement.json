@@ -1,5 +1,13 @@
 {
     "header": "User Management",
     "para": "In this section, you can search for the relevant user using keywords or their email in the search box below and take the necessary actions, such as assigning admin privileges or deleting the user.",
-    "note": "Note: Granting admin privileges allows the user to modify all system settings, and user deletions are permanent and cannot be undone, making these actions highly sensitive."
+    "note": "Note: Granting admin privileges allows the user to modify all system settings, and user deletions are permanent and cannot be undone, making these actions highly sensitive.",
+    "search_label": "Search here..",
+    "search_palce": "Email address",
+    "table": {
+        "email": "Email",
+        "status": "User status",
+        "admin": "Administrator",
+        "user": "User"
+    }
 }

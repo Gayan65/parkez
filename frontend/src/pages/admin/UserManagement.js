@@ -48,14 +48,14 @@ const UserManagement = () => {
                     <form className="other-form">
                         <div className="mb-3">
                             <label className="form-label label">
-                                {" "}
-                                Search here..{" "}
+                                {t("search_label")}
                             </label>
                             <input
                                 type="text"
                                 className="form-control"
                                 onChange={(e) => setSearch(e.target.value)}
                                 value={search}
+                                placeholder={t("search_palce")}
                             />
                         </div>
                     </form>
@@ -65,8 +65,8 @@ const UserManagement = () => {
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">User status</th>
+                                <th scope="col">{t("table.email")}</th>
+                                <th scope="col">{t("table.status")}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,8 +85,8 @@ const UserManagement = () => {
                                             <td>{user.email}</td>
                                             <td>
                                                 {user.admin
-                                                    ? "Administrator"
-                                                    : "User"}
+                                                    ? t("table.admin")
+                                                    : t("table.user")}
                                             </td>
                                         </tr>
                                     ))}
