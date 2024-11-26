@@ -1453,3 +1453,24 @@ body {
     ); /* Slightly shrink the button for a pressed effect */
     transition: transform 0.1s ease; /* Smooth scaling */
 }
+
+/*user table */
+/* External CSS */
+.table thead {
+    background-color: #1a4c7a !important; /* overrides Bootstrap's bg-primary */
+}
+
+.table thead th {
+    color: white !important; /* ensures text color is white */
+    font-weight: bold !important; /* ensures text is bold */
+    background-color: #1a4c7a !important; /* overrides Bootstrap's bg-primary */
+}
+
+/* user list container */
+.custom-user-container {
+    height: 200px;
+    overflow-y: scroll;
+    scrollbar-color: #226699 #ffbd5942;
+    margin-bottom: 20px;
+    scroll-behavior: smooth;
+}

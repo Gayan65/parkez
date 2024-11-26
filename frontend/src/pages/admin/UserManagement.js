@@ -42,48 +42,59 @@ const UserManagement = () => {
             <p className="paragraph text-justify fw-light fst-italic">
                 {t("note")}
             </p>
-            <form className="other-form">
-                <div className="mb-3">
-                    <label className="form-label label"> Search here.. </label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        onChange={(e) => setSearch(e.target.value)}
-                        value={search}
-                    />
+            <div className="row">
+                <div className="col-md-4">
+                    {" "}
+                    <form className="other-form">
+                        <div className="mb-3">
+                            <label className="form-label label">
+                                {" "}
+                                Search here..{" "}
+                            </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                onChange={(e) => setSearch(e.target.value)}
+                                value={search}
+                            />
+                        </div>
+                    </form>
                 </div>
-            </form>
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">User status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {allUsers &&
-                        allUsers
-                            .filter((item) => {
-                                return search.toLocaleLowerCase() === ""
-                                    ? item
-                                    : item.email
-                                          .toLocaleLowerCase()
-                                          .includes(search);
-                            })
-                            .map((user, i) => (
-                                <tr key={i}>
-                                    <th scope="row">{i + 1}</th>
-                                    <td>{user.email}</td>
-                                    <td>
-                                        {user.admin
-                                            ? "Administrator"
-                                            : "Normal User"}
-                                    </td>
-                                </tr>
-                            ))}
-                </tbody>
-            </table>
+                <div className="col-md-8 custom-user-container">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">User status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {allUsers &&
+                                allUsers
+                                    .filter((item) => {
+                                        return search.toLocaleLowerCase() === ""
+                                            ? item
+                                            : item.email
+                                                  .toLocaleLowerCase()
+                                                  .includes(search);
+                                    })
+                                    .map((user, i) => (
+                                        <tr key={i}>
+                                            <th scope="row">{i + 1}</th>
+                                            <td>{user.email}</td>
+                                            <td>
+                                                {user.admin
+                                                    ? "Administrator"
+                                                    : "Normal User"}
+                                            </td>
+                                        </tr>
+                                    ))}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             {error && <p className="error-forms">{error}</p>}
             {loader && <Loader />}
         </div>
