@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 //translation
 import { useTranslation } from "react-i18next";
 import Loader from "../../components/Loader";
+import UserSelectRow from "../../components/UserSelectRow";
 
 const UserManagement = () => {
     //translation
@@ -80,15 +81,12 @@ const UserManagement = () => {
                                                   .includes(search);
                                     })
                                     .map((user, i) => (
-                                        <tr key={i}>
-                                            <th scope="row">{i + 1}</th>
-                                            <td>{user.email}</td>
-                                            <td>
-                                                {user.admin
-                                                    ? t("table.admin")
-                                                    : t("table.user")}
-                                            </td>
-                                        </tr>
+                                        <UserSelectRow
+                                            key={i}
+                                            i={i + 1}
+                                            email={user.email}
+                                            status={user.admin}
+                                        />
                                     ))}
                         </tbody>
                     </table>
