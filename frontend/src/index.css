@@ -1456,6 +1456,16 @@ body {
 
 /*user table */
 /* External CSS */
+.table {
+    table-layout: fixed; /* Ensures consistent column widths */
+    width: 100%; /* Makes the table span the container */
+}
+
+.table tbody th,
+.table tbody td {
+    word-wrap: break-word; /* Prevents content from overflowing */
+}
+
 .table thead {
     background-color: #1a4c7a !important; /* overrides Bootstrap's bg-primary */
 }
@@ -1464,6 +1474,19 @@ body {
     color: white !important; /* ensures text color is white */
     font-weight: bold !important; /* ensures text is bold */
     background-color: #1a4c7a !important; /* overrides Bootstrap's bg-primary */
+}
+
+.table tbody th,
+.table tbody td {
+    color: #1a4c7a;
+    cursor: pointer;
+}
+
+.table tbody tr:hover th,
+.table tbody tr:hover td {
+    background-color: #fff0d5 !important; /* overrides Bootstrap's bg-primary */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out; /* Smooth transition effect */
 }
 
 /* user list container */

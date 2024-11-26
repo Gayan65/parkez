@@ -86,7 +86,7 @@ const UserManagement = () => {
                                             <td>
                                                 {user.admin
                                                     ? "Administrator"
-                                                    : "Normal User"}
+                                                    : "User"}
                                             </td>
                                         </tr>
                                     ))}
