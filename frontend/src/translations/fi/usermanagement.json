@@ -9,5 +9,7 @@
         "status": "Käyttäjän tila",
         "admin": "Järjestelmänvalvoja",
         "user": "Käyttäjä"
-    }
+    },
+    "make_as_an_admin": "Järjestelmänvalvoja",
+    "delete_user": "Poista käyttäjä"
 }

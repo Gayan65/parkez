@@ -9,5 +9,7 @@
         "status": "User status",
         "admin": "Administrator",
         "user": "User"
-    }
+    },
+    "make_as_an_admin": "Make as an admin",
+    "delete_user": "Delete user"
 }

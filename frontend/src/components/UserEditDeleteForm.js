@@ -23,6 +23,18 @@ const UserEditDeleteForm = ({ email, status }) => {
                         </tr>
                     </tbody>
                 </table>
+                <div className="row">
+                    <div className="col-md-6 ">
+                        <button className="btn btn-primary">
+                            {t("make_as_an_admin")}
+                        </button>
+                    </div>
+                    <div className="col-md-6">
+                        <button className="btn btn-danger">
+                            {t("delete_user")}
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
     );
