@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Loader from "../../components/Loader";
 import UserSelectRow from "../../components/UserSelectRow";
+import UserEditDeleteForm from "../../components/UserEditDeleteForm";
 
 const UserManagement = () => {
     //translation
@@ -61,6 +62,12 @@ const UserManagement = () => {
                             />
                         </div>
                     </form>
+                    {clickedRow && (
+                        <UserEditDeleteForm
+                            email={clickedRow.email}
+                            status={clickedRow.admin}
+                        />
+                    )}
                 </div>
                 <div className="col-md-8 custom-user-container">
                     <table className="table table-hover">
@@ -88,7 +95,9 @@ const UserManagement = () => {
                                             email={user.email}
                                             status={user.admin}
                                             clickedRow={clickedRow}
-                                            setClickedRow={setClickedRow}
+                                            onRowClick={() =>
+                                                setClickedRow(user)
+                                            }
                                         />
                                     ))}
                         </tbody>

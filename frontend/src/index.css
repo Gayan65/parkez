@@ -1499,7 +1499,7 @@ body {
 
 /* user list container */
 .custom-user-container {
-    height: 200px;
+    height: 300px;
     overflow-y: scroll;
     scrollbar-color: #226699 #ffbd5942;
     margin-bottom: 20px;

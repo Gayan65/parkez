@@ -1,21 +1,16 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 
-const UserSelectRow = ({ i, email, status, clickedRow, setClickedRow }) => {
+const UserSelectRow = ({ i, email, status, clickedRow, onRowClick }) => {
     //translation
     const { t } = useTranslation("usermanagement");
-
-    const handleClick = () => {
-        setClickedRow(i); // Update the clicked row index in the parent component
-        console.log("clicked");
-    };
 
     return (
         <>
             <tr
                 key={i}
-                onClick={handleClick}
-                className={clickedRow === i ? "clicked" : ""}
+                onClick={onRowClick} // Call parent's handler
+                className={clickedRow?.email === email ? "clicked" : ""}
             >
                 <th scope="row">{i}</th>
                 <td>{email}</td>
