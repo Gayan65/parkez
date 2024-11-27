@@ -3,6 +3,7 @@ import { useUsersContext } from "../hooks/useUsersContext";
 
 //translation
 import { useTranslation } from "react-i18next";
+import Loader from "./Loader";
 
 const UserEditDeleteForm = ({ email, status, id }) => {
     //translation
@@ -11,6 +12,7 @@ const UserEditDeleteForm = ({ email, status, id }) => {
     //state
     const [error, setError] = useState("");
     const [fetchedUser, setFetchedUser] = useState(null);
+    const [loader, setLoader] = useState(false);
 
     const { user, dispatch } = useUsersContext();
 
@@ -53,12 +55,15 @@ const UserEditDeleteForm = ({ email, status, id }) => {
         if (id) {
             const fetchUser = async () => {
                 try {
+                    setLoader(true);
                     const response = await fetch(`/api/user/get_user/${id}`);
                     const json = await response.json();
 
                     if (!response.ok) {
+                        setLoader(false);
                         setError(json.error);
                     } else {
+                        setLoader(false);
                         setError("");
                         setFetchedUser(json[0]);
                     }
@@ -115,6 +120,7 @@ const UserEditDeleteForm = ({ email, status, id }) => {
                     </div>
                 </div>
             </form>
+            {loader && <Loader />}
         </div>
     );
 };
