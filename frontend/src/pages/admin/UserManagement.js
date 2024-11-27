@@ -24,18 +24,31 @@ const UserManagement = () => {
         //api call
         const fetchAllUsers = async () => {
             setLoader(true);
-            const response = await fetch("/api/user/all");
-            const json = await response.json();
+            try {
+                const response = await fetch("/api/user/all");
 
-            if (!response.ok) {
-                setLoader(false);
-                setError(json.error);
-            }
+                // Check if the response is JSON or handle error safely
+                let json;
+                try {
+                    json = await response.json();
+                } catch (err) {
+                    throw new Error("Invalid JSON response from the server.");
+                }
 
-            if (response.ok) {
-                setLoader(false);
+                if (!response.ok) {
+                    // Handle error from the server
+                    throw new Error(json.error || "Failed to fetch users.");
+                }
+
+                // Success: Dispatch users to context
                 dispatch({ type: "SET_USERS", payload: json });
                 console.log(json);
+            } catch (err) {
+                // Catch and set error in state
+                setError(err.message || "An unexpected error occurred.");
+            } finally {
+                // Always stop the loader
+                setLoader(false);
             }
         };
 
