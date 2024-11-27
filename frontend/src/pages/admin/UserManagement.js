@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { useUsersContext } from "../../hooks/useUsersContext";
+
 //translation
 import { useTranslation } from "react-i18next";
 import Loader from "../../components/Loader";
@@ -10,8 +12,9 @@ const UserManagement = () => {
     //translation
     const { t } = useTranslation("usermanagement");
 
+    const { users, dispatch } = useUsersContext();
+
     //states
-    const [allUsers, setAllUsers] = useState([]);
     const [error, setError] = useState("");
     const [search, setSearch] = useState("");
     const [loader, setLoader] = useState(false);
@@ -31,13 +34,13 @@ const UserManagement = () => {
 
             if (response.ok) {
                 setLoader(false);
-                setAllUsers(json);
+                dispatch({ type: "SET_USERS", payload: json });
                 console.log(json);
             }
         };
 
         fetchAllUsers();
-    }, []);
+    }, [dispatch]);
     return (
         <div className="container mt-3">
             <h3 className="header mb-2"> {t("header")}</h3>
@@ -66,6 +69,7 @@ const UserManagement = () => {
                         <UserEditDeleteForm
                             email={clickedRow.email}
                             status={clickedRow.admin}
+                            id={clickedRow._id}
                         />
                     )}
                 </div>
@@ -79,8 +83,8 @@ const UserManagement = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {allUsers &&
-                                allUsers
+                            {users &&
+                                users
                                     .filter((item) => {
                                         return search.toLocaleLowerCase() === ""
                                             ? item

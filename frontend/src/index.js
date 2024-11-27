@@ -9,6 +9,7 @@ import { ParkingRequestsContextProvider } from "./context/ParkingRequestContext"
 import { MyParkingsContextProvider } from "./context/MyParkingContext";
 import { ParkingUnassignRequestsContextProvider } from "./context/ParkingUnassignRequest";
 import { TasksContextProvider } from "./context/TaskContext";
+import { UsersContextProvider } from "./context/UsersContext";
 
 //translation pages
 import homepage_en from "./translations/en/homepage.json";
@@ -76,9 +77,11 @@ root.render(
                         <MyParkingsContextProvider>
                             <ParkingUnassignRequestsContextProvider>
                                 <TasksContextProvider>
-                                    <I18nextProvider i18n={i18next}>
-                                        <App />
-                                    </I18nextProvider>
+                                    <UsersContextProvider>
+                                        <I18nextProvider i18n={i18next}>
+                                            <App />
+                                        </I18nextProvider>
+                                    </UsersContextProvider>
                                 </TasksContextProvider>
                             </ParkingUnassignRequestsContextProvider>
                         </MyParkingsContextProvider>

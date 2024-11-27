@@ -280,3 +280,17 @@ export const getAllUsers = async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 };
+
+// Get a user (email, admin status)
+export const getUser = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const user = await User.find({ _id: id }, "email admin"); // Fetch only required fields
+        if (!user) {
+            return res.status(404).json({ error: "No user found" });
+        }
+        return res.status(200).json(user);
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+};

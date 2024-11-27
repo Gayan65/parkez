@@ -1,6 +1,7 @@
 import express from "express";
 import {
     getAllUsers,
+    getUser,
     userChangePassword,
     userEmailVerify,
     userForgetEmailVerify,
@@ -29,5 +30,8 @@ router.patch("/pw_change", userChangePassword);
 
 //get all users (email, admin status)
 router.get("/all", getAllUsers);
+
+//get a user (email, admin status)
+router.get("/get_user/:id", getUser);
 
 export default router;
