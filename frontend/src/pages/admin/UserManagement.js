@@ -14,6 +14,7 @@ const UserManagement = () => {
     const [error, setError] = useState("");
     const [search, setSearch] = useState("");
     const [loader, setLoader] = useState(false);
+    const [clickedRow, setClickedRow] = useState(null); // Central state for clicked row
 
     useEffect(() => {
         //api call
@@ -86,6 +87,8 @@ const UserManagement = () => {
                                             i={i + 1}
                                             email={user.email}
                                             status={user.admin}
+                                            clickedRow={clickedRow}
+                                            setClickedRow={setClickedRow}
                                         />
                                     ))}
                         </tbody>

@@ -1489,6 +1489,14 @@ body {
     transition: all 0.3s ease-in-out; /* Smooth transition effect */
 }
 
+.table tbody tr.clicked th,
+.table tbody tr.clicked td {
+    background-color: #ffbd59 !important; /* Highlight background color */
+    color: #1a4c7a; /* Text color for clicked row */
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+}
+
 /* user list container */
 .custom-user-container {
     height: 200px;
