@@ -26,7 +26,7 @@ const UserEditDeleteForm = ({ email, status }) => {
                 <div className="row">
                     <div className="col-md-6 ">
                         <button className="btn btn-primary">
-                            {t("make_as_an_admin")}
+                            {status ? t("make_as_user") : t("make_as_an_admin")}
                         </button>
                     </div>
                     <div className="col-md-6">
