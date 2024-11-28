@@ -15,5 +15,26 @@
     "delete_user": "Poista käyttäjä",
     "error": "Varattuja tai vireillä olevia parkkipaikkoja saatavilla!",
     "error_user_deletion": "Et voi poistaa omaa tiliäsi.",
-    "error_user_status_change": "Et voi tehdä muutoksia omaan tiliisi."
+    "error_user_status_change": "Et voi tehdä muutoksia omaan tiliisi.",
+    "fire1": {
+        "title": "Oletko varma?",
+        "text": "Haluatko poistaa tämän käyttäjän? Et voi palauttaa tätä!",
+        "btn1": "Kyllä, poista se!",
+        "btn2": "Peruuttaa"
+    },
+    "fire2": {
+        "title": "Ei voi poistaa!",
+        "text": "Et voi poistaa omaa tiliäsi.",
+        "btn": "Okei"
+    },
+    "fire3": {
+        "title": "Ei voi poistaa!",
+        "text": "Tarkista virheilmoitus",
+        "btn": "Okei"
+    },
+    "fire4": {
+        "title": "Poistettu!",
+        "text": "Käyttäjä on poistettu.",
+        "btn": "Okei"
+    }
 }

@@ -15,5 +15,26 @@
     "delete_user": "Delete user",
     "error": "Allocated or pending parking slots available!",
     "error_user_deletion": "You cannot delete your own account.",
-    "error_user_status_change": "You cannot make changes to your own account."
+    "error_user_status_change": "You cannot make changes to your own account.",
+    "fire1": {
+        "title": "Are you sure?",
+        "text": "Do you want to delete this user? You won't be able to revert this!",
+        "btn1": "Yes, delete it!",
+        "btn2": "Cancel"
+    },
+    "fire2": {
+        "title": "Can not Delete!",
+        "text": "You cannot delete your own account.",
+        "btn": "Oky"
+    },
+    "fire3": {
+        "title": "Can not Delete!",
+        "text": "Please check the error message",
+        "btn": "Oky"
+    },
+    "fire4": {
+        "title": "Deleted!",
+        "text": "User has been deleted.",
+        "btn": "Oky"
+    }
 }

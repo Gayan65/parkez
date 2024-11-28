@@ -5,6 +5,9 @@ import { useAuthContext } from "../hooks/useAuthContext";
 import { useTranslation } from "react-i18next";
 import Loader from "./Loader";
 
+//sweet alerts
+import Swal from "sweetalert2";
+
 const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     //translation
     const { t } = useTranslation("usermanagement");
@@ -16,6 +19,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     const [error, setError] = useState("");
     const [fetchedUser, setFetchedUser] = useState(null);
     const [loader, setLoader] = useState(false);
+    const [deactivate, setDeactivate] = useState(false);
 
     //api call
     const updateUser = async (updatedUserObj) => {
@@ -33,9 +37,11 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
             if (!response.ok) {
                 setError(json.error);
                 console.log(json);
+                setDeactivate(false);
             } else {
                 setError("");
                 setFetchedUser(json); // Update fetchedUser with the new data
+                setDeactivate(false);
                 if (refreshUsers) refreshUsers(); // Trigger refresh
                 // dispatch({ type: "SET_A_USER", payload: json });
             }
@@ -63,32 +69,65 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     const handleDeleteClick = async (e) => {
         e.preventDefault(); // Prevent form submission
 
-        // Prevent self-deletion
-        if (userEmail === user.email) {
-            setError("You cannot delete your own account.");
-            return;
-        }
+        Swal.fire({
+            title: t("fire1.title"),
+            text: t("fire1.text"),
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: t("fire1.btn1"),
+            cancelButtonText: t("fire1.btn2"),
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                // Prevent self-deletion
+                if (userEmail === user.email) {
+                    setError("You cannot delete your own account.");
+                    Swal.fire({
+                        title: t("fire2.title"),
+                        text: t("fire2.text"),
+                        confirmButtonText: t("fire2.btn"),
+                        icon: "error",
+                    });
+                    return;
+                }
 
-        setLoader(true);
-        const response = await fetch(`/api/user/delete_user/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-            },
+                setLoader(true);
+                const response = await fetch(`/api/user/delete_user/${id}`, {
+                    method: "DELETE",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                const json = await response.json();
+
+                if (!response.ok) {
+                    setLoader(false);
+                    setError(json.error);
+
+                    Swal.fire({
+                        title: t("fire3.title"),
+                        text: t("fire2.text"),
+                        confirmButtonText: t("fire3.btn"),
+                        icon: "error",
+                    });
+                }
+
+                if (response.ok) {
+                    setLoader(false);
+                    setError("");
+                    if (refreshUsers) refreshUsers(); // Trigger refresh
+                    setDeactivate(true);
+                    Swal.fire({
+                        title: t("fire4.title"),
+                        text: t("fire4.text"),
+                        confirmButtonText: t("fire4.btn"),
+                        icon: "success",
+                    });
+                }
+            }
         });
-
-        const json = await response.json();
-
-        if (!response.ok) {
-            setLoader(false);
-            setError(json.error);
-        }
-
-        if (response.ok) {
-            setLoader(false);
-            setError("");
-            if (refreshUsers) refreshUsers(); // Trigger refresh
-        }
     };
 
     useEffect(() => {
@@ -105,6 +144,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                     } else {
                         setLoader(false);
                         setError("");
+                        setDeactivate(false);
                         setFetchedUser(json[0]);
                     }
                 } catch (error) {
@@ -147,6 +187,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                         <button
                             className="btn btn-primary"
                             onClick={handleUserStatusClick}
+                            disabled={deactivate}
                         >
                             {fetchedUser?.admin
                                 ? t("make_as_user")
@@ -157,6 +198,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                         <button
                             className="btn btn-danger"
                             onClick={handleDeleteClick}
+                            disabled={deactivate}
                         >
                             {t("delete_user")}
                         </button>
