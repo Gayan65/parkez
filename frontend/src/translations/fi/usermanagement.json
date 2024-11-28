@@ -14,5 +14,6 @@
     "make_as_user": "tee käyttäjä",
     "delete_user": "Poista käyttäjä",
     "error": "Varattuja tai vireillä olevia parkkipaikkoja saatavilla!",
-    "error_user_deletion": "Et voi poistaa omaa tiliäsi."
+    "error_user_deletion": "Et voi poistaa omaa tiliäsi.",
+    "error_user_status_change": "Et voi tehdä muutoksia omaan tiliisi."
 }

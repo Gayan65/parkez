@@ -47,6 +47,13 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
 
     const handleUserStatusClick = (e) => {
         e.preventDefault(); // Prevent form submission
+
+        // Prevent self-status-change
+        if (userEmail === user.email) {
+            setError("You cannot make changes to your own account.");
+            return;
+        }
+
         const updatedUserObj = {
             admin: !fetchedUser?.admin, // Toggle admin status
         };
@@ -163,6 +170,11 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
             {error === "You cannot delete your own account." && (
                 <p className="error-message">{t("error_user_deletion")}</p>
             )}
+
+            {error === "You cannot make changes to your own account." && (
+                <p className="error-message">{t("error_user_status_change")}</p>
+            )}
+
             {loader && <Loader />}
         </div>
     );
