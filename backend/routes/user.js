@@ -2,6 +2,7 @@ import express from "express";
 import {
     getAllUsers,
     getUser,
+    updateUserStatus,
     userChangePassword,
     userEmailVerify,
     userForgetEmailVerify,
@@ -33,5 +34,8 @@ router.get("/all", getAllUsers);
 
 //get a user (email, admin status)
 router.get("/get_user/:id", getUser);
+
+//update user status
+router.patch("/update_user_status/:id", updateUserStatus);
 
 export default router;

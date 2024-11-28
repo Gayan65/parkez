@@ -294,3 +294,26 @@ export const getUser = async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 };
+
+//update user admin status
+export const updateUserStatus = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "user not found" });
+    }
+
+    const user = await User.findByIdAndUpdate(
+        { _id: id },
+        {
+            ...req.body,
+        },
+        { new: true } // This returns the updated document
+    );
+
+    if (!user) {
+        return res.status(404).json({ error: "user not found" });
+    }
+
+    res.status(200).json(user);
+};

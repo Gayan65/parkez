@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useUsersContext } from "../hooks/useUsersContext";
 
 //translation
 import { useTranslation } from "react-i18next";
 import Loader from "./Loader";
 
-const UserEditDeleteForm = ({ email, status, id }) => {
+const UserEditDeleteForm = ({ email, id, refreshUsers }) => {
     //translation
     const { t } = useTranslation("usermanagement");
 
@@ -14,12 +13,10 @@ const UserEditDeleteForm = ({ email, status, id }) => {
     const [fetchedUser, setFetchedUser] = useState(null);
     const [loader, setLoader] = useState(false);
 
-    const { user, dispatch } = useUsersContext();
-
     //api call
     const updateUser = async (updatedUserObj) => {
         try {
-            const response = await fetch(`/api/user/${id}`, {
+            const response = await fetch(`/api/user/update_user_status/${id}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +32,8 @@ const UserEditDeleteForm = ({ email, status, id }) => {
             } else {
                 setError("");
                 setFetchedUser(json); // Update fetchedUser with the new data
-                dispatch({ type: "SET_A_USER", payload: json });
+                if (refreshUsers) refreshUsers(); // Trigger refresh
+                // dispatch({ type: "SET_A_USER", payload: json });
             }
         } catch (error) {
             console.error("Update failed:", error);
@@ -120,6 +118,7 @@ const UserEditDeleteForm = ({ email, status, id }) => {
                     </div>
                 </div>
             </form>
+            {error && <p className="error-message">{error}</p>}
             {loader && <Loader />}
         </div>
     );

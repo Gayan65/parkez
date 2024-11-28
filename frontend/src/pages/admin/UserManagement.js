@@ -20,40 +20,41 @@ const UserManagement = () => {
     const [loader, setLoader] = useState(false);
     const [clickedRow, setClickedRow] = useState(null); // Central state for clicked row
 
-    useEffect(() => {
-        //api call
-        const fetchAllUsers = async () => {
-            setLoader(true);
+    //api call
+    const fetchAllUsers = async () => {
+        setLoader(true);
+        try {
+            const response = await fetch("/api/user/all");
+
+            // Check if the response is JSON or handle error safely
+            let json;
             try {
-                const response = await fetch("/api/user/all");
-
-                // Check if the response is JSON or handle error safely
-                let json;
-                try {
-                    json = await response.json();
-                } catch (err) {
-                    throw new Error("Invalid JSON response from the server.");
-                }
-
-                if (!response.ok) {
-                    // Handle error from the server
-                    throw new Error(json.error || "Failed to fetch users.");
-                }
-
-                // Success: Dispatch users to context
-                dispatch({ type: "SET_USERS", payload: json });
-                console.log(json);
+                json = await response.json();
             } catch (err) {
-                // Catch and set error in state
-                setError(err.message || "An unexpected error occurred.");
-            } finally {
-                // Always stop the loader
-                setLoader(false);
+                throw new Error("Invalid JSON response from the server.");
             }
-        };
 
+            if (!response.ok) {
+                // Handle error from the server
+                throw new Error(json.error || "Failed to fetch users.");
+            }
+
+            // Success: Dispatch users to context
+            dispatch({ type: "SET_USERS", payload: json });
+            console.log(json);
+        } catch (err) {
+            // Catch and set error in state
+            setError(err.message || "An unexpected error occurred.");
+        } finally {
+            // Always stop the loader
+            setLoader(false);
+        }
+    };
+
+    useEffect(() => {
         fetchAllUsers();
-    }, [dispatch]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     return (
         <div className="container mt-3">
             <h3 className="header mb-2"> {t("header")}</h3>
@@ -83,6 +84,7 @@ const UserManagement = () => {
                             email={clickedRow.email}
                             status={clickedRow.admin}
                             id={clickedRow._id}
+                            refreshUsers={fetchAllUsers} // Pass the callback
                         />
                     )}
                 </div>
