@@ -36,5 +36,26 @@
         "title": "Poistettu!",
         "text": "Käyttäjä on poistettu.",
         "btn": "Okei"
+    },
+    "fire5": {
+        "title": "Oletko varma?",
+        "text": "Haluatko muuttaa käyttäjän tilaa? Et voi palauttaa tätä!",
+        "btn1": "Kyllä, vaihda se",
+        "btn2": "Peruuttaa"
+    },
+    "fire6": {
+        "title": "Epäonnistui!",
+        "text": "Et voi tehdä muutoksia omaan tiliisi.",
+        "btn": "Okei"
+    },
+    "fire7": {
+        "title": "Epäonnistui!",
+        "text": "Käyttäjätilaa ei voi määrittää, yritä myöhemmin uudelleen.",
+        "btn": "Okei"
+    },
+    "fire8": {
+        "title": "Käyttäjän tila muuttunut",
+        "text": "Käyttäjän oikeuksien muutos onnistui!",
+        "btn": "Okei"
     }
 }

@@ -25,16 +25,37 @@
     "fire2": {
         "title": "Can not Delete!",
         "text": "You cannot delete your own account.",
-        "btn": "Oky"
+        "btn": "Ok"
     },
     "fire3": {
         "title": "Can not Delete!",
         "text": "Please check the error message",
-        "btn": "Oky"
+        "btn": "Ok"
     },
     "fire4": {
         "title": "Deleted!",
         "text": "User has been deleted.",
-        "btn": "Oky"
+        "btn": "Ok"
+    },
+    "fire5": {
+        "title": "Are you sure?",
+        "text": "Do you want to change the user status? You won't be able to revert this!",
+        "btn1": "Yes, Change it",
+        "btn2": "Cancel"
+    },
+    "fire6": {
+        "title": "Unsuccessful!",
+        "text": "You cannot make changes to your own account.",
+        "btn": "Ok"
+    },
+    "fire7": {
+        "title": "Unsuccessful!",
+        "text": "User status can not be performed, try again later.",
+        "btn": "Ok"
+    },
+    "fire8": {
+        "title": "User status changed",
+        "text": "User privilege changed successfully!",
+        "btn": "Ok"
     }
 }

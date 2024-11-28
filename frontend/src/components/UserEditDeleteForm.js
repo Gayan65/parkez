@@ -38,11 +38,23 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                 setError(json.error);
                 console.log(json);
                 setDeactivate(false);
+                Swal.fire({
+                    title: t("fire7.title"),
+                    text: t("fire7.text"),
+                    icon: "error",
+                    confirmButtonText: t("fire7.btn"),
+                });
             } else {
                 setError("");
                 setFetchedUser(json); // Update fetchedUser with the new data
                 setDeactivate(false);
                 if (refreshUsers) refreshUsers(); // Trigger refresh
+                Swal.fire({
+                    title: t("fire8.title"),
+                    text: t("fire8.text"),
+                    icon: "success",
+                    confirmButtonText: t("fire8.btn"),
+                });
                 // dispatch({ type: "SET_A_USER", payload: json });
             }
         } catch (error) {
@@ -54,16 +66,35 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     const handleUserStatusClick = (e) => {
         e.preventDefault(); // Prevent form submission
 
-        // Prevent self-status-change
-        if (userEmail === user.email) {
-            setError("You cannot make changes to your own account.");
-            return;
-        }
+        Swal.fire({
+            title: t("fire5.title"),
+            text: t("fire5.text"),
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: t("fire5.btn1"),
+            cancelButtonText: t("fire5.btn2"),
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Prevent self-status-change
+                if (userEmail === user.email) {
+                    setError("You cannot make changes to your own account.");
+                    Swal.fire({
+                        title: t("fire6.title"),
+                        text: t("fire6.text"),
+                        icon: "error",
+                        confirmButtonText: t("fire6.btn"),
+                    });
+                    return;
+                }
 
-        const updatedUserObj = {
-            admin: !fetchedUser?.admin, // Toggle admin status
-        };
-        updateUser(updatedUserObj);
+                const updatedUserObj = {
+                    admin: !fetchedUser?.admin, // Toggle admin status
+                };
+                updateUser(updatedUserObj);
+            }
+        });
     };
 
     const handleDeleteClick = async (e) => {
