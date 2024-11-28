@@ -5,6 +5,7 @@ import nodemailer from "nodemailer";
 import randomstring from "randomstring";
 
 import { User } from "../models/UserModel.js";
+import { ParkLot } from "../models/ParkLotModel.js";
 
 // taken creating function
 const createToken = (_id) => {
@@ -316,4 +317,34 @@ export const updateUserStatus = async (req, res) => {
     }
 
     res.status(200).json(user);
+};
+
+// delete a user (if the user does not have any parking lot allocated)
+export const deleteUser = async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: "User not found" });
+    }
+
+    //Find user
+    const user = await User.findOne({ _id: id });
+    const { email } = user;
+
+    // Find the parking lots base on the user email
+    const parkingLots = await ParkLot.findOne({
+        user: email,
+    });
+
+    // Check if parking lot exists
+    if (parkingLots) {
+        return res
+            .status(404)
+            .json({ error: "Allocated or pending parking slots available!" });
+    }
+
+    if (!parkingLots) {
+        const deleteUser = await User.findByIdAndDelete({ _id: id });
+        res.status(200).json(deleteUser);
+    }
 };

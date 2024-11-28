@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    deleteUser,
     getAllUsers,
     getUser,
     updateUserStatus,
@@ -37,5 +38,8 @@ router.get("/get_user/:id", getUser);
 
 //update user status
 router.patch("/update_user_status/:id", updateUserStatus);
+
+//delete user (if the user does not have any allocated parking)
+router.delete("/delete_user/:id", deleteUser);
 
 export default router;

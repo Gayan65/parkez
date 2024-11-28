@@ -49,6 +49,30 @@ const UserEditDeleteForm = ({ email, id, refreshUsers }) => {
         updateUser(updatedUserObj);
     };
 
+    const handleDeleteClick = async (e) => {
+        e.preventDefault(); // Prevent form submission
+        setLoader(true);
+        const response = await fetch(`/api/user/delete_user/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const json = await response.json();
+
+        if (!response.ok) {
+            setLoader(false);
+            setError(json.error);
+        }
+
+        if (response.ok) {
+            setLoader(false);
+            setError("");
+            if (refreshUsers) refreshUsers(); // Trigger refresh
+        }
+    };
+
     useEffect(() => {
         if (id) {
             const fetchUser = async () => {
@@ -112,7 +136,10 @@ const UserEditDeleteForm = ({ email, id, refreshUsers }) => {
                         </button>
                     </div>
                     <div className="col-md-6">
-                        <button className="btn btn-danger">
+                        <button
+                            className="btn btn-danger"
+                            onClick={handleDeleteClick}
+                        >
                             {t("delete_user")}
                         </button>
                     </div>
