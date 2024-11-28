@@ -13,5 +13,6 @@
     "make_as_an_admin": "Järjestelmänvalvoja",
     "make_as_user": "tee käyttäjä",
     "delete_user": "Poista käyttäjä",
-    "error": "Varattuja tai vireillä olevia parkkipaikkoja saatavilla!"
+    "error": "Varattuja tai vireillä olevia parkkipaikkoja saatavilla!",
+    "error_user_deletion": "Et voi poistaa omaa tiliäsi."
 }

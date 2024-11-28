@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //translation
 import { useTranslation } from "react-i18next";
 import Loader from "./Loader";
 
-const UserEditDeleteForm = ({ email, id, refreshUsers }) => {
+const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     //translation
     const { t } = useTranslation("usermanagement");
+
+    //logged user
+    const { user } = useAuthContext();
 
     //state
     const [error, setError] = useState("");
@@ -51,6 +55,13 @@ const UserEditDeleteForm = ({ email, id, refreshUsers }) => {
 
     const handleDeleteClick = async (e) => {
         e.preventDefault(); // Prevent form submission
+
+        // Prevent self-deletion
+        if (userEmail === user.email) {
+            setError("You cannot delete your own account.");
+            return;
+        }
+
         setLoader(true);
         const response = await fetch(`/api/user/delete_user/${id}`, {
             method: "DELETE",
@@ -112,7 +123,7 @@ const UserEditDeleteForm = ({ email, id, refreshUsers }) => {
                     <tbody>
                         <tr>
                             <th scope="row">{t("table.email")}</th>
-                            <td>{email}</td>
+                            <td>{userEmail}</td>
                         </tr>
                         <tr>
                             <th scope="row">{t("table.status")}</th>
@@ -147,6 +158,10 @@ const UserEditDeleteForm = ({ email, id, refreshUsers }) => {
             </form>
             {error === "Allocated or pending parking slots available!" && (
                 <p className="error-message">{t("error")}</p>
+            )}
+
+            {error === "You cannot delete your own account." && (
+                <p className="error-message">{t("error_user_deletion")}</p>
             )}
             {loader && <Loader />}
         </div>

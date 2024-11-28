@@ -13,5 +13,6 @@
     "make_as_an_admin": "Make as an admin",
     "make_as_user": "Make as a user",
     "delete_user": "Delete user",
-    "error": "Allocated or pending parking slots available!"
+    "error": "Allocated or pending parking slots available!",
+    "error_user_deletion": "You cannot delete your own account."
 }

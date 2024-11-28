@@ -81,7 +81,7 @@ const UserManagement = () => {
                     </form>
                     {clickedRow && (
                         <UserEditDeleteForm
-                            email={clickedRow.email}
+                            userEmail={clickedRow.email}
                             status={clickedRow.admin}
                             id={clickedRow._id}
                             refreshUsers={fetchAllUsers} // Pass the callback
