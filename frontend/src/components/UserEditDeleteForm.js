@@ -145,7 +145,9 @@ const UserEditDeleteForm = ({ email, id, refreshUsers }) => {
                     </div>
                 </div>
             </form>
-            {error && <p className="error-message">{error}</p>}
+            {error === "Allocated or pending parking slots available!" && (
+                <p className="error-message">{t("error")}</p>
+            )}
             {loader && <Loader />}
         </div>
     );
