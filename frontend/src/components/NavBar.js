@@ -205,6 +205,13 @@ const NavBar = () => {
                                     </li>
                                     <li>
                                         <div className="my-parking">
+                                            <Link to={"/park-request"}>
+                                                {t("reservation")}
+                                            </Link>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div className="my-parking">
                                             <Link to={"/my-parking"}>
                                                 {t("my_parking")}
                                             </Link>
