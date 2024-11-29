@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+import { FaEnvelope, FaUserTie } from "react-icons/fa6";
+
 //translation
 import { useTranslation } from "react-i18next";
 import Loader from "./Loader";
@@ -200,11 +202,17 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                 <table className="table">
                     <tbody>
                         <tr>
-                            <th scope="row">{t("table.email")}</th>
+                            <th scope="row ">
+                                <FaEnvelope className="me-2" />
+                                {t("table.email")}
+                            </th>
                             <td>{userEmail}</td>
                         </tr>
                         <tr>
-                            <th scope="row">{t("table.status")}</th>
+                            <th scope="row">
+                                <FaUserTie className="me-2" />
+                                {t("table.status")}
+                            </th>
                             <td>
                                 {fetchedUser?.admin
                                     ? t("table.admin")
