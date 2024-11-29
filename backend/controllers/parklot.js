@@ -90,7 +90,7 @@ export const updateParkLot = async (req, res) => {
 export const allParkLotUser = async (req, res) => {
     try {
         const { user } = req.body;
-        console.log(user);
+        console.log("you are here", user);
         const parkLots = await ParkLot.find({ user: user });
         res.status(200).json(parkLots);
     } catch (error) {

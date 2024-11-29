@@ -28,6 +28,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     const [fetchedUser, setFetchedUser] = useState(null);
     const [loader, setLoader] = useState(false);
     const [deactivate, setDeactivate] = useState(false);
+    const [parking, setParking] = useState([]);
 
     //api call
     const updateUser = async (updatedUserObj) => {
@@ -169,6 +170,39 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         });
     };
 
+    //api for get all parking lots belong to email
+    const fetchAllParingSlots = async (email) => {
+        const userData = {
+            user: email,
+        };
+        try {
+            setLoader(true);
+            const response = await fetch("/api/park/by_email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
+            const json = await response.json();
+
+            if (!response.ok) {
+                setLoader(false);
+                setError(json.error);
+            } else {
+                setLoader(false);
+                setError("");
+                setDeactivate(false);
+                setParking(json);
+                console.log(json);
+                console.log("this is parking", parking);
+            }
+        } catch (error) {
+            console.error("Fetch user failed:", error);
+            setError("Failed to fetch user.");
+        }
+    };
+
     useEffect(() => {
         if (id) {
             const fetchUser = async () => {
@@ -194,7 +228,12 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
 
             fetchUser();
         }
-    }, [id]);
+
+        if (userEmail) {
+            fetchAllParingSlots(userEmail);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id, userEmail]);
 
     useEffect(() => {
         if (fetchedUser) {
@@ -230,7 +269,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                                 <FaArrowDownShortWide className="me-2" />
                                 {t("total_parking")}
                             </th>
-                            <td>3</td>
+                            <td> {parking && parking.length} </td>
                         </tr>
                         <tr>
                             <th scope="row">
