@@ -8,6 +8,15 @@ import { useEffect } from "react";
 import LanguageDropdown from "./LanguageDropdown";
 import { useTranslation } from "react-i18next";
 
+import {
+    FaHome,
+    FaEnvelopeOpenText,
+    FaParking,
+    FaUserCog,
+    FaTasks,
+    FaCar,
+} from "react-icons/fa";
+
 const NavBar = () => {
     //get user
     const { user } = useAuthContext();
@@ -73,8 +82,11 @@ const NavBar = () => {
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             {user && (
-                                <Link className="nav-link active" to={"/"}>
-                                    {t("home")}
+                                <Link
+                                    className="nav-link active d-flex align-items-center"
+                                    to={"/"}
+                                >
+                                    <FaHome className="me-2" /> {t("home")}
                                 </Link>
                             )}
                         </li>
@@ -82,9 +94,10 @@ const NavBar = () => {
                         <li className="nav-item">
                             {user && (
                                 <Link
-                                    className="nav-link active"
+                                    className="nav-link active d-flex align-items-center"
                                     to={"/park-request"}
                                 >
+                                    <FaEnvelopeOpenText className="me-2" />
                                     {t("reservation")}
                                 </Link>
                             )}
@@ -93,9 +106,10 @@ const NavBar = () => {
                         <li className="nav-item">
                             {user && user.admin && (
                                 <Link
-                                    className="nav-link active"
+                                    className="nav-link active d-flex align-items-center"
                                     to={"/create"}
                                 >
+                                    <FaParking className="me-2" size={19} />
                                     {t("parking_mgt")}
                                 </Link>
                             )}
@@ -104,9 +118,10 @@ const NavBar = () => {
                         <li className="nav-item">
                             {user && user.admin && (
                                 <Link
-                                    className="nav-link active"
+                                    className="nav-link active d-flex align-items-center"
                                     to={"/user_management"}
                                 >
+                                    <FaUserCog className="me-2" size={19} />
                                     {t("user_mgt")}
                                 </Link>
                             )}
@@ -115,9 +130,10 @@ const NavBar = () => {
                         <li className="nav-item">
                             {user && user.admin && (
                                 <Link
-                                    className="nav-link active position-relative"
+                                    className="nav-link active position-relative  d-flex align-items-center"
                                     to={"/tasks"}
                                 >
+                                    <FaTasks className="me-2" />
                                     {t("tasks")}
                                     {totalTasks > 0 && (
                                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -130,9 +146,10 @@ const NavBar = () => {
                         <li className="nav-item">
                             {user && (
                                 <Link
-                                    className="nav-link active"
+                                    className="nav-link active d-flex align-items-center"
                                     to={"/my-parking"}
                                 >
+                                    <FaCar className="me-2" size={17} />
                                     {t("my_parking")}
                                 </Link>
                             )}
