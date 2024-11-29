@@ -170,6 +170,42 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         });
     };
 
+    //api for getting building name and number from parking id
+    const fetchBuildingDetailsByParkingId = async (buildingId) => {
+        try {
+            const response = await fetch(`/api/building/${buildingId}`);
+            const json = await response.json();
+
+            if (!response.ok) {
+                console.error(
+                    `Failed to fetch building for barking ID ${buildingId}:`,
+                    json.error
+                );
+                return {
+                    buildingId,
+                    name: "Unknown",
+                    number: "unknown",
+                }; // Default value for errors
+            }
+            console.log("inside function", json[0]);
+            return {
+                buildingId,
+                name: json[0].name,
+                number: json[0].number,
+            };
+        } catch (error) {
+            console.error(
+                `Error fetching building for parking ID ${buildingId}:`,
+                error
+            );
+            return {
+                buildingId,
+                name: "Unknown",
+                number: "unknown",
+            };
+        }
+    };
+
     //api for get all parking lots belong to email
     const fetchAllParingSlots = async (email) => {
         const userData = {
@@ -190,11 +226,24 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                 setLoader(false);
                 setError(json.error);
             } else {
+                const parkingWithBuildings = await Promise.all(
+                    json.map(async (parking) => {
+                        const buildingData =
+                            await fetchBuildingDetailsByParkingId(
+                                parking.building_id
+                            );
+                        return {
+                            ...parking,
+                            buildingName: buildingData.name,
+                            buildingNumber: buildingData.number,
+                        };
+                    })
+                );
                 setLoader(false);
                 setError("");
                 setDeactivate(false);
-                setParking(json);
-                console.log(json);
+                setParking(parkingWithBuildings);
+                console.log("this is building ", parkingWithBuildings);
                 console.log("this is parking", parking);
             }
         } catch (error) {
@@ -241,6 +290,10 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         }
     }, [fetchedUser]);
 
+    useEffect(() => {
+        console.log("Updated parking state:", parking);
+    }, [parking]);
+
     return (
         <div className="mb-5">
             <form className="other-form">
@@ -271,18 +324,24 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                             </th>
                             <td> {parking && parking.length} </td>
                         </tr>
-                        <tr>
-                            <th scope="row">
-                                <FaParking className="me-2" />
-                                {t("parking")} 1
-                            </th>
-                            <td>
-                                MOAS 3, P - 45{" "}
-                                <span className="btn-danger btn-danger-custom">
-                                    <FaTrashCan />
-                                </span>
-                            </td>
-                        </tr>
+
+                        {parking &&
+                            parking.length > 0 &&
+                            parking.map((park, i) => (
+                                <tr key={i}>
+                                    <th scope="row">
+                                        <FaParking className="me-2" />
+                                        {t("parking")} {i + 1}
+                                    </th>
+                                    <td>
+                                        {park.buildingName}{" "}
+                                        {park.buildingNumber}, P - {park.lot}{" "}
+                                        <span className="btn-danger btn-danger-custom">
+                                            <FaTrashCan />
+                                        </span>
+                                    </td>
+                                </tr>
+                            ))}
                     </tbody>
                 </table>
                 <div className="row">
