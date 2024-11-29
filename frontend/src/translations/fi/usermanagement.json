@@ -57,5 +57,7 @@
         "title": "Käyttäjän tila muuttunut",
         "text": "Käyttäjän oikeuksien muutos onnistui!",
         "btn": "Okei"
-    }
+    },
+    "total_parking": "Pysäköinti yhteensä",
+    "parking": "Pysäköinti"
 }

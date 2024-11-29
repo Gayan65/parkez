@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 
-import { FaEnvelope, FaUserTie } from "react-icons/fa6";
+import {
+    FaEnvelope,
+    FaUserTie,
+    FaArrowDownShortWide,
+    FaTrashCan,
+} from "react-icons/fa6";
+import { FaParking } from "react-icons/fa";
 
 //translation
 import { useTranslation } from "react-i18next";
@@ -197,7 +203,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     }, [fetchedUser]);
 
     return (
-        <div>
+        <div className="mb-5">
             <form className="other-form">
                 <table className="table">
                     <tbody>
@@ -217,6 +223,25 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                                 {fetchedUser?.admin
                                     ? t("table.admin")
                                     : t("table.user")}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <FaArrowDownShortWide className="me-2" />
+                                {t("total_parking")}
+                            </th>
+                            <td>3</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <FaParking className="me-2" />
+                                {t("parking")} 1
+                            </th>
+                            <td>
+                                MOAS 3, P - 45{" "}
+                                <span className="btn-danger btn-danger-custom">
+                                    <FaTrashCan />
+                                </span>
                             </td>
                         </tr>
                     </tbody>

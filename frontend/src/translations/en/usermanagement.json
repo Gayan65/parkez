@@ -57,5 +57,7 @@
         "title": "User status changed",
         "text": "User privilege changed successfully!",
         "btn": "Ok"
-    }
+    },
+    "total_parking": "Total parking",
+    "parking": "Parking"
 }
