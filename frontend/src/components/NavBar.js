@@ -17,6 +17,15 @@ import {
     FaCar,
 } from "react-icons/fa";
 
+import {
+    FcHome,
+    FcFile,
+    FcSoundRecordingCopyright,
+    FcBusinessman,
+    FcTodoList,
+    FcAutomotive,
+} from "react-icons/fc";
+
 const NavBar = () => {
     //get user
     const { user } = useAuthContext();
@@ -86,7 +95,8 @@ const NavBar = () => {
                                     className="nav-link active d-flex align-items-center"
                                     to={"/"}
                                 >
-                                    <FaHome className="me-2" /> {t("home")}
+                                    <FcHome size={20} className="me-2" />{" "}
+                                    {t("home")}
                                 </Link>
                             )}
                         </li>
@@ -97,7 +107,7 @@ const NavBar = () => {
                                     className="nav-link active d-flex align-items-center"
                                     to={"/park-request"}
                                 >
-                                    <FaEnvelopeOpenText className="me-2" />
+                                    <FcFile size={20} className="me-2" />
                                     {t("reservation")}
                                 </Link>
                             )}
@@ -109,7 +119,10 @@ const NavBar = () => {
                                     className="nav-link active d-flex align-items-center"
                                     to={"/create"}
                                 >
-                                    <FaParking className="me-2" size={19} />
+                                    <FcSoundRecordingCopyright
+                                        className="me-2"
+                                        size={20}
+                                    />
                                     {t("parking_mgt")}
                                 </Link>
                             )}
@@ -121,7 +134,7 @@ const NavBar = () => {
                                     className="nav-link active d-flex align-items-center"
                                     to={"/user_management"}
                                 >
-                                    <FaUserCog className="me-2" size={19} />
+                                    <FcBusinessman className="me-2" size={20} />
                                     {t("user_mgt")}
                                 </Link>
                             )}
@@ -133,7 +146,7 @@ const NavBar = () => {
                                     className="nav-link active position-relative  d-flex align-items-center"
                                     to={"/tasks"}
                                 >
-                                    <FaTasks className="me-2" />
+                                    <FcTodoList size={20} className="me-2" />
                                     {t("tasks")}
                                     {totalTasks > 0 && (
                                         <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -149,7 +162,7 @@ const NavBar = () => {
                                     className="nav-link active d-flex align-items-center"
                                     to={"/my-parking"}
                                 >
-                                    <FaCar className="me-2" size={17} />
+                                    <FcAutomotive className="me-2" size={20} />
                                     {t("my_parking")}
                                 </Link>
                             )}
