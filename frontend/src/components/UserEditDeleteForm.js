@@ -170,6 +170,10 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         });
     };
 
+    const handleParkingDelete = (parking_id) => {
+        console.log("parking delete", parking_id);
+    };
+
     //api for get all parking lots belong to email
     const fetchAllParingSlots = async (email) => {
         const userData = {
@@ -282,7 +286,14 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                                         {park.building_name}{" "}
                                         {park.building_number}, P -{" "}
                                         {park.parking_lot_number}{" "}
-                                        <span className="btn-danger btn-danger-custom">
+                                        <span
+                                            className="btn-danger btn-danger-custom"
+                                            onClick={() =>
+                                                handleParkingDelete(
+                                                    park.parking_id
+                                                )
+                                            }
+                                        >
                                             <FaTrashCan />
                                         </span>
                                     </td>
