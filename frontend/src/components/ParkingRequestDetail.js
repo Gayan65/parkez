@@ -201,6 +201,7 @@ const ParkingRequestDetail = ({
                 </form>
             </div>
             {loader && <Loader />}
+            {error && <p className="error-message"> {error.message} </p>}
         </div>
     );
 };
