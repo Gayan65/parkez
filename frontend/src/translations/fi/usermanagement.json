@@ -59,5 +59,16 @@
         "btn": "Okei"
     },
     "total_parking": "Pysäköinti yhteensä",
-    "parking": "Pysäköinti"
+    "parking": "Pysäköinti",
+    "fire9": {
+        "title": "Oletko varma?",
+        "text": "Haluatko poistaa tämän pysäköinnin? Et voi palauttaa tätä!",
+        "btn1": "Kyllä, poista se",
+        "btn2": "Peruuttaa"
+    },
+    "fire10": {
+        "title": "Poistettu!",
+        "text": "Pysäköinti on poistettu!",
+        "btn": "Okei"
+    }
 }

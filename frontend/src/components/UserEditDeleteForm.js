@@ -173,30 +173,63 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     const handleParkingDelete = async (parking_id, email) => {
         console.log("parking delete", parking_id);
 
-        try {
-            const response = await fetch(`/api/park/${parking_id}`, {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ status: "active", user: "" }),
-            });
+        Swal.fire({
+            title: t("fire9.title"),
+            text: t("fire9.text"),
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: t("fire9.btn1"),
+            cancelButtonText: t("fire9.btn2"),
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    setLoader(true);
+                    const response = await fetch(`/api/park/${parking_id}`, {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ status: "active", user: "" }),
+                    });
 
-            const json = await response.json();
+                    const json = await response.json();
 
-            if (!response.ok) {
-                setError(json.error);
+                    if (!response.ok) {
+                        setError(json.error);
+                        setLoader(false);
+                        Swal.fire({
+                            title: t("fire3.title"),
+                            text: t("fire2.text"),
+                            confirmButtonText: t("fire3.btn"),
+                            icon: "error",
+                        });
+                    }
+                    if (response.ok) {
+                        setError("");
+                        //re-render the parkings
+                        fetchAllParingSlots(email);
+                        setLoader(false);
+                        Swal.fire({
+                            title: t("fire10.title"),
+                            text: t("fire10.text"),
+                            confirmButtonText: t("fire10.btn"),
+                            icon: "success",
+                        });
+                    }
+                } catch (error) {
+                    console.error("Fetch user failed:", error);
+                    setError("Failed to fetch user.");
+                    Swal.fire({
+                        title: t("fire3.title"),
+                        text: t("fire2.text"),
+                        confirmButtonText: t("fire3.btn"),
+                        icon: "error",
+                    });
+                }
             }
-            if (response.ok) {
-                setError("");
-                setDeactivate(false);
-                fetchAllParingSlots(email);
-                console.log("success delete parking");
-            }
-        } catch (error) {
-            console.error("Fetch user failed:", error);
-            setError("Failed to fetch user.");
-        }
+        });
     };
 
     //api for get all parking lots belong to email
