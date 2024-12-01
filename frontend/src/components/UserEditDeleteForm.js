@@ -170,8 +170,33 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         });
     };
 
-    const handleParkingDelete = (parking_id) => {
+    const handleParkingDelete = async (parking_id, email) => {
         console.log("parking delete", parking_id);
+
+        try {
+            const response = await fetch(`/api/park/${parking_id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ status: "active", user: "" }),
+            });
+
+            const json = await response.json();
+
+            if (!response.ok) {
+                setError(json.error);
+            }
+            if (response.ok) {
+                setError("");
+                setDeactivate(false);
+                fetchAllParingSlots(email);
+                console.log("success delete parking");
+            }
+        } catch (error) {
+            console.error("Fetch user failed:", error);
+            setError("Failed to fetch user.");
+        }
     };
 
     //api for get all parking lots belong to email
@@ -290,7 +315,8 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                                             className="btn-danger btn-danger-custom"
                                             onClick={() =>
                                                 handleParkingDelete(
-                                                    park.parking_id
+                                                    park.parking_id,
+                                                    park.email
                                                 )
                                             }
                                         >

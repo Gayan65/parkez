@@ -139,6 +139,7 @@ export const allParkLotBuildingsUser = async (req, res) => {
             parkLots.map(async (parkLot) => {
                 const building = await Building.findById(parkLot.building_id);
                 return {
+                    email: user,
                     parking_id: parkLot._id,
                     parking_lot_number: parkLot.lot,
                     building_id: building._id,
