@@ -1,4 +1,5 @@
 import { ParkLot } from "../models/ParkLotModel.js";
+import { Building } from "../models/BuildingModel.js";
 import mongoose from "mongoose";
 
 //create parking lot controller - admin only
@@ -121,4 +122,34 @@ export const deleteParkingLot = async (req, res) => {
     await ParkLot.findByIdAndDelete({ _id: id });
 
     res.status(200).json(parkingLot);
+};
+
+//get all parking lots and building details belongs to an email (user)
+export const allParkLotBuildingsUser = async (req, res) => {
+    try {
+        const { user } = req.body;
+        const parkLots = await ParkLot.find({ user: user });
+
+        if (parkLots.length === 0) {
+            return res.status(200).json([]);
+        }
+
+        // Map over parking lots to fetch building details
+        const result = await Promise.all(
+            parkLots.map(async (parkLot) => {
+                const building = await Building.findById(parkLot.building_id);
+                return {
+                    parking_id: parkLot._id,
+                    parking_lot_number: parkLot.lot,
+                    building_id: building._id,
+                    building_name: building.name,
+                    building_number: building.number,
+                };
+            })
+        );
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(401).json({ error: error.message });
+    }
 };

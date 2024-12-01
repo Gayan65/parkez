@@ -170,42 +170,6 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         });
     };
 
-    //api for getting building name and number from parking id
-    const fetchBuildingDetailsByParkingId = async (buildingId) => {
-        try {
-            const response = await fetch(`/api/building/${buildingId}`);
-            const json = await response.json();
-
-            if (!response.ok) {
-                console.error(
-                    `Failed to fetch building for barking ID ${buildingId}:`,
-                    json.error
-                );
-                return {
-                    buildingId,
-                    name: "Unknown",
-                    number: "unknown",
-                }; // Default value for errors
-            }
-            console.log("inside function", json[0]);
-            return {
-                buildingId,
-                name: json[0].name,
-                number: json[0].number,
-            };
-        } catch (error) {
-            console.error(
-                `Error fetching building for parking ID ${buildingId}:`,
-                error
-            );
-            return {
-                buildingId,
-                name: "Unknown",
-                number: "unknown",
-            };
-        }
-    };
-
     //api for get all parking lots belong to email
     const fetchAllParingSlots = async (email) => {
         const userData = {
@@ -213,7 +177,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         };
         try {
             setLoader(true);
-            const response = await fetch("/api/park/by_email", {
+            const response = await fetch("/api/park/parking_lots_by_email", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -223,32 +187,20 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
             const json = await response.json();
 
             if (!response.ok) {
-                setLoader(false);
                 setError(json.error);
-            } else {
-                const parkingWithBuildings = await Promise.all(
-                    json.map(async (parking) => {
-                        const buildingData =
-                            await fetchBuildingDetailsByParkingId(
-                                parking.building_id
-                            );
-                        return {
-                            ...parking,
-                            buildingName: buildingData.name,
-                            buildingNumber: buildingData.number,
-                        };
-                    })
-                );
-                setLoader(false);
+            }
+            if (response.ok) {
                 setError("");
                 setDeactivate(false);
-                setParking(parkingWithBuildings);
-                console.log("this is building ", parkingWithBuildings);
+                setParking(json);
+                console.log("this is building ", json);
                 console.log("this is parking", parking);
             }
         } catch (error) {
             console.error("Fetch user failed:", error);
             setError("Failed to fetch user.");
+        } finally {
+            setLoader(false);
         }
     };
 
@@ -256,15 +208,12 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         if (id) {
             const fetchUser = async () => {
                 try {
-                    setLoader(true);
                     const response = await fetch(`/api/user/get_user/${id}`);
                     const json = await response.json();
 
                     if (!response.ok) {
-                        setLoader(false);
                         setError(json.error);
                     } else {
-                        setLoader(false);
                         setError("");
                         setDeactivate(false);
                         setFetchedUser(json[0]);
@@ -289,10 +238,6 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
             console.log("Fetched user:", fetchedUser);
         }
     }, [fetchedUser]);
-
-    useEffect(() => {
-        console.log("Updated parking state:", parking);
-    }, [parking]);
 
     return (
         <div className="mb-5">
@@ -334,8 +279,9 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                                         {t("parking")} {i + 1}
                                     </th>
                                     <td>
-                                        {park.buildingName}{" "}
-                                        {park.buildingNumber}, P - {park.lot}{" "}
+                                        {park.building_name}{" "}
+                                        {park.building_number}, P -{" "}
+                                        {park.parking_lot_number}{" "}
                                         <span className="btn-danger btn-danger-custom">
                                             <FaTrashCan />
                                         </span>
