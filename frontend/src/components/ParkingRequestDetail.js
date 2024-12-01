@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTaskContext } from "../hooks/useTaskContext";
 
 //date format
 import { format } from "date-fns";
+
+//components
+import Loader from "./Loader";
 
 const ParkingRequestDetail = ({
     email,
@@ -18,6 +21,9 @@ const ParkingRequestDetail = ({
 }) => {
     //Approving or Not approving comments
     const [comment, setComment] = useState("");
+    const [loader, setLoader] = useState(false);
+    const [error, setError] = useState("");
+    const [parking, setParking] = useState([]);
 
     //task count context
     const { task_dispatch } = useTaskContext();
@@ -38,6 +44,47 @@ const ParkingRequestDetail = ({
             });
         }
     };
+
+    //api for get all parking lots belong to email
+    const fetchAllParingSlots = async (email) => {
+        const userData = {
+            user: email,
+        };
+        try {
+            setLoader(true);
+            const response = await fetch("/api/park/parking_lots_by_email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(userData),
+            });
+            const json = await response.json();
+
+            if (!response.ok) {
+                setError(json.error);
+            }
+            if (response.ok) {
+                setError("");
+                setParking(json);
+                console.log("this is building ", json);
+                console.log("this is parking", parking);
+            }
+        } catch (error) {
+            console.error("Fetch user failed:", error);
+            setError("Failed to fetch user.");
+        } finally {
+            setLoader(false);
+        }
+    };
+
+    useEffect(() => {
+        if (email) {
+            fetchAllParingSlots(email);
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [email]);
 
     //Submit form
     const handleSubmit = (e) => {
@@ -101,6 +148,25 @@ const ParkingRequestDetail = ({
                             <td className="custom-td">Parking Number</td>
                             <td>{parkingLot}</td>
                         </tr>
+                        {parking &&
+                            parking
+                                .filter((park) => {
+                                    // Adjust the filter condition based on the status
+                                    return park.status === "assign";
+                                })
+                                .map((park, i) => (
+                                    <tr key={i}>
+                                        <td className="custom-td">
+                                            Current Parking {i + 1}{" "}
+                                        </td>
+                                        <td>
+                                            {" "}
+                                            {park.building_name}{" "}
+                                            {park.building_number} - P{" "}
+                                            {park.parking_lot_number}{" "}
+                                        </td>
+                                    </tr>
+                                ))}
                         {/* <tr>
                             <td>Parking lot ID:</td>
                             <td>{parkingLot_id}</td>
@@ -134,6 +200,7 @@ const ParkingRequestDetail = ({
                     </button>
                 </form>
             </div>
+            {loader && <Loader />}
         </div>
     );
 };

@@ -141,6 +141,7 @@ export const allParkLotBuildingsUser = async (req, res) => {
                 return {
                     email: user,
                     parking_id: parkLot._id,
+                    status: parkLot.status,
                     parking_lot_number: parkLot.lot,
                     building_id: building._id,
                     building_name: building.name,
