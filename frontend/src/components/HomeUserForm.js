@@ -6,6 +6,9 @@ import { useTranslation } from "react-i18next";
 //components
 import Loader from "../components/Loader";
 
+import { MdMyLocation, MdOutlineBedroomParent } from "react-icons/md";
+import { FaRegBuilding, FaRegCommentDots, FaSearch } from "react-icons/fa";
+
 const HomeUserForm = () => {
     const [t] = useTranslation("homeuserform");
 
@@ -63,7 +66,8 @@ const HomeUserForm = () => {
                 <p className="paragraph">{t("para")}</p>
                 <div className="row">
                     <div className="col-md-4 mb-3">
-                        <label className="form-label label">
+                        <label className="form-label label d-flex align-items-center">
+                            <MdMyLocation className="me-1" />{" "}
                             {t("label.location")}
                         </label>
                         <select
@@ -86,7 +90,8 @@ const HomeUserForm = () => {
                     </div>
 
                     <div className="col-md-4 mb-3">
-                        <label className="form-label label">
+                        <label className="form-label label d-flex align-items-center">
+                            <FaRegBuilding className="me-1" />{" "}
                             {t("label.apartment")}
                         </label>
                         <input
@@ -105,7 +110,8 @@ const HomeUserForm = () => {
                     </div>
 
                     <div className="col-md-4 mb-3">
-                        <label className="form-label label">
+                        <label className="form-label label d-flex align-items-center">
+                            <MdOutlineBedroomParent className="me-1" />{" "}
                             {t("label.room")}
                         </label>
                         <input
@@ -119,7 +125,8 @@ const HomeUserForm = () => {
                 </div>
 
                 <div className="mb-3">
-                    <label className="form-label label">
+                    <label className="form-label label d-flex align-items-center">
+                        <FaRegCommentDots className="me-1" />{" "}
                         {t("label.comments")}
                     </label>
                     <textarea
@@ -132,10 +139,11 @@ const HomeUserForm = () => {
                 <div className="mb-5">
                     <button
                         type="submit"
-                        className="btn btn-primary custom-btn"
+                        className="btn btn-primary custom-btn d-flex align-items-center"
                         disabled={!building.id || !apartment} //button activation changes according to the values
                     >
                         {t("button")}
+                        <FaSearch className="ms-2" />
                     </button>
                 </div>
             </form>
