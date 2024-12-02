@@ -5,7 +5,9 @@ import { useBuildingsContext } from "../hooks/useBuildingsContext";
 import Loader from "./Loader";
 
 //icons
-import { IoCloudUploadOutline, IoCloseCircle } from "react-icons/io5";
+import { IoCloudUploadOutline, IoCloseCircle, IoCreate } from "react-icons/io5";
+import { FaRegBuilding } from "react-icons/fa";
+import { MdNumbers, MdOutlineLocationOn } from "react-icons/md";
 
 //sweet alerts
 import Swal from "sweetalert2";
@@ -136,7 +138,10 @@ const CreateBuildingForm = () => {
     return (
         <form className="other-form" onSubmit={handleSubmit}>
             <div className="mb-3">
-                <label className="form-label label"> {t("name")} </label>
+                <label className="form-label label d-flex align-items-center">
+                    {" "}
+                    <FaRegBuilding className="me-1" /> {t("name")}{" "}
+                </label>
                 <input
                     type="text"
                     className={
@@ -153,7 +158,10 @@ const CreateBuildingForm = () => {
             </div>
 
             <div className="mb-3">
-                <label className="form-label label">{t("number")}</label>
+                <label className="form-label label d-flex align-items-center">
+                    {" "}
+                    <MdNumbers className="me-1" /> {t("number")}
+                </label>
                 <input
                     type="number"
                     className={
@@ -170,7 +178,10 @@ const CreateBuildingForm = () => {
             </div>
 
             <div className="mb-3">
-                <label className="form-label label">{t("address")}</label>
+                <label className="form-label label d-flex align-items-center">
+                    {" "}
+                    <MdOutlineLocationOn className="me-1" /> {t("address")}
+                </label>
                 <input
                     type="text"
                     className={
@@ -214,8 +225,11 @@ const CreateBuildingForm = () => {
             </div>
 
             <div className="mb-3">
-                <button type="submit" className="btn btn-primary">
-                    {t("button")}
+                <button
+                    type="submit"
+                    className="btn btn-primary custom-btn d-flex align-items-center"
+                >
+                    {t("button")} <IoCreate className="ms-1" />
                 </button>
             </div>
 
