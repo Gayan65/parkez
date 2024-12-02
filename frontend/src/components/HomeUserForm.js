@@ -96,6 +96,11 @@ const HomeUserForm = () => {
                             required
                             value={apartment}
                             onChange={(e) => setApartment(e.target.value)}
+                            onInput={(e) => {
+                                if (e.target.value < 1) {
+                                    e.target.value = ""; // Clear invalid values
+                                }
+                            }}
                         />
                     </div>
 

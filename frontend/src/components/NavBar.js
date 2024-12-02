@@ -9,15 +9,6 @@ import LanguageDropdown from "./LanguageDropdown";
 import { useTranslation } from "react-i18next";
 
 import {
-    FaHome,
-    FaEnvelopeOpenText,
-    FaParking,
-    FaUserCog,
-    FaTasks,
-    FaCar,
-} from "react-icons/fa";
-
-import {
     FcHome,
     FcFile,
     FcSoundRecordingCopyright,
