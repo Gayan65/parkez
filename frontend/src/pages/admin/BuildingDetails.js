@@ -4,8 +4,10 @@ import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 import { useParkLotContext } from "../../hooks/useParkLotContext";
 
 //icon
-import { FaRegEdit, FaRegWindowClose } from "react-icons/fa";
+import { FaRegEdit, FaRegWindowClose, FaRegBuilding } from "react-icons/fa";
 import { IoCloudUploadOutline, IoCloseCircle } from "react-icons/io5";
+import { MdNumbers, MdOutlineLocationOn } from "react-icons/md";
+import { IoIosSave } from "react-icons/io";
 
 //components
 import BuildingViewCard from "../../components/BuildingViewCard";
@@ -303,8 +305,8 @@ const BuildingDetails = () => {
                     {" "}
                     <div className="row">
                         <div className="col-md-4 mb-3">
-                            <label className="form-label label">
-                                Building Name
+                            <label className="form-label label d-flex align-items-center">
+                                <FaRegBuilding className="me-1" /> Building Name
                             </label>
                             <input
                                 type="text"
@@ -315,8 +317,8 @@ const BuildingDetails = () => {
                             />
                         </div>
                         <div className="col-md-4 mb-3">
-                            <label className="form-label label">
-                                Building Number
+                            <label className="form-label label d-flex align-items-center">
+                                <MdNumbers className="me-1" /> Building Number
                             </label>
                             <input
                                 type="number"
@@ -328,7 +330,9 @@ const BuildingDetails = () => {
                         </div>
                         <div className="col-md-4 mb-3">
                             {" "}
-                            <label className="form-label label">Address</label>
+                            <label className="form-label label d-flex align-items-center">
+                                <MdOutlineLocationOn className="me-1" /> Address
+                            </label>
                             <input
                                 type="text"
                                 placeholder="Building Address"
@@ -339,12 +343,14 @@ const BuildingDetails = () => {
                         </div>
                         <div className="row">
                             <div className="col-md-4 mb-3">
-                                <input
+                                <button
                                     type="submit"
-                                    className="btn btn-primary"
-                                    value="Save Changes"
+                                    className="btn btn-primary custom-btn d-flex align-items-center"
                                     disabled={!isChanged} // Disable button if no changes
-                                />
+                                >
+                                    Save
+                                    <IoIosSave className="ms-1" />
+                                </button>
                             </div>
 
                             <div className="col-md-4 mb-3 custom-upload-wrapper">

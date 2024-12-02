@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParkLotContext } from "../hooks/useParkLotContext";
 
 //icon
-import { FaRegWindowClose, FaRegEdit } from "react-icons/fa";
+import { FaRegWindowClose, FaRegEdit, FaParking } from "react-icons/fa";
 import { IoMdAdd } from "react-icons/io";
 
 //components
@@ -262,7 +262,11 @@ const CreateParkingForm = ({
                     }
                     className="other-form"
                 >
-                    <label className="orm-label label">Parking number</label>
+                    <label className="orm-label label d-flex align-items-center">
+                        {" "}
+                        <FaParking className="me-1" size={25} />
+                        Parking number
+                    </label>
                     <div className="row mt-3">
                         <div className="col-md-4 mb-3">
                             <input
