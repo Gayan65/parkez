@@ -1509,3 +1509,31 @@ body {
 .btn-danger-custom {
     border: none !important;
 }
+
+.link {
+    all: unset;
+    color: #226699;
+    border: none !important;
+    cursor: pointer;
+    border-radius: 5px; /* Optional */
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block; /* Ensures proper alignment */
+    padding: 5px; /* Optional padding for better click area */
+    text-shadow: #1a4c7a;
+    font-weight: bold;
+}
+
+.link:hover {
+    color: #ffbd59;
+    text-decoration: underline;
+}
+
+/* Disabled state */
+.link:disabled {
+    color: #779cb9a4;
+    cursor: not-allowed;
+    transform: none; /* Disable hover effects */
+    box-shadow: none; /* Remove shadow */
+    opacity: 0.6; /* Optional: make it look inactive */
+}

@@ -37,6 +37,7 @@ const Signup = () => {
                             required
                         />
                     </div>
+                    <button className="link">Verify email</button>
                     <div className="form-group mt-3">
                         <label className="label">{t("password")}</label>
                         <input
