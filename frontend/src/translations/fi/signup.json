@@ -7,5 +7,10 @@
     "password_place": "Anna salasana",
     "re_password": "Kirjoita salasana uudelleen",
     "re_password_place": "Kirjoita salasana uudelleen",
-    "button": "Rekisteröidy"
+    "button": "Rekisteröidy",
+    "fire": {
+        "title": "Oho...",
+        "text": "Virheellinen sähköpostiosoite!",
+        "btn_ok": "Ok"
+    }
 }

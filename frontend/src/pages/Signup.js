@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useSignup } from "../hooks/useSignup";
 import { useTranslation } from "react-i18next";
 
+//sweet alerts
+import Swal from "sweetalert2";
+
 const Signup = () => {
     const [t] = useTranslation("signup");
 
@@ -21,6 +24,25 @@ const Signup = () => {
         setRe_password("");
     };
 
+    const handleVerify = (e) => {
+        e.preventDefault(); // Prevent form submission
+
+        const emailInput =
+            e.target.previousElementSibling.querySelector("input"); // Get the email input
+        if (!emailInput.checkValidity()) {
+            // If email is invalid, show an alert or return
+            Swal.fire({
+                icon: "error",
+                title: t("fire.title"),
+                text: t("fire.text"),
+            });
+            return;
+        }
+
+        // If the email is valid, proceed with your logic
+        console.log("Verify clicked for email:", email);
+    };
+
     return (
         <div className="login-signup-container">
             <div className="login-signup-form">
@@ -37,7 +59,13 @@ const Signup = () => {
                             required
                         />
                     </div>
-                    <button className="link">{t("email_verify")}</button>
+                    <button
+                        className="link"
+                        onClick={handleVerify}
+                        disabled={!email}
+                    >
+                        {t("email_verify")}
+                    </button>
                     <div className="form-group mt-3">
                         <label className="label">{t("password")}</label>
                         <input

@@ -7,5 +7,10 @@
     "password_place": "Enter password",
     "re_password": "Retype Password",
     "re_password_place": "Retype password",
-    "button": "Sign Up"
+    "button": "Sign Up",
+    "fire": {
+        "title": "Oops...",
+        "text": "Invalid email address!",
+        "btn_ok": "Ok"
+    }
 }
