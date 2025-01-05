@@ -2,6 +2,7 @@
     "header": "Rekisteröidy",
     "email": "Sähköpostiosoite",
     "email_place": "Anna sähköpostiosoite",
+    "email_verify": "Vahvista sähköposti",
     "password": "Salasana",
     "password_place": "Anna salasana",
     "re_password": "Kirjoita salasana uudelleen",

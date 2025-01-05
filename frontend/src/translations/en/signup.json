@@ -2,6 +2,7 @@
     "header": "Sign Up",
     "email": "Email address",
     "email_place": "Enter email",
+    "email_verify": "Verify email",
     "password": "Password",
     "password_place": "Enter password",
     "re_password": "Retype Password",
