@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 
 //sweet alerts
 import Swal from "sweetalert2";
+import GeneralOTPSendForm from "../components/GenaralOTPSendForm";
 
 const Signup = () => {
     const [t] = useTranslation("signup");
@@ -11,6 +12,8 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [re_password, setRe_password] = useState("");
+    const [isEmailVerified, setIsEmailVerified] = useState(false);
+    const [isOTPVerified, setIsOTPVerified] = useState(false);
 
     const { signup, loading, error } = useSignup();
 
@@ -41,6 +44,7 @@ const Signup = () => {
 
         // If the email is valid, proceed with your logic
         console.log("Verify clicked for email:", email);
+        setIsEmailVerified(true);
     };
 
     return (
@@ -66,37 +70,49 @@ const Signup = () => {
                     >
                         {t("email_verify")}
                     </button>
-                    <div className="form-group mt-3">
-                        <label className="label">{t("password")}</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder={t("password_place")}
-                            autoComplete="true"
-                            onChange={(e) => setPassword(e.target.value)}
-                            value={password}
-                            required
-                        />
-                    </div>
-                    <div className="form-group mt-3">
-                        <label className="label">{t("re_password")}</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder={t("re_password_place")}
-                            autoComplete="true"
-                            onChange={(e) => setRe_password(e.target.value)}
-                            value={re_password}
-                            required
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        className="btn btn-primary btn-block mt-3"
-                        disabled={loading}
-                    >
-                        {t("button")}
-                    </button>
+                    {isEmailVerified && <GeneralOTPSendForm email={email} />}
+                    {isOTPVerified && (
+                        <>
+                            <div className="form-group mt-3">
+                                <label className="label">{t("password")}</label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder={t("password_place")}
+                                    autoComplete="true"
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
+                                    value={password}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group mt-3">
+                                <label className="label">
+                                    {t("re_password")}
+                                </label>
+                                <input
+                                    type="password"
+                                    className="form-control"
+                                    placeholder={t("re_password_place")}
+                                    autoComplete="true"
+                                    onChange={(e) =>
+                                        setRe_password(e.target.value)
+                                    }
+                                    value={re_password}
+                                    required
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className="btn btn-primary btn-block mt-3"
+                                disabled={loading}
+                            >
+                                {t("button")}
+                            </button>
+                        </>
+                    )}
+
                     {error && <p> {error} </p>}
                 </form>
             </div>

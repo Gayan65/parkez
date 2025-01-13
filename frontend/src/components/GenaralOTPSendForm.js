@@ -88,12 +88,11 @@ const GeneralOTPSendForm = ({ email }) => {
 
     return (
         <>
-            <form onSubmit={handleSubmit} className="otp-form mt-3">
+            <div className="otp-form mt-3">
                 <h4 className="header">Enter the 4-digit OTP</h4>
                 <p className="paragraph">
-                    Now the OTP has sent to your email, please check the email
-                    and type the correct four digits, please note the the OTP
-                    will be expired with in 10 miniutes.
+                    Now the OTP has sent to your email, the OTP will be expired
+                    with in 10 miniutes.
                 </p>
                 <div className="otp-inputs">
                     {otp.map((value, index) => (
@@ -114,6 +113,7 @@ const GeneralOTPSendForm = ({ email }) => {
                         className="btn"
                         style={{ width: "100px" }}
                         disabled={!isSubmitEnabled || success}
+                        onClick={handleSubmit}
                     >
                         Submit
                     </button>
@@ -127,7 +127,7 @@ const GeneralOTPSendForm = ({ email }) => {
                         <h3> Your OTP has been verified.</h3>
                     </div>
                 )}
-            </form>
+            </div>
             {loader && <Loader />}
             {success && <PasswordEditForm email={email} />}
         </>
