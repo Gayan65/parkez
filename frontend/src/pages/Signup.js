@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useSignup } from "../hooks/useSignup";
 import { useTranslation } from "react-i18next";
 
@@ -14,6 +14,11 @@ const Signup = () => {
     const [re_password, setRe_password] = useState("");
     const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [isOTPVerified, setIsOTPVerified] = useState(false);
+
+    const [otp, setOtp] = useState(["", "", "", ""]);
+    const inputRefs = useRef([]);
+    const [success, setSuccess] = useState(false);
+    const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
 
     const { signup, loading, error } = useSignup();
 
@@ -47,6 +52,28 @@ const Signup = () => {
         setIsEmailVerified(true);
     };
 
+    // Handle change event for OTP input
+    const handleChange = (e, index) => {
+        const value = e.target.value;
+        if (value.length > 1) return;
+
+        const newOtp = [...otp];
+        newOtp[index] = value;
+        setOtp(newOtp);
+
+        // Automatically move to the next input
+        if (value && index < 3) {
+            inputRefs.current[index + 1].focus();
+        }
+    };
+
+    // Handle backspace for deleting and moving focus
+    const handleKeyDown = (e, index) => {
+        if (e.key === "Backspace" && !otp[index] && index > 0) {
+            inputRefs.current[index - 1].focus();
+        }
+    };
+
     return (
         <div className="login-signup-container">
             <div className="login-signup-form">
@@ -70,8 +97,8 @@ const Signup = () => {
                     >
                         {t("email_verify")}
                     </button>
-                    {isEmailVerified && <GeneralOTPSendForm email={email} />}
-                    {isOTPVerified && (
+
+                    {isEmailVerified && (
                         <>
                             <div className="form-group mt-3">
                                 <label className="label">{t("password")}</label>
@@ -103,9 +130,33 @@ const Signup = () => {
                                     required
                                 />
                             </div>
+                            <div className="otp-form mt-3">
+                                <div className="otp-inputs">
+                                    {otp.map((value, index) => (
+                                        <input
+                                            key={index}
+                                            type="text"
+                                            maxLength="1"
+                                            value={value}
+                                            onChange={(e) =>
+                                                handleChange(e, index)
+                                            }
+                                            onKeyDown={(e) =>
+                                                handleKeyDown(e, index)
+                                            }
+                                            ref={(el) =>
+                                                (inputRefs.current[index] = el)
+                                            }
+                                            className="form-control otp-input"
+                                            disabled={success}
+                                        />
+                                    ))}
+                                </div>
+                            </div>
+
                             <button
                                 type="submit"
-                                className="btn btn-primary btn-block mt-3"
+                                className="btn btn-primary btn-block mt-1"
                                 disabled={loading}
                             >
                                 {t("button")}
