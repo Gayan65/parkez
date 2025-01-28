@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 //sweet alerts
 import Swal from "sweetalert2";
-import GeneralOTPSendForm from "../components/GenaralOTPSendForm";
 
 const Signup = () => {
     const [t] = useTranslation("signup");
