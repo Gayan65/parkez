@@ -6,6 +6,7 @@ import {
     updateUserStatus,
     userChangePassword,
     userEmailVerify,
+    userEmailVerifySignUp,
     userForgetEmailVerify,
     userLogin,
     userSignup,
@@ -16,6 +17,7 @@ import {
 const router = express.Router();
 
 //user signup route
+router.post("/email_verify_signup", userEmailVerifySignUp);
 router.post("/signup", userSignup);
 
 //user login route

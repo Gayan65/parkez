@@ -19,22 +19,71 @@ const Signup = () => {
     const inputRefs = useRef([]);
     const [success, setSuccess] = useState(false);
     const [isSubmitEnabled, setIsSubmitEnabled] = useState(false);
+    const [message, setMessage] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const [loader, setLoader] = useState(false);
 
     const { signup, loading, error } = useSignup();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // if OTP verified the user creation should be enabled
+        //API call for OTP verification process
+        const otpValue = otp.join("");
+        console.log("Submitted OTP:", otpValue);
+
+        const otpObj = {
+            email: email,
+            otp: otpValue,
+        };
+
+        //submit the otp for the api
+        const response = await fetch("/api/user/otp_verify_no_deletion/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(otpObj),
+        });
+
+        const json = await response.json();
+        console.log(json.message);
+
+        if (response.ok) {
+            setMessage(json.message);
+            setErrorMsg("");
+            setSuccess(json.success);
+            setIsOTPVerified(true);
+
+            // swl alert fires here..
+            Swal.fire({
+                icon: "success",
+                title: "Congratulations..",
+                text: "Your OTP has been verified!",
+            });
+
+            //call the signup function to create the user and navigate to the home page
+            await signup(email, password, re_password);
+        }
+
+        if (!response.ok) {
+            setErrorMsg(json.error);
+        }
         //call the signup function
-        await signup(email, password, re_password);
 
         setEmail("");
         setPassword("");
         setRe_password("");
     };
 
-    const handleVerify = (e) => {
+    const handleVerify = async (e) => {
         e.preventDefault(); // Prevent form submission
-
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn-outline-primary ms-2",
+                cancelButton: "btn btn-danger",
+            },
+            buttonsStyling: false,
+        });
         const emailInput =
             e.target.previousElementSibling.querySelector("input"); // Get the email input
         if (!emailInput.checkValidity()) {
@@ -49,6 +98,37 @@ const Signup = () => {
 
         // If the email is valid, proceed with your logic
         console.log("Verify clicked for email:", email);
+        setLoader(true);
+        const response = await fetch("/api/user/email_verify_signup/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email }),
+        });
+
+        const json = await response.json();
+        console.log(json);
+
+        if (response.ok) {
+            setMessage(json.message);
+            setErrorMsg("");
+            setLoader(false);
+
+            swalWithBootstrapButtons.fire({
+                title: "Sent!",
+                text: "Please check your email, OTP has been sent.",
+                icon: "success",
+            });
+        }
+
+        if (!response.ok) {
+            setLoader(false);
+            setErrorMsg(json.error);
+            swalWithBootstrapButtons.fire({
+                title: "Not Sent!",
+                text: "OTP has not been sent, Please try again later",
+                icon: "error",
+            });
+        }
         setIsEmailVerified(true);
     };
 

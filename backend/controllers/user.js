@@ -269,6 +269,71 @@ export const userChangePassword = async (req, res) => {
     }
 };
 
+//user verify email
+export const userEmailVerifySignUp = async (req, res) => {
+    try {
+        const { email } = req.body;
+        //this feature is needed in the actual implementation
+        // const user = await User.forgetEmailFind(email);
+
+        // Generate OTP
+        let otp = randomstring.generate({ length: 4, charset: "numeric" });
+
+        // Store OTP with expiry (e.g., 10 minutes from now)
+        const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes in milliseconds
+        otpStore[email] = { otp, expiresAt };
+
+        //send OTP via email
+
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true, // true for port 465, false for other ports
+            auth: {
+                user: "ishinefs@gmail.com",
+                pass: process.env.PASS,
+            },
+        });
+
+        // async..await is not allowed in global scope, must use a wrapper
+        async function main() {
+            // send mail with defined transport object
+            const info = await transporter.sendMail({
+                from: '"ParkEz MOAS 🅿️" <ishinefs@mail.com>', // sender address
+                to: email, // list of receivers
+                subject: "ParkEz verification code", // Subject line
+                text: "Please use the following four-digit code to verify your account", // plain text body
+                html: `
+         <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+            <h2 style="color: #226699;">🅿️ ParkEz email account verification</h2>
+            <p>
+                Please use the following four-digit code to verify your account:
+            </p>
+            <p style="font-size: 18px; font-weight: bold; color: #226699;">${otp}</p>
+            <p>
+                If you didn't request this, please ignore this email or contact support.
+            </p>
+            <br/>
+            <p>Best regards,</p>
+            <p>The ParkEz Team 🅿️</p>
+        </div>
+    `, // html body
+            });
+
+            console.log("Message sent: %s", info.messageId);
+        }
+
+        main().catch(console.error);
+
+        res.status(200).json({
+            message: "OTP sent successfully!, Check your email.",
+            success: true,
+        });
+    } catch (error) {
+        res.status(400).json({ error: error.message, success: false });
+    }
+};
+
 // Get all users (email, admin status)
 export const getAllUsers = async (req, res) => {
     try {
