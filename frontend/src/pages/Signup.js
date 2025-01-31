@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useSignup } from "../hooks/useSignup";
 import { useTranslation } from "react-i18next";
 
@@ -13,6 +13,7 @@ const Signup = () => {
     const [re_password, setRe_password] = useState("");
     const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [isOTPVerified, setIsOTPVerified] = useState(false);
+    const [displayOTPField, setDisplayOTPField] = useState(false);
 
     const [otp, setOtp] = useState(["", "", "", ""]);
     const inputRefs = useRef([]);
@@ -28,47 +29,9 @@ const Signup = () => {
         e.preventDefault();
 
         // if OTP verified the user creation should be enabled
-        //API call for OTP verification process
-        const otpValue = otp.join("");
-        console.log("Submitted OTP:", otpValue);
-
-        const otpObj = {
-            email: email,
-            otp: otpValue,
-        };
-
-        //submit the otp for the api
-        const response = await fetch("/api/user/otp_verify_no_deletion/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(otpObj),
-        });
-
-        const json = await response.json();
-        console.log(json.message);
-
-        if (response.ok) {
-            setMessage(json.message);
-            setErrorMsg("");
-            setSuccess(json.success);
-            setIsOTPVerified(true);
-
-            // swl alert fires here..
-            Swal.fire({
-                icon: "success",
-                title: "Congratulations..",
-                text: "Your OTP has been verified!",
-            });
-
-            //call the signup function to create the user and navigate to the home page
-            await signup(email, password, re_password);
-        }
-
-        if (!response.ok) {
-            setErrorMsg(json.error);
-        }
         //call the signup function
-
+        //call the signup function to create the user and navigate to the home page
+        await signup(email, password, re_password);
         setEmail("");
         setPassword("");
         setRe_password("");
@@ -117,6 +80,8 @@ const Signup = () => {
                 text: "Please check your email, OTP has been sent.",
                 icon: "success",
             });
+
+            setDisplayOTPField(true);
         }
 
         if (!response.ok) {
@@ -153,6 +118,53 @@ const Signup = () => {
         }
     };
 
+    const handleOTPSubmit = async () => {
+        //API call for OTP verification process
+        const otpValue = otp.join("");
+        console.log("Submitted OTP:", otpValue);
+
+        const otpObj = {
+            email: email,
+            otp: otpValue,
+        };
+
+        //submit the otp for the api
+        const response = await fetch("/api/user/otp_verify_no_deletion/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(otpObj),
+        });
+
+        const json = await response.json();
+        console.log(json.message);
+
+        if (response.ok) {
+            setMessage(json.message);
+            setErrorMsg("");
+            setSuccess(json.success);
+
+            // swl alert fires here..
+            Swal.fire({
+                icon: "success",
+                title: "Congratulations..",
+                text: "Your OTP has been verified!",
+            });
+
+            setDisplayOTPField(false);
+            setIsOTPVerified(true);
+        }
+
+        if (!response.ok) {
+            setErrorMsg(json.error);
+        }
+    };
+
+    // Effect to enable the submit button once all OTP inputs are filled
+    useEffect(() => {
+        const allFieldsFilled = otp.every((field) => field !== ""); // Check if all OTP fields are filled
+        setIsSubmitEnabled(allFieldsFilled);
+    }, [otp]); // This effect will run every time the OTP state changes
+
     return (
         <div className="login-signup-container">
             <div className="login-signup-form">
@@ -167,6 +179,7 @@ const Signup = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             value={email}
                             required
+                            disabled={isOTPVerified} // Disable input when OTP is verified
                         />
                     </div>
                     <button
@@ -177,7 +190,44 @@ const Signup = () => {
                         {t("email_verify")}
                     </button>
 
-                    {isEmailVerified && (
+                    {displayOTPField && (
+                        <>
+                            <div className="otp-form mt-3">
+                                <div className="otp-inputs">
+                                    {otp.map((value, index) => (
+                                        <input
+                                            key={index}
+                                            type="text"
+                                            maxLength="1"
+                                            value={value}
+                                            onChange={(e) =>
+                                                handleChange(e, index)
+                                            }
+                                            onKeyDown={(e) =>
+                                                handleKeyDown(e, index)
+                                            }
+                                            ref={(el) =>
+                                                (inputRefs.current[index] = el)
+                                            }
+                                            className="form-control otp-input"
+                                            disabled={success}
+                                        />
+                                    ))}
+                                    <button
+                                        type="button"
+                                        onClick={handleOTPSubmit}
+                                        className="btn"
+                                        style={{ width: "100px" }}
+                                        disabled={!isSubmitEnabled || success}
+                                    >
+                                        Submit
+                                    </button>
+                                </div>
+                            </div>
+                        </>
+                    )}
+
+                    {isOTPVerified && (
                         <>
                             <div className="form-group mt-3">
                                 <label className="label">{t("password")}</label>
@@ -208,29 +258,6 @@ const Signup = () => {
                                     value={re_password}
                                     required
                                 />
-                            </div>
-                            <div className="otp-form mt-3">
-                                <div className="otp-inputs">
-                                    {otp.map((value, index) => (
-                                        <input
-                                            key={index}
-                                            type="text"
-                                            maxLength="1"
-                                            value={value}
-                                            onChange={(e) =>
-                                                handleChange(e, index)
-                                            }
-                                            onKeyDown={(e) =>
-                                                handleKeyDown(e, index)
-                                            }
-                                            ref={(el) =>
-                                                (inputRefs.current[index] = el)
-                                            }
-                                            className="form-control otp-input"
-                                            disabled={success}
-                                        />
-                                    ))}
-                                </div>
                             </div>
 
                             <button
