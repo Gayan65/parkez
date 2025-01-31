@@ -271,6 +271,7 @@ const Signup = () => {
                     )}
 
                     {error && <p> {error} </p>}
+                    {errorMsg && <p> {errorMsg} </p>}
                 </form>
             </div>
         </div>
