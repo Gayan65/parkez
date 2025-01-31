@@ -2,6 +2,9 @@ import React, { useState, useRef, useEffect } from "react";
 import { useSignup } from "../hooks/useSignup";
 import { useTranslation } from "react-i18next";
 
+//components
+import Loader from "../components/Loader";
+
 //sweet alerts
 import Swal from "sweetalert2";
 
@@ -11,7 +14,6 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [re_password, setRe_password] = useState("");
-    const [isEmailVerified, setIsEmailVerified] = useState(false);
     const [isOTPVerified, setIsOTPVerified] = useState(false);
     const [displayOTPField, setDisplayOTPField] = useState(false);
 
@@ -93,7 +95,6 @@ const Signup = () => {
                 icon: "error",
             });
         }
-        setIsEmailVerified(true);
     };
 
     // Handle change event for OTP input
@@ -128,6 +129,7 @@ const Signup = () => {
             otp: otpValue,
         };
 
+        setLoader(true);
         //submit the otp for the api
         const response = await fetch("/api/user/otp_verify_no_deletion/", {
             method: "POST",
@@ -139,6 +141,7 @@ const Signup = () => {
         console.log(json.message);
 
         if (response.ok) {
+            setLoader(false);
             setMessage(json.message);
             setErrorMsg("");
             setSuccess(json.success);
@@ -155,6 +158,7 @@ const Signup = () => {
         }
 
         if (!response.ok) {
+            setLoader(false);
             setErrorMsg(json.error);
         }
     };
@@ -272,8 +276,10 @@ const Signup = () => {
 
                     {error && <p> {error} </p>}
                     {errorMsg && <p> {errorMsg} </p>}
+                    {message && <p> {message} </p>}
                 </form>
             </div>
+            {loader && <Loader />}
         </div>
     );
 };
