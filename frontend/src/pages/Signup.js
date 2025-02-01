@@ -30,13 +30,15 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // if OTP verified the user creation should be enabled
-        //call the signup function
-        //call the signup function to create the user and navigate to the home page
-        await signup(email, password, re_password);
-        setEmail("");
-        setPassword("");
-        setRe_password("");
+        // Call the signup function
+        const signupSuccess = await signup(email, password, re_password);
+
+        // Only reset the form fields if the signup was successful
+        if (signupSuccess) {
+            setEmail("");
+            setPassword("");
+            setRe_password("");
+        }
     };
 
     const handleVerify = async (e) => {
