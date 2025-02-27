@@ -32,7 +32,11 @@ const NavBar = () => {
     useEffect(() => {
         //fetch number of tasks
         const numberOfTasks = async () => {
-            const response = await fetch("/api/tasks");
+            const response = await fetch("/api/tasks", {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
             const json = await response.json();
 
             if (response.ok) {
@@ -42,8 +46,11 @@ const NavBar = () => {
                 });
             }
         };
-        numberOfTasks();
-    }, [task_dispatch]);
+        // if user is there
+        if (user) {
+            numberOfTasks();
+        }
+    }, [task_dispatch, user]);
 
     // Extract the first letter of the user's email
     const firstLetter = user?.email?.charAt(0).toUpperCase();
