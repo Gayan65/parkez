@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useTaskContext } from "../hooks/useTaskContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //date format
 import { format } from "date-fns";
@@ -27,10 +28,15 @@ const ParkingRequestDetail = ({
 
     //task count context
     const { task_dispatch } = useTaskContext();
+    const { user } = useAuthContext();
 
     //fetch number of tasks
     const numberOfTasks = async () => {
-        const response = await fetch("/api/tasks");
+        const response = await fetch("/api/tasks", {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -56,6 +62,7 @@ const ParkingRequestDetail = ({
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify(userData),
             });
@@ -79,7 +86,7 @@ const ParkingRequestDetail = ({
     };
 
     useEffect(() => {
-        if (email) {
+        if (user && email) {
             fetchAllParingSlots(email);
         }
 
@@ -106,7 +113,9 @@ const ParkingRequestDetail = ({
             );
 
             //calling to make the number of tasks
-            numberOfTasks();
+            if (user) {
+                numberOfTasks();
+            }
         }
 
         //handle not approve button
@@ -121,7 +130,9 @@ const ParkingRequestDetail = ({
                 "" //sending blank user if it get declined
             );
             //calling to make the number of tasks
-            numberOfTasks();
+            if (user) {
+                numberOfTasks();
+            }
         }
     };
 

@@ -17,7 +17,11 @@ const Tasks = () => {
     useEffect(() => {
         //fetch number of tasks
         const numberOfTasks = async () => {
-            const response = await fetch("/api/tasks");
+            const response = await fetch("/api/tasks", {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
             const json = await response.json();
 
             if (response.ok) {
@@ -31,8 +35,12 @@ const Tasks = () => {
                 });
             }
         };
-        numberOfTasks();
-    }, [task_dispatch]);
+
+        //if user is there
+        if (user) {
+            numberOfTasks();
+        }
+    }, [task_dispatch, user]);
 
     return (
         <div className="container mt-4">

@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
 import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
 import ParkingRequestDetail from "./ParkingRequestDetail";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const PendingRequest = () => {
     //context
+    const { user } = useAuthContext();
     const { parkingRequests, parking_request_dispatch } =
         useParkingRequestContext();
 
     //fetch all parking requests - (need for refetch even if there are state changes from other components, there it has been called outside the useEffect function)
     const fetchAllParkingRequests = async () => {
-        const response = await fetch("/api/park_request");
+        const response = await fetch("/api/park_request", {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -21,7 +27,9 @@ const PendingRequest = () => {
     };
 
     useEffect(() => {
-        fetchAllParkingRequests();
+        if (user) {
+            fetchAllParkingRequests();
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parking_request_dispatch]);
@@ -46,6 +54,7 @@ const PendingRequest = () => {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${user.token}`,
             },
             body: JSON.stringify({ status: newStatus, comments: newComment }),
         });
@@ -58,13 +67,16 @@ const PendingRequest = () => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify({ status: newParkingStatus, user }),
             }
         );
 
         if (response.ok) {
-            fetchAllParkingRequests(); // Re-fetch after status change
+            if (user) {
+                fetchAllParkingRequests(); // Re-fetch after status change
+            }
         }
     };
     return (
