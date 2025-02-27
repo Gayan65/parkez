@@ -19,6 +19,10 @@ import Swal from "sweetalert2";
 
 const ParkingSelect = () => {
     const location = useLocation();
+    //get user context
+    const { user } = useAuthContext();
+    const { parks, park_dispatch } = useParkLotContext();
+    const { parking_request_dispatch } = useParkingRequestContext();
 
     const [t] = useTranslation("parkingselect");
 
@@ -33,7 +37,11 @@ const ParkingSelect = () => {
     //fetch number of tasks
     const numberOfTasks = async () => {
         setLoader(true);
-        const response = await fetch("/api/tasks");
+        const response = await fetch("/api/tasks", {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -52,7 +60,11 @@ const ParkingSelect = () => {
     //fetch all parking lots
     const fetchAllParking = async () => {
         setLoader(true);
-        const response = await fetch(`/api/park/${building.id}`);
+        const response = await fetch(`/api/park/${building.id}`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -60,11 +72,6 @@ const ParkingSelect = () => {
             setLoader(false);
         }
     };
-
-    //get user context
-    const { user } = useAuthContext();
-    const { parks, park_dispatch } = useParkLotContext();
-    const { parking_request_dispatch } = useParkingRequestContext();
 
     //accessing the state via location
     const { building, apartment, room, requestComment } = location.state;
@@ -80,7 +87,12 @@ const ParkingSelect = () => {
     const fetchDuplicateParking = async () => {
         setLoader(true);
         const response = await fetch(
-            `/api/park_request/duplicate/${user.email}`
+            `/api/park_request/duplicate/${user.email}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            }
         );
         const json = await response.json();
 
@@ -93,7 +105,11 @@ const ParkingSelect = () => {
     //fetch the building
     const fetchBuildingImage = async () => {
         setLoader(true);
-        const response = await fetch(`/api/building/${building.id}`);
+        const response = await fetch(`/api/building/${building.id}`, {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -147,7 +163,10 @@ const ParkingSelect = () => {
                 //this obj send to the api to create parking request
                 const response = await fetch("/api/park_request/", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
+                    },
                     body: JSON.stringify(parkingRequest),
                 });
 
@@ -158,6 +177,7 @@ const ParkingSelect = () => {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json",
+                            Authorization: `Bearer ${user.token}`,
                         },
                         body: JSON.stringify({
                             status: "pending",
@@ -182,8 +202,11 @@ const ParkingSelect = () => {
                         position: "top-center",
                     });
 
-                    numberOfTasks();
-                    fetchDuplicateParking();
+                    //if user is there
+                    if (user) {
+                        numberOfTasks();
+                        fetchDuplicateParking();
+                    }
                 }
 
                 Swal.fire({
