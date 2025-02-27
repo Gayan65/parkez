@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 import { useParkingRequestContext } from "../hooks/useParkingRequestContext";
 import ParkingRequestDetail from "./ParkingRequestDetail";
-import { useAuthContext } from "../hooks/useAuthContext";
 
 const PendingRequest = () => {
     //context
@@ -48,8 +48,9 @@ const PendingRequest = () => {
         newComment,
         parkingLot_id,
         newParkingStatus,
-        user
+        userReq
     ) => {
+        console.log("this test from", user);
         const response = await fetch(`/api/park_request/${requestId}`, {
             method: "PATCH",
             headers: {
@@ -69,7 +70,7 @@ const PendingRequest = () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${user.token}`,
                 },
-                body: JSON.stringify({ status: newParkingStatus, user }),
+                body: JSON.stringify({ status: newParkingStatus, userReq }),
             }
         );
 
