@@ -9,6 +9,8 @@ import parkRequestRouter from "./routes/parkingRequest.js";
 import parkRequestUnassignRouter from "./routes/parkingRequestUnassign.js";
 import tasksRoute from "./routes/tasks.js";
 
+import requireAuth from "./middleware/requireAuth.js";
+
 //express app
 const app = express();
 
@@ -24,7 +26,10 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/api/user", userRouter);
+app.use("/api/user", userRouter); // User route has to perform before the middleware
+
+app.use(requireAuth); // Authorization middleware
+
 app.use("/api/park", parkRouter);
 app.use("/api/building", buildingRouter);
 app.use("/api/park_request", parkRequestRouter);
