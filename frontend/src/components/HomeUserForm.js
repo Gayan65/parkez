@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
 import { useTranslation } from "react-i18next";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //components
 import Loader from "../components/Loader";
@@ -13,6 +14,7 @@ const HomeUserForm = () => {
     const [t] = useTranslation("homeuserform");
 
     const { buildings, dispatch } = useBuildingsContext();
+    const { user } = useAuthContext();
 
     //user form states
     const [building, setBuilding] = useState({ id: "", name: "", number: "" });
@@ -28,7 +30,11 @@ const HomeUserForm = () => {
         const fetchAllBuildings = async () => {
             setLoader(true);
             // api call to fetch all buildings
-            const response = await fetch("/api/building");
+            const response = await fetch("/api/building", {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
 
             const json = await response.json();
 
@@ -38,8 +44,11 @@ const HomeUserForm = () => {
             }
         };
 
-        fetchAllBuildings();
-    }, [dispatch]);
+        //if user is there
+        if (user) {
+            fetchAllBuildings();
+        }
+    }, [dispatch, user]);
 
     //splitting the parameters of the building object and passes multiple values and set via the function
     const handleSelectChange = (e) => {
