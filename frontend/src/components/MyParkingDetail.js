@@ -118,7 +118,10 @@ const MyParkingDetail = ({
                 //this obj send to the api to create parking unassign request
                 const response = await fetch("/api/park_unassign_request/", {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
+                    },
                     body: JSON.stringify(unassignedRequest),
                 });
 
@@ -147,6 +150,7 @@ const MyParkingDetail = ({
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json",
+                            Authorization: `Bearer ${user.token}`,
                         },
                         body: JSON.stringify({ status: "pending" }),
                     }
