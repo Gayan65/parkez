@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useBuildingsContext } from "../../hooks/useBuildingsContext";
 import { useParkLotContext } from "../../hooks/useParkLotContext";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 //icon
 import { FaRegEdit, FaRegWindowClose, FaRegBuilding } from "react-icons/fa";
@@ -23,6 +24,7 @@ const BuildingDetails = () => {
 
     const { building, dispatch } = useBuildingsContext();
     const { parks, park_dispatch } = useParkLotContext();
+    const authUser = useAuthContext().user;
 
     // State to handle accordion toggle
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
@@ -73,7 +75,11 @@ const BuildingDetails = () => {
     //fetch the building here...
     const fetchBuilding = async (id) => {
         setLoader(true);
-        const response = await fetch(`/api/building/${id}`);
+        const response = await fetch(`/api/building/${id}`, {
+            headers: {
+                Authorization: `Bearer ${authUser.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -102,7 +108,11 @@ const BuildingDetails = () => {
     // fetch the relevance parking lots for the above building here...
     const fetchAllParking = async () => {
         setLoader(true);
-        const response = await fetch(`/api/park/${id}`);
+        const response = await fetch(`/api/park/${id}`, {
+            headers: {
+                Authorization: `Bearer ${authUser.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -212,6 +222,7 @@ const BuildingDetails = () => {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${authUser.token}`,
                     },
                     body: JSON.stringify(updatedBuilding),
                 });
