@@ -47,7 +47,7 @@ const PendingUnassignRequest = () => {
         newComment,
         parkingLot_id,
         newParkingStatus,
-        user
+        userReq
     ) => {
         const response = await fetch(
             `/api/park_unassign_request/${requestId}`,
@@ -74,7 +74,7 @@ const PendingUnassignRequest = () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${user.token}`,
                 },
-                body: JSON.stringify({ status: newParkingStatus, user }),
+                body: JSON.stringify({ status: newParkingStatus, userReq }),
             }
         );
 
@@ -90,7 +90,7 @@ const PendingUnassignRequest = () => {
                     <PendingUnassignRequestDetail
                         key={parkingUnassignRequest._id}
                         building={parkingUnassignRequest.building}
-                        user={parkingUnassignRequest.user}
+                        userReq={parkingUnassignRequest.userReq}
                         apartment={parkingUnassignRequest.apartment}
                         room={parkingUnassignRequest.room}
                         createdAt={parkingUnassignRequest.createdAt}

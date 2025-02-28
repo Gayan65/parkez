@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useTaskContext } from "../hooks/useTaskContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const PendingUnassignRequestDetail = ({
     requestId,
     building,
-    user,
+    userReq,
     apartment,
     room,
     createdAt,
@@ -18,10 +19,15 @@ const PendingUnassignRequestDetail = ({
 
     //task count context
     const { task_dispatch } = useTaskContext();
+    const { user } = useAuthContext();
 
     //fetch number of tasks
     const numberOfTasks = async () => {
-        const response = await fetch("/api/tasks");
+        const response = await fetch("/api/tasks", {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -66,7 +72,7 @@ const PendingUnassignRequestDetail = ({
                 comment,
                 parkingLot_id,
                 "assign",
-                user //sending the user if it get decline
+                userReq //sending the user if it get decline
             );
             //calling to make the number of tasks
             numberOfTasks();
@@ -76,7 +82,7 @@ const PendingUnassignRequestDetail = ({
         <div className="card">
             <h5 className="card-header">{building}</h5>
             <div className="card-body">
-                <h5 className="card-title"> {user} </h5>
+                <h5 className="card-title"> {userReq} </h5>
                 <p className="card-text">Apartment Number : {apartment}</p>
                 <p className="card-text">Room Number : {room}</p>
                 <p className="card-text">Initiated date : {createdAt}</p>
