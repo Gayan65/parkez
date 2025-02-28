@@ -16,7 +16,10 @@ const MyParking = () => {
         //post user data to api
         const response = await fetch("/api/park/by_email", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user.token}`,
+            },
             body: JSON.stringify(userData),
         });
 
@@ -28,7 +31,9 @@ const MyParking = () => {
     };
 
     useEffect(() => {
-        fetchAllMyParks();
+        if (user) {
+            fetchAllMyParks();
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [my_park_dispatch, user]);
 

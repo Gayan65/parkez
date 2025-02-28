@@ -39,7 +39,11 @@ const MyParkingDetail = ({
 
     //fetch number of tasks
     const numberOfTasks = async () => {
-        const response = await fetch("/api/tasks");
+        const response = await fetch("/api/tasks", {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -58,7 +62,11 @@ const MyParkingDetail = ({
         const fetchBuilding = async () => {
             setLoader(true);
             //fetch building details from api
-            const response = await fetch(`/api/building/${buildingId}`);
+            const response = await fetch(`/api/building/${buildingId}`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
             const json = await response.json();
 
             if (response.ok) {
@@ -67,8 +75,11 @@ const MyParkingDetail = ({
             }
         };
 
-        fetchBuilding();
-    }, [buildingId]);
+        //if user is there
+        if (user) {
+            fetchBuilding();
+        }
+    }, [buildingId, user]);
 
     const handleSubmit = async (
         buildingName,
@@ -120,7 +131,9 @@ const MyParkingDetail = ({
                     });
                     setLoader(false);
                     //calling to make the total tasks
-                    numberOfTasks();
+                    if (user) {
+                        numberOfTasks();
+                    }
                 }
 
                 console.log("successfully send the request");
