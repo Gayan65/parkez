@@ -69,24 +69,41 @@ export const get_a_Building = async (req, res) => {
 //update a building from building id
 export const updateBuilding = async (req, res) => {
     const { id } = req.params;
+    const { number } = req.body; //
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: "building not found" });
     }
 
-    const building = await Building.findByIdAndUpdate(
-        { _id: id },
-        {
-            ...req.body,
-        },
-        { new: true } // This returns the updated document
-    );
+    try {
+        // Check if a building with the same number already exists (excluding the current building)
+        const existingBuilding = await Building.findOne({
+            number,
+            _id: { $ne: id },
+        });
 
-    if (!building) {
-        return res.status(404).json({ error: "building not found" });
+        if (existingBuilding) {
+            return res
+                .status(400)
+                .json({ error: "Building number already exists!" });
+        }
+
+        // Proceed with the update
+        const building = await Building.findByIdAndUpdate(
+            { _id: id },
+            {
+                ...req.body,
+            },
+            { new: true } // This returns the updated document
+        );
+        if (!building) {
+            return res.status(404).json({ error: "building not found" });
+        }
+        res.status(200).json(building);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: "Internal server error" });
     }
-
-    res.status(200).json(building);
 };
 
 // delete a building (if the building does not have any parking lot allocated)

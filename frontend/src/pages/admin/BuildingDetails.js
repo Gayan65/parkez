@@ -232,6 +232,13 @@ const BuildingDetails = () => {
                 if (!response.ok) {
                     setError(json.error);
                     console.log(json);
+                    setLoader(false);
+
+                    Swal.fire({
+                        title: "Cannot update!",
+                        text: "Your building has not been updated. Check the error message.",
+                        icon: "error",
+                    });
                 }
 
                 if (response.ok) {
@@ -248,13 +255,12 @@ const BuildingDetails = () => {
                     );
                     dispatch({ type: "SET_A_BUILDING", payload: json });
                     setLoader(false);
+                    Swal.fire({
+                        title: "Updated!",
+                        text: "Your building has been updated.",
+                        icon: "success",
+                    });
                 }
-
-                Swal.fire({
-                    title: "Updated!",
-                    text: "Your building has been updated.",
-                    icon: "success",
-                });
             }
         });
     };
