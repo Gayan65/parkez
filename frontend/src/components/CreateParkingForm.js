@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParkLotContext } from "../hooks/useParkLotContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //icon
 import { FaRegWindowClose, FaRegEdit, FaParking } from "react-icons/fa";
@@ -22,6 +23,7 @@ const CreateParkingForm = ({
     onUpdateSuccess,
 }) => {
     const { park_dispatch } = useParkLotContext();
+    const userAuth = useAuthContext().user;
 
     //state
     const [lot, setLot] = useState("");
@@ -66,7 +68,10 @@ const CreateParkingForm = ({
         //API call to backend
         const response = await fetch("/api/park/", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${userAuth.token}`,
+            },
             body: JSON.stringify(parking),
         });
 
@@ -140,6 +145,7 @@ const CreateParkingForm = ({
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json",
+                            Authorization: `Bearer ${userAuth.token}`,
                         },
                         body: JSON.stringify(updatedParking),
                     }
@@ -188,6 +194,7 @@ const CreateParkingForm = ({
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json",
+                            Authorization: `Bearer ${userAuth.token}`,
                         },
                     }
                 );
