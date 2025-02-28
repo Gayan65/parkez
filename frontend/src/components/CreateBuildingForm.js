@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //components
 import Loader from "./Loader";
@@ -20,6 +21,7 @@ const CreateBuildingForm = () => {
     const { t } = useTranslation("createbuildingform");
 
     const { dispatch } = useBuildingsContext();
+    const { user } = useAuthContext();
     //set states
 
     const [name, setName] = useState("");
@@ -98,7 +100,10 @@ const CreateBuildingForm = () => {
         //API call to backend
         const response = await fetch("api/building/", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user.token}`,
+            },
             body: JSON.stringify(building),
         });
 
