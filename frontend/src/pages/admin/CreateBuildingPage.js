@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 //components
 import CreateBuildingForm from "../../components/CreateBuildingForm";
@@ -16,6 +17,9 @@ const CreateBuildingPage = () => {
     const [loader, setLoader] = useState(false);
     const { buildings, dispatch } = useBuildingsContext();
 
+    //context
+    const { user } = useAuthContext();
+
     //translation
     const { t } = useTranslation("createbuildingpage");
 
@@ -23,7 +27,11 @@ const CreateBuildingPage = () => {
         //api call to get all buildings
         const fetchBuildings = async () => {
             setLoader(true);
-            const response = await fetch("/api/building/");
+            const response = await fetch("/api/building/", {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
             const json = await response.json();
 
             if (response.ok) {
@@ -32,8 +40,11 @@ const CreateBuildingPage = () => {
             setLoader(false);
         };
 
-        fetchBuildings();
-    }, [dispatch]);
+        //if user is there
+        if (user) {
+            fetchBuildings();
+        }
+    }, [dispatch, user]);
 
     return (
         <div className="container mt-3">

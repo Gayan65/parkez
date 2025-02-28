@@ -5,6 +5,7 @@ import { FaRegTrashCan } from "react-icons/fa6";
 
 //context
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //image
 import no_image from "../assets/img/no_image.png";
@@ -18,6 +19,7 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
     const [loader, setLoader] = useState(false);
 
     const { dispatch } = useBuildingsContext();
+    const { user } = useAuthContext();
 
     const handleDelete = async (id) => {
         console.log("Delete Clicked", id);
@@ -38,6 +40,7 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
                     },
                 });
 
