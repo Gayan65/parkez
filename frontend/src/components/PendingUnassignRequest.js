@@ -1,15 +1,21 @@
 import React, { useEffect } from "react";
 import { useParkingUnassignRequestContext } from "../hooks/useParkingUnassignRequestContext";
+import { useAuthContext } from "../hooks/useAuthContext";
 import PendingUnassignRequestDetail from "./PendingUnassignRequestDetail";
 
 const PendingUnassignRequest = () => {
     //context
     const { parkingUnassignRequests, parking_unassign_request_dispatch } =
         useParkingUnassignRequestContext();
+    const { user } = useAuthContext();
 
     //function to call api to fetch all the unassigned requests
     const fetchAllParkingUnassignRequests = async () => {
-        const response = await fetch("/api/park_unassign_request");
+        const response = await fetch("/api/park_unassign_request", {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        });
         const json = await response.json();
 
         if (response.ok) {
@@ -21,7 +27,10 @@ const PendingUnassignRequest = () => {
     };
 
     useEffect(() => {
-        fetchAllParkingUnassignRequests();
+        //if user is there
+        if (user) {
+            fetchAllParkingUnassignRequests();
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parking_unassign_request_dispatch]);
@@ -46,6 +55,7 @@ const PendingUnassignRequest = () => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify({
                     status: newStatus,
@@ -62,6 +72,7 @@ const PendingUnassignRequest = () => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify({ status: newParkingStatus, user }),
             }
