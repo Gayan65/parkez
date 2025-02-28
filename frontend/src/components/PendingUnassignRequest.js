@@ -64,6 +64,8 @@ const PendingUnassignRequest = () => {
             }
         );
 
+        console.log("this is the case", userReq);
+
         //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN APPROVING OR DECLINING A PARKING LOT IT BECOMES ASSIGNED OR ACTIVE
         // eslint-disable-next-line
         const parkLotUpdateResponse = await fetch(
@@ -74,7 +76,10 @@ const PendingUnassignRequest = () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${user.token}`,
                 },
-                body: JSON.stringify({ status: newParkingStatus, userReq }),
+                body: JSON.stringify({
+                    status: newParkingStatus,
+                    user: userReq,
+                }),
             }
         );
 

@@ -70,7 +70,10 @@ const PendingRequest = () => {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${user.token}`,
                 },
-                body: JSON.stringify({ status: newParkingStatus, userReq }),
+                body: JSON.stringify({
+                    status: newParkingStatus,
+                    user: userReq,
+                }),
             }
         );
 
