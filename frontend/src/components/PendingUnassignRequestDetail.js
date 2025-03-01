@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { useTaskContext } from "../hooks/useTaskContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
+//date format
+import { format } from "date-fns";
+
 const PendingUnassignRequestDetail = ({
     requestId,
     building,
@@ -79,27 +82,52 @@ const PendingUnassignRequestDetail = ({
         }
     };
     return (
-        <div className="card">
-            <h5 className="card-header">{building}</h5>
-            <div className="card-body">
-                <h5 className="card-title"> {userReq} </h5>
-                <p className="card-text">Apartment Number : {apartment}</p>
-                <p className="card-text">Room Number : {room}</p>
-                <p className="card-text">Initiated date : {createdAt}</p>
-                <p className="card-text">Request : {requestComment}</p>
-                <p className="card-text">Parking Lot Number: {parkingLot}</p>
-                <p className="card-text">Parking lot id : {parkingLot_id}</p>
-                <p className="card-text">Status : {status}</p>
+        <div className="card-custom">
+            <div className="card-header-custom">{building}</div>
+            <p className="card-text-custom date-custom">
+                {format(new Date(createdAt), "EEEE, d/M/yyyy h:mma")}
+            </p>
+            <div className="card-body-custom">
+                <h5 className="card-title-custom "> {userReq} </h5>
+                <table className="table-custom">
+                    <tbody>
+                        <tr>
+                            <td className="custom-td">Apartment Number</td>
+                            <td>{apartment}</td>
+                        </tr>
+
+                        <tr>
+                            <td className="custom-td">Room Number</td>
+                            <td>{room}</td>
+                        </tr>
+
+                        <tr>
+                            <td className="custom-td">Parking Number</td>
+                            <td>{parkingLot}</td>
+                        </tr>
+
+                        <tr>
+                            <td className="custom-td">Client Request</td>
+                            <td>{requestComment}</td>
+                        </tr>
+                    </tbody>
+                </table>
                 <form onSubmit={handleSubmit}>
                     <textarea
                         className="form-control"
                         rows="2"
                         onChange={(e) => setComment(e.target.value)}
                     ></textarea>
-                    <button className="btn btn-primary" value={"approve"}>
+                    <button
+                        className="btn-custom-request btn-primary-custom"
+                        value={"approve"}
+                    >
                         Approve
                     </button>
-                    <button className="btn btn-danger" value={"decline"}>
+                    <button
+                        className="btn-custom-request btn-secondary-custom"
+                        value={"decline"}
+                    >
                         Decline
                     </button>
                 </form>

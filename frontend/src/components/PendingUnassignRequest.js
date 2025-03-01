@@ -89,7 +89,7 @@ const PendingUnassignRequest = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container-custom">
             {pendingRequests &&
                 pendingRequests.map((parkingUnassignRequest) => (
                     <PendingUnassignRequestDetail
