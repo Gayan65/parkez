@@ -221,10 +221,10 @@ const ParkingSelect = () => {
         //selected parking lot should be emended as pending
     };
     return (
-        <div className="container other-form custom-from-center">
+        <div className="container other-form ">
             <div className="row">
                 <div className="col-md-7">
-                    <h3 className="header mt-3 text-center">{t("header")}</h3>
+                    <h3 className="header mt-3">{t("header")}</h3>
                     {/* This you can access  Parking select Building{building.name} {building.number}, Apartment
             {apartment}, Room{room}*/}
                     <p className="paragraph text-justify">
@@ -239,7 +239,7 @@ const ParkingSelect = () => {
                     )}
                     <div className="container text-center mb-3">
                         <div
-                            className="row row-cols-5 btn-group mt-3"
+                            className="btn-group mt-3 custom-container-group-parkLot"
                             role="group"
                             aria-label="Basic radio toggle button group"
                         >
@@ -266,7 +266,7 @@ const ParkingSelect = () => {
                                 ))}
                         </div>
                     </div>
-                    <div className="d-flex justify-content-center">
+                    <div className="d-flex justify-content-start mb-2">
                         <button
                             className="btn btn-primary custom-btn"
                             onClick={handleClick}
