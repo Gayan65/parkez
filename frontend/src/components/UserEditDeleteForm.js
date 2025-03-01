@@ -37,6 +37,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify(updatedUserObj),
             });
@@ -137,6 +138,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                     method: "DELETE",
                     headers: {
                         "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
                     },
                 });
 
@@ -190,6 +192,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json",
+                            Authorization: `Bearer ${user.token}`,
                         },
                         body: JSON.stringify({ status: "active", user: "" }),
                     });
@@ -243,6 +246,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
                 },
                 body: JSON.stringify(userData),
             });
@@ -270,7 +274,11 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         if (id) {
             const fetchUser = async () => {
                 try {
-                    const response = await fetch(`/api/user/get_user/${id}`);
+                    const response = await fetch(`/api/user/get_user/${id}`, {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    });
                     const json = await response.json();
 
                     if (!response.ok) {
