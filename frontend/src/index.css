@@ -904,6 +904,13 @@ body {
     background-color: #ffbd5927;
     justify-content: space-evenly;
     max-width: 100%;
+
+    border: #1a4c7a28 dashed 7px;
+    scrollbar-color: #226699 #ffbd5942;
+    max-height: 580px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enables vertical scrolling when content overflows */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    margin-bottom: 20px;
 }
 
 /* Styling individual request cards */

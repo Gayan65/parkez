@@ -232,7 +232,7 @@ const ParkingSelect = () => {
                         {t("para.para2")} {user && user.email}.
                     </p>
                     {isDuplicate && (
-                        <p className="paragraph text-center">
+                        <p className="paragraph">
                             {t("duplicate.para1")} {user && user.email}.{" "}
                             {t("duplicate.para2")}
                         </p>
