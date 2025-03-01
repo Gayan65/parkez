@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParkingUnassignRequestContext } from "../hooks/useParkingUnassignRequestContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import PendingUnassignRequestDetail from "./PendingUnassignRequestDetail";
+import Loader from "./Loader";
 
 const PendingUnassignRequest = () => {
     //context
@@ -9,8 +10,12 @@ const PendingUnassignRequest = () => {
         useParkingUnassignRequestContext();
     const { user } = useAuthContext();
 
+    //state
+    const [loader, setLoader] = useState(false);
+
     //function to call api to fetch all the unassigned requests
     const fetchAllParkingUnassignRequests = async () => {
+        setLoader(true);
         const response = await fetch("/api/park_unassign_request", {
             headers: {
                 Authorization: `Bearer ${user.token}`,
@@ -23,6 +28,8 @@ const PendingUnassignRequest = () => {
                 type: "SET_PARKING_UNASSIGN_REQUESTS",
                 payload: json,
             });
+
+            setLoader(false);
         }
     };
 
@@ -107,6 +114,7 @@ const PendingUnassignRequest = () => {
                         requestId={parkingUnassignRequest._id}
                     />
                 ))}
+            {loader && <Loader />}
         </div>
     );
 };
