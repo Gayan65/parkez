@@ -95,7 +95,7 @@ const PendingUnassignRequest = () => {
                     <PendingUnassignRequestDetail
                         key={parkingUnassignRequest._id}
                         building={parkingUnassignRequest.building}
-                        userReq={parkingUnassignRequest.userReq}
+                        userReq={parkingUnassignRequest.user}
                         apartment={parkingUnassignRequest.apartment}
                         room={parkingUnassignRequest.room}
                         createdAt={parkingUnassignRequest.createdAt}
