@@ -101,9 +101,10 @@ const BuildingDetails = () => {
             });
 
             setImageChanged(false); //this will make the imageChange in to false and the imgFile DB string can display to the user
+            setLoader(false);
         }
 
-        setLoader(false);
+        //-----setLoader(false);
     };
     // fetch the relevance parking lots for the above building here...
     const fetchAllParking = async () => {
@@ -117,8 +118,9 @@ const BuildingDetails = () => {
 
         if (response.ok) {
             park_dispatch({ type: "SET_PARKS", payload: json });
+            setLoader(false);
         }
-        setLoader(false);
+        //--setLoader(false);
     };
 
     useEffect(() => {
