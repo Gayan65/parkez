@@ -1537,3 +1537,10 @@ body {
     box-shadow: none; /* Remove shadow */
     opacity: 0.6; /* Optional: make it look inactive */
 }
+
+.custom-container-group-parkLot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    border: #1a4c7a solid 3px;
+}

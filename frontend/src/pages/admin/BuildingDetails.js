@@ -433,7 +433,7 @@ const BuildingDetails = () => {
 
             <div className="container text-center mt-5">
                 <div
-                    className="row row-cols-5 btn-group mt-3"
+                    className="btn-group mt-3 custom-container-group-parkLot"
                     role="group"
                     aria-label="Basic radio toggle button group"
                 >
