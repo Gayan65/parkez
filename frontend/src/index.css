@@ -1542,5 +1542,10 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 5px;
-    border: #1a4c7a solid 3px;
+    border: #1a4c7a28 dashed 7px;
+    scrollbar-color: #226699 #ffbd5942;
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enables vertical scrolling when content overflows */
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+    margin-bottom: 20px;
 }
