@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import LanguageDropdown from "./LanguageDropdown";
 import { useTranslation } from "react-i18next";
 
+import { motion } from "framer-motion";
+
 import {
     FcHome,
     FcFile,
@@ -87,7 +89,11 @@ const NavBar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav">
-                        <li className="nav-item">
+                        <motion.li
+                            className="nav-item"
+                            whileHover={{ scale: 1.3 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                        >
                             {user && (
                                 <Link
                                     className="nav-link active d-flex align-items-center"
@@ -97,9 +103,13 @@ const NavBar = () => {
                                     {t("home")}
                                 </Link>
                             )}
-                        </li>
+                        </motion.li>
 
-                        <li className="nav-item">
+                        <motion.li
+                            className="nav-item"
+                            whileHover={{ scale: 1.3 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                        >
                             {user && (
                                 <Link
                                     className="nav-link active d-flex align-items-center"
@@ -109,9 +119,13 @@ const NavBar = () => {
                                     {t("reservation")}
                                 </Link>
                             )}
-                        </li>
+                        </motion.li>
 
-                        <li className="nav-item">
+                        <motion.li
+                            className="nav-item"
+                            whileHover={{ scale: 1.3 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                        >
                             {user && user.admin && (
                                 <Link
                                     className="nav-link active d-flex align-items-center"
@@ -124,9 +138,13 @@ const NavBar = () => {
                                     {t("parking_mgt")}
                                 </Link>
                             )}
-                        </li>
+                        </motion.li>
 
-                        <li className="nav-item">
+                        <motion.li
+                            className="nav-item"
+                            whileHover={{ scale: 1.3 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                        >
                             {user && user.admin && (
                                 <Link
                                     className="nav-link active d-flex align-items-center"
@@ -136,9 +154,13 @@ const NavBar = () => {
                                     {t("user_mgt")}
                                 </Link>
                             )}
-                        </li>
+                        </motion.li>
 
-                        <li className="nav-item">
+                        <motion.li
+                            className="nav-item"
+                            whileHover={{ scale: 1.3 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                        >
                             {user && user.admin && (
                                 <Link
                                     className="nav-link active position-relative  d-flex align-items-center"
@@ -153,8 +175,12 @@ const NavBar = () => {
                                     )}
                                 </Link>
                             )}
-                        </li>
-                        <li className="nav-item">
+                        </motion.li>
+                        <motion.li
+                            className="nav-item"
+                            whileHover={{ scale: 1.3 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                        >
                             {user && (
                                 <Link
                                     className="nav-link active d-flex align-items-center"
@@ -164,7 +190,7 @@ const NavBar = () => {
                                     {t("my_parking")}
                                 </Link>
                             )}
-                        </li>
+                        </motion.li>
                     </ul>
                 </div>
                 <div className="me-3">
