@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FcHome, FcExternal } from "react-icons/fc";
 import { FaRegTrashCan } from "react-icons/fa6";
+import { motion } from "framer-motion";
 
 //context
 import { useBuildingsContext } from "../hooks/useBuildingsContext";
@@ -73,9 +74,11 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
         <div className="row">
             <div className="col-md-10">
                 <Link to={link} className="card-link-custom">
-                    <div
+                    <motion.div
                         className="card mb-3 container custom-card "
                         style={{ maxWidth: "400px" }}
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ type: "spring", stiffness: 300 }}
                     >
                         <div className="row g-0">
                             <div className="col-md-6  d-flex align-items-center">
@@ -107,7 +110,7 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
                 </Link>
             </div>
             <div className="col-md-2 d-flex align-items-center">

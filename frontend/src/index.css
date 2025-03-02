@@ -1085,15 +1085,6 @@ body {
     border: 1px solid #22659969;
     border-radius: 8px;
     box-shadow: 0 3px 8px rgba(255, 189, 89, 0.253);
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
-}
-
-.custom-card:hover {
-    border: 1px solid #ffbd598e; /* Change border color on hover */
-
-    transform: translateY(-2px); /* Slight lift effect */
-    cursor: pointer;
-    background-color: #ffbd5942;
 }
 
 .custom-card .card-body {
