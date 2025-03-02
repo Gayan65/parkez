@@ -68,13 +68,16 @@ const NavBar = () => {
         <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar sticky-top">
             <div className="container-fluid">
                 <Link className="navbar-brand" to={"/"}>
-                    <img
+                    <motion.img
                         src={navLogo}
                         alt="Logo"
                         width="50"
                         height="50"
                         className="d-inline-block align-text-top"
-                    ></img>
+                        animate={{ rotate: 360 }}
+                        transition={{ type: "spring", restSpeed: 0.5 }}
+                        whileHover={{ scale: 1.2, rotate: 30 }}
+                    ></motion.img>
                 </Link>
                 <button
                     className="navbar-toggler"

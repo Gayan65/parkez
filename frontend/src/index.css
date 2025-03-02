@@ -37,15 +37,6 @@ body {
     background-color: #fff0d5 !important;
 }
 
-/* NavLogo rotation starts */
-.navbar-brand img {
-    transition: transform 0.3s ease-in-out;
-}
-
-.navbar-brand img:hover {
-    transform: rotate(-20deg);
-}
-
 /* NavLogo rotation ends */
 
 /* Profile icon start */
