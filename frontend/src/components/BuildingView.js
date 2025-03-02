@@ -9,7 +9,7 @@ import { useBuildingsContext } from "../hooks/useBuildingsContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 //image
-import no_image from "../assets/img/no_image.png";
+import no_image from "../assets/img/no_img_small.png";
 import Loader from "./Loader";
 
 //sweet alerts
