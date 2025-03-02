@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { motion } from "framer-motion";
 
 import {
     FaEnvelope,
@@ -310,7 +311,12 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     }, [fetchedUser]);
 
     return (
-        <div className="mb-5">
+        <motion.div
+            className="mb-5"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+        >
             <form className="other-form">
                 <table className="table">
                     <tbody>
@@ -404,7 +410,7 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
             )}
 
             {loader && <Loader />}
-        </div>
+        </motion.div>
     );
 };
 
