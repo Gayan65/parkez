@@ -7,7 +7,7 @@ import { FcHome, FcExternal, FcDataSheet } from "react-icons/fc";
 import { format } from "date-fns";
 
 //image
-import no_image from "../assets/img/no_image.png";
+import no_image from "../assets/img/no_img_large.png";
 
 const BuildingViewCard = ({ name, number, address, createdAt, image }) => {
     return (
