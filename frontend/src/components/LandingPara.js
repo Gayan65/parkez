@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import imgLogo from "../assets/img/LandingLogo.png";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { motion } from "framer-motion";
 
 const LandingPara = () => {
     //get user context
@@ -13,19 +14,45 @@ const LandingPara = () => {
         <div className="container hero-section mt-2">
             <div className="row align-items-center">
                 <div className="col-md-5 hero-image-container">
-                    <img
+                    <motion.img
                         src={imgLogo}
                         alt="Logo"
                         className="d-inline-block align-text-top"
-                    ></img>
+                        initial={{ opacity: 0, x: "-100vw" }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 1, duration: 1 }}
+                    ></motion.img>
                 </div>
 
                 <div className="col-md-7 hero-text hero-section">
-                    <h1 className="display-5 fw-bold lh-1 mb-3 hero-heading">
+                    <motion.h1
+                        className="display-5 fw-bold lh-1 mb-3 hero-heading"
+                        initial={{ y: -250 }}
+                        animate={{ y: -10 }}
+                        transition={{
+                            delay: 0.2,
+                            type: "spring",
+                            stiffness: 120,
+                        }}
+                    >
                         {t("heading")}
-                    </h1>
-                    <p className="lead">{t("content")}</p>
-                    <p className="lead">{t("sub_content")}</p>
+                    </motion.h1>
+                    <motion.p
+                        className="lead"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1, duration: 1 }}
+                    >
+                        {t("content")}
+                    </motion.p>
+                    <motion.p
+                        className="lead"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.5, duration: 1.5 }}
+                    >
+                        {t("sub_content")}
+                    </motion.p>
                     <Link
                         to={user ? "/park-request" : "/login"}
                         className="btn btn-custom"
