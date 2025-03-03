@@ -17,6 +17,9 @@ import "react-toastify/dist/ReactToastify.css";
 //sweet alerts
 import Swal from "sweetalert2";
 
+//image
+import noImage from "../assets/img/no_img_mid.png";
+
 const ParkingSelect = () => {
     const location = useLocation();
     //get user context
@@ -282,11 +285,7 @@ const ParkingSelect = () => {
                 {/* Right side for image */}
                 <div className="col-md-5 text-center d-flex align-items-center justify-content-center">
                     <img
-                        src={
-                            buidlingImg
-                                ? buidlingImg
-                                : "https://via.placeholder.com/300"
-                        }
+                        src={buidlingImg ? buidlingImg : noImage}
                         alt="Parking illustration"
                         className="img-fluid "
                         style={{ width: "533px", height: "533px" }}
