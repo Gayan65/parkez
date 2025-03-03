@@ -283,7 +283,7 @@ const ParkingSelect = () => {
                     <ToastContainer />
                 </div>
                 {/* Right side for image */}
-                <div className="col-md-5 text-center d-flex align-items-center justify-content-center">
+                <div className="col-md-5 text-center d-flex align-items-center justify-content-center my-3">
                     <img
                         src={buidlingImg ? buidlingImg : noImage}
                         alt="Parking illustration"
