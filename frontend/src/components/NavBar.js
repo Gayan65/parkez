@@ -3,6 +3,8 @@ import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
 import { useTaskContext } from "../hooks/useTaskContext";
 
+import { fetchWrapper } from "../utils/fetchWrapper";
+
 import navLogo from "../assets/img/NavLogo.png";
 import { useEffect } from "react";
 import LanguageDropdown from "./LanguageDropdown";
@@ -34,18 +36,22 @@ const NavBar = () => {
     useEffect(() => {
         //fetch number of tasks
         const numberOfTasks = async () => {
-            const response = await fetch("/api/tasks", {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-            const json = await response.json();
-
-            if (response.ok) {
-                task_dispatch({
-                    type: "SET_NUMBER_OF_TOTAL_TASKS",
-                    payload: json,
+            try {
+                const response = await fetchWrapper("/api/tasks", {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
                 });
+                const json = await response.json();
+
+                if (response.ok) {
+                    task_dispatch({
+                        type: "SET_NUMBER_OF_TOTAL_TASKS",
+                        payload: json,
+                    });
+                }
+            } catch (error) {
+                console.error("Error fetching tasks:", error);
             }
         };
         // if user is there

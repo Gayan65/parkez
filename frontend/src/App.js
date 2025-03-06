@@ -1,7 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useEffect } from "react";
 
 //auth context
 import { useAuthContext } from "./hooks/useAuthContext";
+import { useLogout } from "./hooks/useLogout";
+import { setLogout } from "./utils/fetchWrapper";
 
 //components and routes
 import Login from "./pages/Login";
@@ -24,6 +27,11 @@ import UserManagement from "./pages/admin/UserManagement";
 function App() {
     //user object
     const { user } = useAuthContext();
+    const { logout } = useLogout();
+
+    useEffect(() => {
+        setLogout(logout);
+    }, [logout]);
 
     return (
         <div className="App">

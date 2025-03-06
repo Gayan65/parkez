@@ -18,6 +18,7 @@ import Loader from "../../components/Loader";
 //sweet alerts
 import Swal from "sweetalert2";
 import ParkingLotDetailsAdmin from "../../components/ParkingLotDetailsAdmin";
+import { fetchWrapper } from "../../utils/fetchWrapper";
 
 const BuildingDetails = () => {
     const [loader, setLoader] = useState(false);
@@ -75,7 +76,7 @@ const BuildingDetails = () => {
     //fetch the building here...
     const fetchBuilding = async (id) => {
         setLoader(true);
-        const response = await fetch(`/api/building/${id}`, {
+        const response = await fetchWrapper(`/api/building/${id}`, {
             headers: {
                 Authorization: `Bearer ${authUser.token}`,
             },
@@ -109,7 +110,7 @@ const BuildingDetails = () => {
     // fetch the relevance parking lots for the above building here...
     const fetchAllParking = async () => {
         setLoader(true);
-        const response = await fetch(`/api/park/${id}`, {
+        const response = await fetchWrapper(`/api/park/${id}`, {
             headers: {
                 Authorization: `Bearer ${authUser.token}`,
             },
@@ -220,7 +221,7 @@ const BuildingDetails = () => {
                     address,
                 };
 
-                const response = await fetch(`/api/building/${id}`, {
+                const response = await fetchWrapper(`/api/building/${id}`, {
                     method: "PATCH",
                     headers: {
                         "Content-Type": "application/json",
