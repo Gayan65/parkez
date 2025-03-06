@@ -18,8 +18,8 @@ const LandingPara = () => {
                         src={imgLogo}
                         alt="Logo"
                         className="d-inline-block align-text-top"
-                        initial={{ opacity: 0, x: "-100vw" }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, x: -10, y: -10 }}
+                        animate={{ opacity: 1, x: 0, y: 0 }}
                         transition={{ delay: 1, duration: 1 }}
                     ></motion.img>
                 </div>
@@ -27,7 +27,7 @@ const LandingPara = () => {
                 <div className="col-md-7 hero-text hero-section">
                     <motion.h1
                         className="display-5 fw-bold lh-1 mb-3 hero-heading"
-                        initial={{ y: -250 }}
+                        initial={{ y: -40 }}
                         animate={{ y: -10 }}
                         transition={{
                             delay: 0.2,
