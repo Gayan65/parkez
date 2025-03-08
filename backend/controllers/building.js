@@ -39,6 +39,11 @@ export const createBuilding = async (req, res) => {
         });
         res.status(200).json(building);
     } catch (error) {
+        if (error.code === 11000) {
+            return res
+                .status(400)
+                .json({ error: "Building number already exists!" });
+        }
         res.status(401).json({ error: error.message });
     }
 };
