@@ -16,6 +16,7 @@ import Loader from "./Loader";
 
 //sweet alerts
 import Swal from "sweetalert2";
+import { fetchWrapper } from "../utils/fetchWrapper";
 
 const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
     //translation
@@ -189,14 +190,20 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
             if (result.isConfirmed) {
                 try {
                     setLoader(true);
-                    const response = await fetch(`/api/park/${parking_id}`, {
-                        method: "PATCH",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${user.token}`,
-                        },
-                        body: JSON.stringify({ status: "active", user: "" }),
-                    });
+                    const response = await fetchWrapper(
+                        `/api/park/${parking_id}`,
+                        {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${user.token}`,
+                            },
+                            body: JSON.stringify({
+                                status: "active",
+                                user: "",
+                            }),
+                        }
+                    );
 
                     const json = await response.json();
 
@@ -243,14 +250,17 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         };
         try {
             setLoader(true);
-            const response = await fetch("/api/park/parking_lots_by_email", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${user.token}`,
-                },
-                body: JSON.stringify(userData),
-            });
+            const response = await fetchWrapper(
+                "/api/park/parking_lots_by_email",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                    body: JSON.stringify(userData),
+                }
+            );
             const json = await response.json();
 
             if (!response.ok) {
@@ -275,11 +285,14 @@ const UserEditDeleteForm = ({ userEmail, id, refreshUsers }) => {
         if (id) {
             const fetchUser = async () => {
                 try {
-                    const response = await fetch(`/api/user/get_user/${id}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.token}`,
-                        },
-                    });
+                    const response = await fetchWrapper(
+                        `/api/user/get_user/${id}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${user.token}`,
+                            },
+                        }
+                    );
                     const json = await response.json();
 
                     if (!response.ok) {
