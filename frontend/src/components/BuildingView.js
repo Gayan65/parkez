@@ -14,6 +14,7 @@ import Loader from "./Loader";
 
 //sweet alerts
 import Swal from "sweetalert2";
+import { fetchWrapper } from "../utils/fetchWrapper";
 
 const BuildingView = ({ _id, name, number, image, address, link }) => {
     //states
@@ -37,34 +38,40 @@ const BuildingView = ({ _id, name, number, image, address, link }) => {
         }).then(async (result) => {
             if (result.isConfirmed) {
                 setLoader(true);
-                const response = await fetch(`/api/building/${id}`, {
-                    method: "DELETE",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                });
-
-                const json = await response.json();
-
-                if (!response.ok) {
-                    setLoader(false);
-                    Swal.fire({
-                        title: "Delete unsuccessful!",
-                        text: "Your building has not been deleted, since it may have already allocated parkings.",
-                        icon: "error",
+                try {
+                    const response = await fetchWrapper(`/api/building/${id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${user.token}`,
+                        },
                     });
-                }
 
-                if (response.ok) {
+                    const json = await response.json();
+
+                    if (!response.ok) {
+                        setLoader(false);
+                        Swal.fire({
+                            title: "Delete unsuccessful!",
+                            text: "Your building has not been deleted, since it may have already allocated parkings.",
+                            icon: "error",
+                        });
+                    }
+
+                    if (response.ok) {
+                        setLoader(false);
+                        dispatch({ type: "DELETE_BUILDING", payload: json });
+                        console.log("deleted successfully!");
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your building has been deleted.",
+                            icon: "success",
+                        });
+                    }
+                } catch (error) {
+                    console.error("Error in fetchBuildings:", error);
+                } finally {
                     setLoader(false);
-                    dispatch({ type: "DELETE_BUILDING", payload: json });
-                    console.log("deleted successfully!");
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your building has been deleted.",
-                        icon: "success",
-                    });
                 }
             }
         });

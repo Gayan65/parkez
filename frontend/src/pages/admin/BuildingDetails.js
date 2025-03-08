@@ -75,53 +75,72 @@ const BuildingDetails = () => {
 
     //fetch the building here...
     const fetchBuilding = async (id) => {
-        setLoader(true);
-        const response = await fetchWrapper(`/api/building/${id}`, {
-            headers: {
-                Authorization: `Bearer ${authUser.token}`,
-            },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-            dispatch({ type: "SET_A_BUILDING", payload: json });
-            // Set local state values once the building is fetched
-
-            setName(json[0].name);
-            setNumber(json[0].number);
-            setAddress(json[0].address);
-            setImgFile(json[0].imgFile);
-            setImage(json[0].image);
-
-            // Store the initial values to compare later
-            setInitialValues({
-                name: json[0].name,
-                number: json[0].number,
-                address: json[0].address,
-                image: json[0].image,
+        try {
+            setLoader(true);
+            const response = await fetchWrapper(`/api/building/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${authUser.token}`,
+                },
             });
 
-            setImageChanged(false); //this will make the imageChange in to false and the imgFile DB string can display to the user
+            if (!response.ok) {
+                throw new Error(`Error fetching buildings: ${response.status}`);
+            }
+
+            const json = await response.json();
+
+            if (response.ok) {
+                dispatch({ type: "SET_A_BUILDING", payload: json });
+                // Set local state values once the building is fetched
+
+                setName(json[0].name);
+                setNumber(json[0].number);
+                setAddress(json[0].address);
+                setImgFile(json[0].imgFile);
+                setImage(json[0].image);
+
+                // Store the initial values to compare later
+                setInitialValues({
+                    name: json[0].name,
+                    number: json[0].number,
+                    address: json[0].address,
+                    image: json[0].image,
+                });
+
+                setImageChanged(false); //this will make the imageChange in to false and the imgFile DB string can display to the user
+                setLoader(false);
+            }
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
             setLoader(false);
         }
-
-        //-----setLoader(false);
     };
     // fetch the relevance parking lots for the above building here...
     const fetchAllParking = async () => {
-        setLoader(true);
-        const response = await fetchWrapper(`/api/park/${id}`, {
-            headers: {
-                Authorization: `Bearer ${authUser.token}`,
-            },
-        });
-        const json = await response.json();
+        try {
+            setLoader(true);
+            const response = await fetchWrapper(`/api/park/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${authUser.token}`,
+                },
+            });
 
-        if (response.ok) {
-            park_dispatch({ type: "SET_PARKS", payload: json });
+            if (!response.ok) {
+                throw new Error(`Error fetching buildings: ${response.status}`);
+            }
+
+            const json = await response.json();
+
+            if (response.ok) {
+                park_dispatch({ type: "SET_PARKS", payload: json });
+                setLoader(false);
+            }
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
             setLoader(false);
         }
-        //--setLoader(false);
     };
 
     useEffect(() => {
@@ -221,48 +240,54 @@ const BuildingDetails = () => {
                     address,
                 };
 
-                const response = await fetchWrapper(`/api/building/${id}`, {
-                    method: "PATCH",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${authUser.token}`,
-                    },
-                    body: JSON.stringify(updatedBuilding),
-                });
-
-                const json = await response.json();
-
-                if (!response.ok) {
-                    setError(json.error);
-                    console.log(json);
-                    setLoader(false);
-
-                    Swal.fire({
-                        title: "Cannot update!",
-                        text: "Your building has not been updated. Check the error message.",
-                        icon: "error",
+                try {
+                    const response = await fetchWrapper(`/api/building/${id}`, {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${authUser.token}`,
+                        },
+                        body: JSON.stringify(updatedBuilding),
                     });
-                }
 
-                if (response.ok) {
-                    setError(null);
+                    const json = await response.json();
 
-                    // Re-fetch the updated building after submitting the form
-                    fetchBuilding(id);
+                    if (!response.ok) {
+                        setError(json.error);
+                        console.log(json);
+                        setLoader(false);
 
-                    console.log("Building updated successfully!");
-                    console.log(
-                        "IMG File from handle submit",
-                        imgFile,
-                        imageChanged
-                    );
-                    dispatch({ type: "SET_A_BUILDING", payload: json });
+                        Swal.fire({
+                            title: "Cannot update!",
+                            text: "Your building has not been updated. Check the error message.",
+                            icon: "error",
+                        });
+                    }
+
+                    if (response.ok) {
+                        setError(null);
+
+                        // Re-fetch the updated building after submitting the form
+                        fetchBuilding(id);
+
+                        console.log("Building updated successfully!");
+                        console.log(
+                            "IMG File from handle submit",
+                            imgFile,
+                            imageChanged
+                        );
+                        dispatch({ type: "SET_A_BUILDING", payload: json });
+                        setLoader(false);
+                        Swal.fire({
+                            title: "Updated!",
+                            text: "Your building has been updated.",
+                            icon: "success",
+                        });
+                    }
+                } catch (error) {
+                    console.error("Error in fetchBuildings:", error);
+                } finally {
                     setLoader(false);
-                    Swal.fire({
-                        title: "Updated!",
-                        text: "Your building has been updated.",
-                        icon: "success",
-                    });
                 }
             }
         });

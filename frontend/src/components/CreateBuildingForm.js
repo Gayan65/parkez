@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 
 //translation
 import { useTranslation } from "react-i18next";
+import { fetchWrapper } from "../utils/fetchWrapper";
 
 const CreateBuildingForm = () => {
     //translation
@@ -98,47 +99,53 @@ const CreateBuildingForm = () => {
         };
 
         //API call to backend
-        const response = await fetch("api/building/", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user.token}`,
-            },
-            body: JSON.stringify(building),
-        });
-
-        const json = await response.json();
-
-        if (!response.ok) {
-            setError(json.error);
-            console.log(json);
-            setEmptyField(json.emptyFields);
-            Swal.fire({
-                title: "Building creation failed",
-                text: "The building could not be created. Some fields might be empty, please review your data and try again.",
-                icon: "error",
+        try {
+            const response = await fetchWrapper("api/building/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
+                },
+                body: JSON.stringify(building),
             });
+
+            const json = await response.json();
+
+            if (!response.ok) {
+                setError(json.error);
+                console.log(json);
+                setEmptyField(json.emptyFields);
+                Swal.fire({
+                    title: "Building creation failed",
+                    text: "The building could not be created. Some fields might be empty, please review your data and try again.",
+                    icon: "error",
+                });
+            }
+
+            if (response.ok) {
+                setName("");
+                setNumber("");
+                setImage("");
+                setAddress("");
+                setError(null);
+                setEmptyField([]);
+
+                console.log("Building added successfully!", json);
+                dispatch({ type: "CREATE_BUILDINGS", payload: json });
+
+                Swal.fire({
+                    title: "Building Created",
+                    text: "The building has been successfully created. Please check the list on your right and ensure you add the corresponding parking spaces.",
+                    icon: "success",
+                });
+            }
+
+            setLoader(false);
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
+            setLoader(false);
         }
-
-        if (response.ok) {
-            setName("");
-            setNumber("");
-            setImage("");
-            setAddress("");
-            setError(null);
-            setEmptyField([]);
-
-            console.log("Building added successfully!", json);
-            dispatch({ type: "CREATE_BUILDINGS", payload: json });
-
-            Swal.fire({
-                title: "Building Created",
-                text: "The building has been successfully created. Please check the list on your right and ensure you add the corresponding parking spaces.",
-                icon: "success",
-            });
-        }
-
-        setLoader(false);
     };
     return (
         <form className="other-form" onSubmit={handleSubmit}>

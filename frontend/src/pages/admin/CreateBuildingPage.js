@@ -11,6 +11,7 @@ import Loader from "../../components/Loader";
 
 //translation
 import { useTranslation } from "react-i18next";
+import { fetchWrapper } from "../../utils/fetchWrapper";
 
 const CreateBuildingPage = () => {
     //set state
@@ -26,18 +27,30 @@ const CreateBuildingPage = () => {
     useEffect(() => {
         //api call to get all buildings
         const fetchBuildings = async () => {
-            setLoader(true);
-            const response = await fetch("/api/building/", {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-            const json = await response.json();
+            try {
+                setLoader(true);
+                const response = await fetchWrapper("/api/building/", {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                });
 
-            if (response.ok) {
+                if (!response.ok) {
+                    throw new Error(
+                        `Error fetching buildings: ${response.status}`
+                    );
+                }
+
+                const json = await response.json();
+
                 dispatch({ type: "SET_BUILDINGS", payload: json });
+
+                setLoader(false);
+            } catch (error) {
+                console.error("Error in fetchBuildings:", error);
+            } finally {
+                setLoader(false);
             }
-            setLoader(false);
         };
 
         //if user is there
