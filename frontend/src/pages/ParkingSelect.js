@@ -19,6 +19,7 @@ import Swal from "sweetalert2";
 
 //image
 import noImage from "../assets/img/no_img_mid.png";
+import { fetchWrapper } from "../utils/fetchWrapper";
 
 const ParkingSelect = () => {
     const location = useLocation();
@@ -39,39 +40,60 @@ const ParkingSelect = () => {
 
     //fetch number of tasks
     const numberOfTasks = async () => {
-        setLoader(true);
-        const response = await fetch("/api/tasks", {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-            task_dispatch({
-                type: "CREATE_NUMBER_OF_TOTAL_TASKS",
-                payload: {
-                    totalTasks: json.totalTasks,
-                    pendingTasks: json.pendingTasks,
-                    pendingUnassignTasks: json.pendingUnassignTasks,
+        try {
+            setLoader(true);
+            const response = await fetchWrapper("/api/tasks", {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
                 },
             });
+
+            if (!response.ok) {
+                throw new Error(`Error fetching buildings: ${response.status}`);
+            }
+            const json = await response.json();
+
+            if (response.ok) {
+                task_dispatch({
+                    type: "CREATE_NUMBER_OF_TOTAL_TASKS",
+                    payload: {
+                        totalTasks: json.totalTasks,
+                        pendingTasks: json.pendingTasks,
+                        pendingUnassignTasks: json.pendingUnassignTasks,
+                    },
+                });
+                setLoader(false);
+            }
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
             setLoader(false);
         }
     };
 
     //fetch all parking lots
     const fetchAllParking = async () => {
-        setLoader(true);
-        const response = await fetch(`/api/park/${building.id}`, {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        });
-        const json = await response.json();
+        try {
+            setLoader(true);
+            const response = await fetchWrapper(`/api/park/${building.id}`, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
 
-        if (response.ok) {
-            park_dispatch({ type: "SET_PARKS", payload: json });
+            if (!response.ok) {
+                throw new Error(`Error fetching buildings: ${response.status}`);
+            }
+
+            const json = await response.json();
+
+            if (response.ok) {
+                park_dispatch({ type: "SET_PARKS", payload: json });
+                setLoader(false);
+            }
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
             setLoader(false);
         }
     };
@@ -88,35 +110,58 @@ const ParkingSelect = () => {
 
     //fetch duplicate pending requests
     const fetchDuplicateParking = async () => {
-        setLoader(true);
-        const response = await fetch(
-            `/api/park_request/duplicate/${user.email}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            }
-        );
-        const json = await response.json();
+        try {
+            setLoader(true);
+            const response = await fetchWrapper(
+                `/api/park_request/duplicate/${user.email}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                }
+            );
 
-        if (response.ok) {
-            setIsDuplicate(json);
+            if (!response.ok) {
+                throw new Error(`Error fetching buildings: ${response.status}`);
+            }
+            const json = await response.json();
+
+            if (response.ok) {
+                setIsDuplicate(json);
+                setLoader(false);
+            }
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
             setLoader(false);
         }
     };
 
     //fetch the building
     const fetchBuildingImage = async () => {
-        setLoader(true);
-        const response = await fetch(`/api/building/${building.id}`, {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        });
-        const json = await response.json();
+        try {
+            setLoader(true);
+            const response = await fetchWrapper(
+                `/api/building/${building.id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                }
+            );
 
-        if (response.ok) {
-            setBuildingImg(json[0].image);
+            if (!response.ok) {
+                throw new Error(`Error fetching buildings: ${response.status}`);
+            }
+            const json = await response.json();
+
+            if (response.ok) {
+                setBuildingImg(json[0].image);
+                setLoader(false);
+            }
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
             setLoader(false);
         }
     };
@@ -163,61 +208,79 @@ const ParkingSelect = () => {
                     requestComment: requestComment,
                 };
 
-                //this obj send to the api to create parking request
-                const response = await fetch("/api/park_request/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                    body: JSON.stringify(parkingRequest),
-                });
-
-                //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
-                const parkLotUpdateResponse = await fetch(
-                    `/api/park/${selectParkingLot._id}`,
-                    {
-                        method: "PATCH",
+                try {
+                    //this obj send to the api to create parking request
+                    const response = await fetchWrapper("/api/park_request/", {
+                        method: "POST",
                         headers: {
                             "Content-Type": "application/json",
                             Authorization: `Bearer ${user.token}`,
                         },
-                        body: JSON.stringify({
-                            status: "pending",
-                            user: user.email,
-                        }),
-                    }
-                );
-
-                if (parkLotUpdateResponse.ok) {
-                    fetchAllParking();
-                }
-
-                const json = await response.json();
-
-                if (response.ok) {
-                    parking_request_dispatch({
-                        type: "CREATE_PARKING_REQUEST",
-                        payload: json,
+                        body: JSON.stringify(parkingRequest),
                     });
 
-                    toast.success(t("toast"), {
-                        position: "top-center",
-                    });
+                    //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
+                    const parkLotUpdateResponse = await fetchWrapper(
+                        `/api/park/${selectParkingLot._id}`,
+                        {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${user.token}`,
+                            },
+                            body: JSON.stringify({
+                                status: "pending",
+                                user: user.email,
+                            }),
+                        }
+                    );
 
-                    //if user is there
-                    if (user) {
-                        numberOfTasks();
-                        fetchDuplicateParking();
+                    if (!parkLotUpdateResponse.ok) {
+                        throw new Error(
+                            `Error fetching buildings: ${response.status}`
+                        );
                     }
-                }
 
-                Swal.fire({
-                    title: t("fire.title2"),
-                    text: t("fire.text2"),
-                    icon: "success",
-                    confirmButtonText: t("fire.btn_ok"),
-                });
+                    if (parkLotUpdateResponse.ok) {
+                        fetchAllParking();
+                    }
+
+                    if (!response.ok) {
+                        throw new Error(
+                            `Error fetching buildings: ${response.status}`
+                        );
+                    }
+
+                    const json = await response.json();
+
+                    if (response.ok) {
+                        parking_request_dispatch({
+                            type: "CREATE_PARKING_REQUEST",
+                            payload: json,
+                        });
+
+                        toast.success(t("toast"), {
+                            position: "top-center",
+                        });
+
+                        //if user is there
+                        if (user) {
+                            numberOfTasks();
+                            fetchDuplicateParking();
+                        }
+                    }
+
+                    Swal.fire({
+                        title: t("fire.title2"),
+                        text: t("fire.text2"),
+                        icon: "success",
+                        confirmButtonText: t("fire.btn_ok"),
+                    });
+                } catch (error) {
+                    console.error("Error in fetchBuildings:", error);
+                } finally {
+                    setLoader(false);
+                }
             }
         });
 
