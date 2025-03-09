@@ -86,6 +86,7 @@ const MyParking = () => {
                     </div>
                 </div>
             </div>
+            {loader && <Loader />}
         </div>
     );
 };
