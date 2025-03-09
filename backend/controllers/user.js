@@ -9,7 +9,7 @@ import { ParkLot } from "../models/ParkLotModel.js";
 
 // taken creating function
 const createToken = (_id) => {
-    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: 10 });
+    return jwt.sign({ _id }, process.env.SECRET, { expiresIn: 60 });
 };
 
 //signup function

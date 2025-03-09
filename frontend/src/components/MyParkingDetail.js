@@ -11,6 +11,7 @@ import Loader from "./Loader";
 
 //sweet alerts
 import Swal from "sweetalert2";
+import { fetchWrapper } from "../utils/fetchWrapper";
 
 const MyParkingDetail = ({
     lot,
@@ -39,38 +40,65 @@ const MyParkingDetail = ({
 
     //fetch number of tasks
     const numberOfTasks = async () => {
-        const response = await fetch("/api/tasks", {
-            headers: {
-                Authorization: `Bearer ${user.token}`,
-            },
-        });
-        const json = await response.json();
-
-        if (response.ok) {
-            task_dispatch({
-                type: "CREATE_NUMBER_OF_TOTAL_TASKS",
-                payload: {
-                    totalTasks: json.totalTasks,
-                    pendingTasks: json.pendingTasks,
-                    pendingUnassignTasks: json.pendingUnassignTasks,
+        try {
+            setLoader(true);
+            const response = await fetchWrapper("/api/tasks", {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
                 },
             });
+
+            if (!response.ok) {
+                throw new Error(`Error fetching buildings: ${response.status}`);
+            }
+
+            const json = await response.json();
+
+            if (response.ok) {
+                task_dispatch({
+                    type: "CREATE_NUMBER_OF_TOTAL_TASKS",
+                    payload: {
+                        totalTasks: json.totalTasks,
+                        pendingTasks: json.pendingTasks,
+                        pendingUnassignTasks: json.pendingUnassignTasks,
+                    },
+                });
+            }
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
+            setLoader(false);
         }
     };
 
     useEffect(() => {
         const fetchBuilding = async () => {
-            setLoader(true);
-            //fetch building details from api
-            const response = await fetch(`/api/building/${buildingId}`, {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
-            const json = await response.json();
+            try {
+                setLoader(true);
+                //fetch building details from api
+                const response = await fetchWrapper(
+                    `/api/building/${buildingId}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${user.token}`,
+                        },
+                    }
+                );
 
-            if (response.ok) {
-                setBuilding(json);
+                if (!response.ok) {
+                    throw new Error(
+                        `Error fetching buildings: ${response.status}`
+                    );
+                }
+                const json = await response.json();
+
+                if (response.ok) {
+                    setBuilding(json);
+                    setLoader(false);
+                }
+            } catch (error) {
+                console.error("Error in fetchBuildings:", error);
+            } finally {
                 setLoader(false);
             }
         };
@@ -113,60 +141,81 @@ const MyParkingDetail = ({
                     requestComment: requestComment,
                 };
 
-                setLoader(true);
+                try {
+                    setLoader(true);
 
-                //this obj send to the api to create parking unassign request
-                const response = await fetch("/api/park_unassign_request/", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${user.token}`,
-                    },
-                    body: JSON.stringify(unassignedRequest),
-                });
+                    //this obj send to the api to create parking unassign request
+                    const response = await fetchWrapper(
+                        "/api/park_unassign_request/",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${user.token}`,
+                            },
+                            body: JSON.stringify(unassignedRequest),
+                        }
+                    );
 
-                const json = await response.json();
+                    if (!response.ok) {
+                        throw new Error(
+                            `Error fetching buildings: ${response.status}`
+                        );
+                    }
 
-                if (response.ok) {
-                    parking_unassign_request_dispatch({
-                        type: "CREATE_PARKING_UNASSIGN_REQUEST",
-                        payload: json,
+                    const json = await response.json();
+
+                    if (response.ok) {
+                        parking_unassign_request_dispatch({
+                            type: "CREATE_PARKING_UNASSIGN_REQUEST",
+                            payload: json,
+                        });
+                        setLoader(false);
+                        //calling to make the total tasks
+                        if (user) {
+                            numberOfTasks();
+                        }
+                    }
+
+                    console.log("successfully send the request");
+
+                    //parking lot status make as pending here..
+                    setLoader(true);
+                    //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
+                    const parkLotUpdateResponse = await fetchWrapper(
+                        `/api/park/${parkingLot_id}`,
+                        {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${user.token}`,
+                            },
+                            body: JSON.stringify({ status: "pending" }),
+                        }
+                    );
+
+                    if (!parkLotUpdateResponse.ok) {
+                        throw new Error(
+                            `Error fetching buildings: ${response.status}`
+                        );
+                    }
+
+                    if (parkLotUpdateResponse.ok) {
+                        setLoader(false);
+                        //calling the fetch function again once the parking lot status get pending
+                        fetchMyParking();
+                    }
+
+                    Swal.fire({
+                        title: "Sent!",
+                        text: "Your request has been sent to administrator and wait for his approval.",
+                        icon: "success",
                     });
+                } catch (error) {
+                    console.error("Error in fetchBuildings:", error);
+                } finally {
                     setLoader(false);
-                    //calling to make the total tasks
-                    if (user) {
-                        numberOfTasks();
-                    }
                 }
-
-                console.log("successfully send the request");
-
-                //parking lot status make as pending here..
-                setLoader(true);
-                //patch request for the park lot (user, status change) here... (call by the parkingLot_id) - WHEN SELECTING A PARKING LOT IT BECOMES PENDING
-                const parkLotUpdateResponse = await fetch(
-                    `/api/park/${parkingLot_id}`,
-                    {
-                        method: "PATCH",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${user.token}`,
-                        },
-                        body: JSON.stringify({ status: "pending" }),
-                    }
-                );
-
-                if (parkLotUpdateResponse.ok) {
-                    setLoader(false);
-                    //calling the fetch function again once the parking lot status get pending
-                    fetchMyParking();
-                }
-
-                Swal.fire({
-                    title: "Sent!",
-                    text: "Your request has been sent to administrator and wait for his approval.",
-                    icon: "success",
-                });
             }
         });
     };
