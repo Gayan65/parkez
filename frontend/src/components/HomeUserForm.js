@@ -9,6 +9,7 @@ import Loader from "../components/Loader";
 
 import { MdMyLocation, MdOutlineBedroomParent } from "react-icons/md";
 import { FaRegBuilding, FaRegCommentDots, FaSearch } from "react-icons/fa";
+import { fetchWrapper } from "../utils/fetchWrapper";
 
 const HomeUserForm = () => {
     const [t] = useTranslation("homeuserform");
@@ -28,18 +29,30 @@ const HomeUserForm = () => {
 
     useEffect(() => {
         const fetchAllBuildings = async () => {
-            setLoader(true);
-            // api call to fetch all buildings
-            const response = await fetch("/api/building", {
-                headers: {
-                    Authorization: `Bearer ${user.token}`,
-                },
-            });
+            try {
+                setLoader(true);
+                // api call to fetch all buildings
+                const response = await fetchWrapper("/api/building", {
+                    headers: {
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                });
 
-            const json = await response.json();
+                if (!response.ok) {
+                    throw new Error(
+                        `Error fetching buildings: ${response.status}`
+                    );
+                }
 
-            if (response.ok) {
-                dispatch({ type: "SET_BUILDINGS", payload: json });
+                const json = await response.json();
+
+                if (response.ok) {
+                    dispatch({ type: "SET_BUILDINGS", payload: json });
+                    setLoader(false);
+                }
+            } catch (error) {
+                console.error("Error in fetchBuildings:", error);
+            } finally {
                 setLoader(false);
             }
         };
