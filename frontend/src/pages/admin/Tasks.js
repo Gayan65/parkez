@@ -104,6 +104,7 @@ const Tasks = () => {
                     <PendingUnassignRequest />
                 )}
             </div>
+            {loader && <Loader />}
         </div>
     );
 };
