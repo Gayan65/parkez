@@ -1,9 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useMyParkingContext } from "../hooks/useMyParkingContext";
 import { useAuthContext } from "../hooks/useAuthContext";
 import MyParkingDetail from "../components/MyParkingDetail";
+import Loader from "../components/Loader";
+import { fetchWrapper } from "../utils/fetchWrapper";
 
 const MyParking = () => {
+    //state
+    const [loader, setLoader] = useState(false);
+
     //context
     const { myParks, my_park_dispatch } = useMyParkingContext();
     const { user } = useAuthContext();
@@ -13,20 +18,31 @@ const MyParking = () => {
             user: user.email,
         };
 
-        //post user data to api
-        const response = await fetch("/api/park/by_email", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${user.token}`,
-            },
-            body: JSON.stringify(userData),
-        });
+        try {
+            //post user data to api
+            setLoader(true);
+            const response = await fetchWrapper("/api/park/by_email", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${user.token}`,
+                },
+                body: JSON.stringify(userData),
+            });
 
-        const json = await response.json();
+            if (!response.ok) {
+                throw new Error(`Error fetching buildings: ${response.status}`);
+            }
 
-        if (response.ok) {
-            my_park_dispatch({ type: "SET_MY_PARKS", payload: json });
+            const json = await response.json();
+
+            if (response.ok) {
+                my_park_dispatch({ type: "SET_MY_PARKS", payload: json });
+            }
+        } catch (error) {
+            console.error("Error in fetchBuildings:", error);
+        } finally {
+            setLoader(false);
         }
     };
 
