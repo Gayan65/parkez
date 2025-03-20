@@ -25,6 +25,8 @@ const Signup = () => {
     const [errorMsg, setErrorMsg] = useState("");
     const [loader, setLoader] = useState(false);
 
+    const [showRules, setShowRules] = useState(false);
+
     const { signup, loading, error } = useSignup();
 
     const handleSubmit = async (e) => {
@@ -246,6 +248,8 @@ const Signup = () => {
                                         setPassword(e.target.value)
                                     }
                                     value={password}
+                                    onFocus={() => setShowRules(true)}
+                                    onBlur={() => setShowRules(false)}
                                     required
                                 />
                             </div>
@@ -281,6 +285,17 @@ const Signup = () => {
                     {message && <p> {message} </p>}
                 </form>
             </div>
+            {showRules && (
+                <div className="absolute top-10 left-0 bg-white border p-2 shadow-md rounded w-64 text-sm">
+                    <p>Password must contain:</p>
+                    <ul className="list-disc pl-4">
+                        <li>At least 8 characters</li>
+                        <li>At least one uppercase letter</li>
+                        <li>At least one number</li>
+                        <li>At least one special character (!@#$%)</li>
+                    </ul>
+                </div>
+            )}
             {loader && <Loader />}
         </div>
     );
