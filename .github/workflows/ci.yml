@@ -20,4 +20,4 @@ jobs:
               run: docker build -t parkez-backend ./backend
 
             - name: Push to docker hub
-              run: docker push gayan/parkez-backend:latest
+              run: docker push gayan65/parkez-backend:latest
