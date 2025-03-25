@@ -1,25 +1,23 @@
 name: Docker Image CI
 
 on:
-  push:
-    branches: [ "main" ]
+    push:
+        branches: ["main"]
 
 jobs:
+    build:
+        runs-on: ubuntu-latest
 
-  build:
+        steps:
+            - uses: actions/checkout@v4
+            - name: Login Dockerhub
+              env:
+                  DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+                  DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+              run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
-    runs-on: ubuntu-latest
+            - name: Build the Docker image
+              run: docker build -t parkez-backend .
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Login Dockerhub
-      env:
-        DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-      run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      
-    - name: Build the Docker image
-      run: docker build -t parkez-backend .
-      
-    - name: Push to docker hub
-      run: docker push gayan/parkez-backend:latest
+            - name: Push to docker hub
+              run: docker push gayan65/parkez-backend:latest
