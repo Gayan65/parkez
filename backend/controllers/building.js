@@ -125,7 +125,7 @@ export const deleteBuilding = async (req, res) => {
         building_id: id,
     });
 
-    // Check if parking lot exists
+    // Check if parking lot existss
     if (parkingLot) {
         return res
             .status(404)
