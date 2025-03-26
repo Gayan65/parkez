@@ -1,7 +1,7 @@
 import express from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
-
+import cors from "cors";
 import userRouter from "./routes/user.js";
 import parkRouter from "./routes/parklot.js";
 import buildingRouter from "./routes/building.js";
@@ -13,6 +13,22 @@ import requireAuth from "./middleware/requireAuth.js";
 
 //express app
 const app = express();
+
+// CORS Configuration
+const corsOptions = {
+    origin: [
+        "http://localhost:3000", // Local development
+        "http://13.60.63.249", // Your production domain
+        "http://13.60.63.249:3000", // Production frontend
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
 
 //envs
 const port = process.env.PORT;
