@@ -11,6 +11,9 @@ export const setLogout = (logout) => {
 
 // Custom fetch wrapper
 export const fetchWrapper = async (url, options = {}) => {
+    const fullUrl = `${window.location.origin}${url}`; // Construct full URL
+    console.log("Full API Request URL:", fullUrl); // Log the full API URL
+    console.log("Request Options:", options); // Log request options (method, headers, etc.)
     const response = await fetch(url, {
         ...options,
         headers: {
