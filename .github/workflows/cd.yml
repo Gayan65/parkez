@@ -25,3 +25,13 @@ jobs:
                   -e SALT="${{ secrets.SALT }}" \
                   -e SECRET="${{ secrets.SECRET }}" \
                   gayan65/parkez-backend
+
+            - name: Pull frontend docker image
+              run: sudo docker pull gayan65/parkez-frontend:latest
+            - name: Delete old frontend docker container
+              run: sudo docker rm -f parkez-frontend-container || true
+            - name: Run frontend docker container
+              shell: bash
+              run: |
+                  sudo docker run -d -p 80:80 --name parkez-frontend-container \
+                  gayan65/parkez-frontend
