@@ -17,4 +17,11 @@ jobs:
               run: sudo docker rm -f parkez-backend-container || true
             - name: Run docker container
               shell: bash
-              run: sudo docker run -d -p 4000:4000 --name parkez-backend-container -e DB_URL="${{ secrets.DB_URL }}" -e PORT="${{ secrets.PORT }}" -e PASS="${{ secrets.PASS }}" -e SALT="${{ secrets.SALT }}" -e SECRET="${{ secrets.SECRET }}" gayan65/parkez-backend
+              run: |
+                  sudo docker run -d -p 4000:4000 --name parkez-backend-container \
+                  -e DB_URL="${{ secrets.DB_URL }}" \
+                  -e PORT="${{ secrets.PORT }}" \
+                  -e PASS="${{ secrets.PASS }}" \
+                  -e SALT="${{ secrets.SALT }}" \
+                  -e SECRET="${{ secrets.SECRET }}" \
+                  gayan65/parkez-backend
