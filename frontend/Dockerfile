@@ -1,27 +1,19 @@
-FROM node:20.10.0
-
-#build app
-
+# Stage 1: Build stage
+FROM node:20.10.0 as build
 WORKDIR /app
-
-COPY package*.json .
-
-COPY . .
-
+COPY package*.json ./
 RUN npm install --legacy-peer-deps
-
+COPY . .
 RUN npm run build
 
-#serve with nginx
-
-FROM nginx:1.24-alpine
-
+# Stage 2: Production stage
+FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
+RUN rm -rf ./*
 
-RUN rm-rf *
-
+# Copy the build output from the first stage
 COPY --from=build /app/build .
 
+# Expose port 80 and start Nginx
 EXPOSE 80
-
-ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
+CMD ["nginx", "-g", "daemon off;"]
