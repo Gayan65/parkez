@@ -1,5 +1,5 @@
 {
-    "proxy": "http://backend:4000",
+    "proxy": "http://13.60.63.249:4000",
     "name": "frontend",
     "version": "0.1.0",
     "private": true,
