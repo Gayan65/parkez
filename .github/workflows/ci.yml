@@ -10,6 +10,7 @@ jobs:
 
         steps:
             - uses: actions/checkout@v4
+            #BACKEND
             - name: Login Dockerhub
               env:
                   DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
@@ -21,3 +22,10 @@ jobs:
 
             - name: Push to docker hub
               run: docker push gayan65/parkez-backend:latest
+
+            #FRONTEND
+            - name: Build the Frontend Docker image
+              run: docker build -t gayan65/parkez-frontend:latest ./frontend
+
+            - name: Push Frontend Docker image to Docker Hub
+              run: docker push gayan65/parkez-frontend:latest
