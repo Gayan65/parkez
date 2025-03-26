@@ -114,6 +114,7 @@ function App() {
                         path="/park-request"
                         element={user ? <ParkRequest /> : <Navigate to={"/"} />}
                     />
+                    <Route path="*" element={<Navigate to="/" />} />
                 </Routes>
                 <Footer />
             </BrowserRouter>
