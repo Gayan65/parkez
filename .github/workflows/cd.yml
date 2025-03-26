@@ -14,6 +14,16 @@ jobs:
             - name: Pull docker image
               run: sudo docker pull gayan65/parkez-backend:latest
             - name: Delete old docker container
-              run: sudo docker rm -f arkez-backend-container || true
+              run: sudo docker rm -f parkez-backend-container || true
             - name: Run docker container
-              run: sudo docker run -d -p 4000:4000 --name parkez-backend-container -e DB_URL="${{ secrets.DB_URL }}" -e PORT="${{ secrets.PORT }}" -e PASS="${{ secrets.PASS }}" -e SALT="${{ secrets.SALT }}" -e SECRET="${{ secrets.SECRET }}" gayan65/parkez-backend
+              shell: bash
+              run: |
+                  sudo docker run -d \
+                    -p 4000:4000 \
+                    --name parkez-backend-container \
+                    -e DB_URL="${{ secrets.DB_URL }}" \
+                    -e PORT="${{ secrets.PORT }}" \
+                    -e PASS="${{ secrets.PASS }}" \
+                    -e SALT="${{ secrets.SALT }}" \
+                    -e SECRET="${{ secrets.SECRET }}" \
+                    gayan65/parkez-backend
