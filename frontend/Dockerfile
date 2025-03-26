@@ -1,5 +1,7 @@
 FROM node:20.10.0
 
+#build app
+
 WORKDIR /app
 
 COPY package*.json .
@@ -11,3 +13,17 @@ RUN npm install --legacy-peer-deps
 EXPOSE 3000
 
 CMD [ "npm", "run", "start" ]
+
+#serve with nginx
+
+FROM nginx:1.24-alpine
+
+WORKDIR /usr/share/nginx/html
+
+RUN rm-rf *
+
+COPY --from=build /app/build .
+
+EXPOSE 80
+
+ENTRYPOINT [ "nginx", "-g", "daemon off;" ]
