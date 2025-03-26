@@ -19,7 +19,7 @@ const corsOptions = {
     origin: [
         "http://localhost:3000", // Local development
         "http://13.60.63.249", // Your production domain
-        "http://13.60.63.249:3000", // Production frontend
+        "http://13.60.63.249:3000", // Production frontend/
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
