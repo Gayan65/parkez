@@ -17,7 +17,7 @@ jobs:
               run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
 
             - name: Build the Docker image
-              run: docker build -t parkez-backend ./backend
+              run: docker build -t gayan65/parkez-backend:latest ./backend
 
             - name: Push to docker hub
               run: docker push gayan65/parkez-backend:latest
