@@ -1,0 +1,19 @@
+name: Docker Image CD
+
+on:
+    workflow_run:
+        workflows: ["Docker Image CI"]
+        types:
+            - completed
+
+jobs:
+    build:
+        runs-on: self-hosted
+
+        steps:
+            - name: Pull docker image
+              run: sudo docker pull gayan65/parkez-backend:latest
+            - name: Delete old docker container
+              run: sudo docker rm -f arkez-backend-container || true
+            - name: Run docker container
+              run: sudo docker run -d -p 4000:4000 --name parkez-backend-container gayan65/parkez-backend
