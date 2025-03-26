@@ -33,5 +33,5 @@ jobs:
             - name: Run frontend docker container
               shell: bash
               run: |
-                  sudo docker run -d -p 80:80 --name parkez-frontend-container \
+                  sudo docker run -d -p 3000:80 --name parkez-frontend-container \
                   gayan65/parkez-frontend
