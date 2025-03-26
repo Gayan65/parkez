@@ -10,9 +10,7 @@ COPY . .
 
 RUN npm install --legacy-peer-deps
 
-EXPOSE 3000
-
-CMD [ "npm", "run", "start" ]
+RUN npm run build
 
 #serve with nginx
 
