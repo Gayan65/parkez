@@ -1566,3 +1566,27 @@ body {
         font-size: 1.2rem;
     }
 }
+
+@media (max-width: 768px) {
+    .hero-image-container img {
+        width: 300px; /* Reduce the image width */
+        height: auto; /* Maintain aspect ratio */
+    }
+
+    .hero-image-container {
+        display: flex; /* Enable flexbox */
+        justify-content: center; /* Center image horizontally */
+        align-items: center; /* Center image vertically */
+        height: auto; /* Allow container flexibility */
+    }
+
+    .hero-image-container {
+        height: auto; /* Allow flexibility in container height */
+    }
+
+    .btn-custom {
+        margin-bottom: 20px;
+        padding: 14px 28px;
+        font-size: 0.8rem;
+    }
+}
