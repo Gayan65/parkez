@@ -1539,7 +1539,7 @@ body {
     margin-bottom: 20px;
 }
 
-@media (max-width: 430px) {
+@media (max-width: 576px) {
     .hero-image-container {
         display: flex; /* Enable flexbox */
         justify-content: center; /* Center image horizontally */
