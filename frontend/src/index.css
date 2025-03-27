@@ -1567,7 +1567,7 @@ body {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
     .hero-image-container img {
         width: 300px; /* Reduce the image width */
         height: auto; /* Maintain aspect ratio */
