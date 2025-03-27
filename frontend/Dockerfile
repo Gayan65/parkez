@@ -14,6 +14,9 @@ RUN rm -rf ./*
 # Copy the build output from the first stage
 COPY --from=build /app/build .
 
+# Copy a custom Nginx config to handle React routing
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Expose port 80 and start Nginx
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
