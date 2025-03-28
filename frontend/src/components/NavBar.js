@@ -97,7 +97,7 @@ const NavBar = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav">
+                    <ul className="navbar-nav ms-auto">
                         <motion.li
                             className="nav-item"
                             whileHover={{ scale: 1.3 }}
@@ -201,81 +201,82 @@ const NavBar = () => {
                             )}
                         </motion.li>
                     </ul>
-                </div>
-                <div className="me-3">
-                    <LanguageDropdown />
-                </div>
-                <div className="flex-d">
-                    {!user && (
-                        <div>
-                            {" "}
-                            <Link
-                                className="btn btn-outline-primary me-1"
-                                to={"/login"}
-                            >
-                                {t("login")}
-                            </Link>
-                            <Link
-                                className="btn btn-outline-primary me-1"
-                                to={"/signup"}
-                            >
-                                {t("sign_up")}
-                            </Link>
-                        </div>
-                    )}
-                    {user && (
-                        <div className="profile-container">
-                            <div className="nav-item dropdown">
-                                <button
-                                    className="btn profile-icon"
-                                    id="profileDropdown"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
+
+                    <div className="me-3">
+                        <LanguageDropdown />
+                    </div>
+                    <div className="flex-d">
+                        {!user && (
+                            <div>
+                                {" "}
+                                <Link
+                                    className="btn btn-outline-primary me-1"
+                                    to={"/login"}
                                 >
-                                    {firstLetter}
-                                </button>
-                                <ul className="dropdown-menu dropdown-menu-end">
-                                    <li>
-                                        {/* Email Box */}
-                                        <div
-                                            className="email-box"
-                                            onClick={() =>
-                                                navigate("/profile-page")
-                                            }
-                                        >
-                                            <div className="profile-icon-inside-email-box">
-                                                {firstLetter}
-                                            </div>
-                                            {user && user.email}
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="my-parking">
-                                            <Link to={"/park-request"}>
-                                                {t("reservation")}
-                                            </Link>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div className="my-parking">
-                                            <Link to={"/my-parking"}>
-                                                {t("my_parking")}
-                                            </Link>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        {" "}
-                                        <button
-                                            className="logout"
-                                            onClick={handelClick}
-                                        >
-                                            {t("logout")}
-                                        </button>
-                                    </li>
-                                </ul>
+                                    {t("login")}
+                                </Link>
+                                <Link
+                                    className="btn btn-outline-primary me-1"
+                                    to={"/signup"}
+                                >
+                                    {t("sign_up")}
+                                </Link>
                             </div>
-                        </div>
-                    )}
+                        )}
+                        {user && (
+                            <div className="profile-container">
+                                <div className="nav-item dropdown">
+                                    <button
+                                        className="btn profile-icon"
+                                        id="profileDropdown"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        {firstLetter}
+                                    </button>
+                                    <ul className="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            {/* Email Box */}
+                                            <div
+                                                className="email-box"
+                                                onClick={() =>
+                                                    navigate("/profile-page")
+                                                }
+                                            >
+                                                <div className="profile-icon-inside-email-box">
+                                                    {firstLetter}
+                                                </div>
+                                                {user && user.email}
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="my-parking">
+                                                <Link to={"/park-request"}>
+                                                    {t("reservation")}
+                                                </Link>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div className="my-parking">
+                                                <Link to={"/my-parking"}>
+                                                    {t("my_parking")}
+                                                </Link>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            {" "}
+                                            <button
+                                                className="logout"
+                                                onClick={handelClick}
+                                            >
+                                                {t("logout")}
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </nav>
