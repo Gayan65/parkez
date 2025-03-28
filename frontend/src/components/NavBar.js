@@ -73,7 +73,6 @@ const NavBar = () => {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar sticky-top">
             <div className="container-fluid">
-                Hi
                 <Link className="navbar-brand" to={"/"}>
                     <motion.img
                         src={navLogo}
