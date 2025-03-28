@@ -97,7 +97,7 @@ const NavBar = () => {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav ms-auto">
+                    <ul className="navbar-nav ms-auto d-flex justify-content-center">
                         <motion.li
                             className="nav-item"
                             whileHover={{ scale: 1.3 }}
