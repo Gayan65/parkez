@@ -71,7 +71,7 @@ const NavBar = () => {
     };
     //need to add fetch the number of tasks
     return (
-        <nav className="navbar navbar-expand-lg bg-body-tertiary custom-navbar sticky-top">
+        <nav className="navbar navbar-expand-xl bg-body-tertiary custom-navbar sticky-top">
             <div className="container-fluid">
                 <Link className="navbar-brand" to={"/"}>
                     <motion.img

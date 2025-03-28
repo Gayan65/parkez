@@ -1565,6 +1565,11 @@ body {
         padding: 14px 28px;
         font-size: 1.2rem;
     }
+
+    .dropdown-menu {
+        left: 0 !important;
+        right: auto !important;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -1588,5 +1593,11 @@ body {
         margin-bottom: 20px;
         padding: 14px 28px;
         font-size: 0.8rem;
+    }
+
+    .dropdown-menu {
+        left: 0 !important;
+        right: auto !important;
+        position: absolute; /* Ensure it positions correctly */
     }
 }
